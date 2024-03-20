@@ -6,7 +6,7 @@
 
 def avg(fn):
     def wrap(*args):
-        # print(*args)  # 2 3 3 4 - распакованный кортеж
+        # print(*args)  # 2 3 3 4 - здесь распакованный кортеж
         # print(args)  # (2, 3, 3, 4) кортеж
         return fn(*args) / len(args)
 
