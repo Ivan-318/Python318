@@ -4387,10 +4387,11 @@ from random import randint
 
 # 17.03.2024
 
-# Строки
+# Строки, префиксы
 
+# print(0b10010)  # 18
 # print(0o10)
-# print(bin(18))  # 0b10010 => 0b - двоичная система
+# print(bin(18))  # 0b10010 => 0b(префикс, указывающий на двоичную систему) - двоичная система
 # print(oct(18))  # 0o22 => 0o - восьмеричная
 # print(hex(18))  # 0x12 => 0x - шестнадцатеричная
 #
@@ -4403,6 +4404,7 @@ from random import randint
 # e = q + w
 # print(e)  # Python => Python
 # # print(e * 3)
+# # print(e * -3) - нет результата
 # # print("y" in e)
 # # print("l" in e)
 # # print(e[1])
@@ -4413,4 +4415,210 @@ from random import randint
 # print(e)
 
 # Префиксы строк
-print("Привет")
+# print(u"Привет")  # использовалось раньше для указания кодировки Unicode
+# print("Привет")
+
+# print("C:\\folder\\file.txt")  # C:\folder\file.txt
+# print(r"C:\folder\file.txt")  # C:\folder\file.txt row - строка, сырая строка - позволяет не делать экранирование,
+# # игнорирует, что "\" является спецсимволом
+# print(r"C:\folder\\"[:-1])  # C:\folder\ - избегаем лишний "\"
+# print(r"C:\folder" + "\\")  # C:\folder\
+# print("C:\\folder\\")  # C:\folder
+
+# Префикс f - новый
+
+# name = "Дмитрий"
+# age = 25
+# print("Меня зовут " + name + ". Мне " + str(age) + " лет.")  # Меня зовут Дмитрий. Мне 25 лет.
+# # print(f"Меня зовут {name}. Мне {age} лет.")  # Меня зовут Дмитрий. Мне 25 лет.
+# # 2 способ
+# a = f"Меня зовут {name}. Мне {age} лет."
+# print(a)  # Меня зовут Дмитрий. Мне 25 лет.
+
+# print(f"Число {round(12.2564, 2)}, {5 + 3}")
+# print(f"Число: {12.2564:.2f}")  # Число: 12.26
+
+# x = 10
+# y = 5
+# print(f"{x=}, {y = }")
+# # print(x=, y=) # SyntaxError: invalid syntax
+# print(f"{x} X {y} / 2 = {x * y / 2}")  # 10 X 5 / 2 = 25.0
+
+# dir_name = "folder"
+# file_name = "file.txt"
+# print(fr"home\{dir_name}\{file_name}")  # home\folder\file.txt и переменные и бэк слэши
+# print("home" + "\\" + dir_name + "\\" + file_name)  # home\folder\file.txt
+
+# """Строка
+# символов"""  # не выводится и не комментарий
+#
+# s = """Строка
+# символов"""
+# print(s)
+# s1 = '''Строка
+# символов'''
+# print(s1)
+# s2 = "Строка " \
+#      "символов"
+# print(s2)
+
+# Комментарии для функций или документирование - всегда первая строка
+
+# def square(n):
+#     """Принимает число n, возвращает квадрат числа n"""
+#     return n ** 2
+#
+#
+# print(square(5))
+
+# Пример большой документации
+
+# from math import pi
+#
+#
+# def cylinder(r, h):
+#     """
+#      Вычисляет площадь цилиндра.
+#
+#      Вычисляет площадь цилиндра на основании заданной высоты и радиуса основания
+#
+#      :param r: положительное число, радиус основания цилиндра
+#      :param h: положительное число, высота цилиндра
+#      :return: положительное число, площадь цилиндра
+#      """
+#     return 2 * pi * r * (r + h)
+#
+#
+# print(cylinder(2, 4))
+# print(cylinder.__doc__) # смотрим документацию
+# print(sum.__doc__)
+# print(len.__doc__)
+# print(int.__doc__)
+# print(type.__doc__)
+
+# print(ord('a'))  # показывает код заданного символа = 97
+# print(ord('й'))  # показывает код заданного символа = 1081
+
+# Позволяет посмотреть кодировку любого символа в UNICODE
+# while True:
+#     n = input("-> ")
+#     if n != "-1":
+#         print(ord(n))
+#     else:
+#         break
+
+# Задача. Дана строка: 'Test string for me', сформируйте список, содержащий ASCII коды символов этой строки. Вычислите
+# среднее арифметическое (с точностью до целого) полученных кодов и допишите его в начало списка. Спросите
+# у пользователей ещё три символа (если пользователь ввёл больше символов, используйте только первые 3). Получите их
+# ASCII коды. Проверьте наличие каждого из этих кодов в списке, и если его нет - допишите в конец списка. Определите,
+# есть ли в списке элементы, равные последнему, и если да, то определите сколько их. Отсортируйте список ао убыванию.
+
+# st = "Test string for me"
+# arr = [ord(x) for x in st]
+# print("ASCII коды:", arr)
+# arr = [sum(arr) // len(arr)] + arr
+# # arr = int(sum(arr) / len(arr)) - другой способ избавиться от дробной части
+# print("Среднее арифметическое", arr)
+# arr += [ord(x) for x in input("-> ")[:3] if ord(x) not in arr]  # срезом отбрасываем лишние символы, от начала до 3-го
+# print(arr)
+# print(arr.count(arr[-1]) - 1)
+# arr.sort(reverse=True)
+# print(arr)
+
+
+# 23.03.2024
+
+# Получим символ по его коду
+# print(chr(97))  # a
+# print(chr(35))  # #
+# print(chr(8364))  # €
+
+# Задача. Даны два числа: a = 122, b = 97, где a и b - коды символов. Ваша задача - вывести все символы, ASCII-коды
+# которых лежат между a и b включительно, в порядке возрастания их кодов.
+
+# Вывод: a b c d e f g h i g k l m n o p q r s t u v w x y z
+
+# a = 122
+# b = 97
+# for i in range(b, a + 1):
+#     print(chr(i), end=" ")
+
+# Пусть в переменные приходят значения из другого диапазона:
+
+# a = 97
+# b = 122
+# if a > b:
+#     for i in range(b, a + 1):
+#         print(chr(i), end=" ")
+# else:
+#     """Дублирование кода"""
+#     for i in range(a, b + 1):
+#         print(chr(i), end=" ")
+# Сделаем с одним for
+# a = 97
+# b = 122
+# if b > a:
+#     a, b = b, a  # если b > a, поменяем переменные местами, a = 122, b = 97
+#
+# for i in range(b, a + 1):
+#     print(chr(i), end=" ")
+
+# # Сравнение строк
+# print("apple" == "Apple")  # False
+# print("apple" > "Apple")  # 97 > 65 => True -> т. к. сравниваются коды первых(!) символов, если равны,
+# # то следующих за первым и т. д.
+
+# Задача. Есть функция random_password, генерирует случайный пароль
+
+# from random import randint
+#
+# min_ascii = 33
+# max_ascii = 126
+#
+#
+# def random_password():
+#     res = ""
+#     for i in range(6):  # 6 символов, можно и больше
+#         res += chr(randint(min_ascii, max_ascii))
+#     return res
+#
+#
+# print("Ваш случайный пароль:", random_password())
+
+# Пусть длина пароля изменяется случайным образом:
+
+# from random import randint
+#
+# min_ascii = 33
+# max_ascii = 126
+# shortest = 6
+# longest = 16
+#
+#
+# def random_password():
+#     res = ""
+#     # for i in range(shortest, longest):  # range (6, 16) 16 - 6 = 10, не вкл. посл. 10 - 1 = 9 итераций -> max
+#     for i in range(randint(shortest, longest)):  # range (0, 6) = 16 итераций от (min)6 до 16 не вкл
+#         res += chr(randint(min_ascii, max_ascii))
+#     return res
+#
+#
+# print("Ваш случайный пароль:", random_password())
+
+# Методы строк
+
+# s = "hello, WORLD! I am learning Python."
+# print(s)
+# a = s.capitalize()
+# print(a)  # Hello, world! i am learning python. - переводит все буквы, кроме первой, в нижний регистр
+# print(s.lower())  # hello, world! i am learning python. - все в нижний
+# print(s.upper())  # HELLO, WORLD! I AM LEARNING PYTHON. - всё в верхний
+
+# Методы списков
+s = "hello, WORLD! I am learning Python."
+print(s)
+# print(s.count('h'))  # 2 - две буквы h
+# print(s.count('l'))  # 3 - три буквы l - не посчитал верхний регистр
+# print(s.lower().count('l'))  # 4 - посчитал все l(так как преобразовал L -> l)
+print(s.count('h', 1))  # 1 - начиная с первого индекса - буква "e"
+print(s.count('h', 1, -4))  # 0 - начиная с первого индекса и заканчивая -4: h - не попала
