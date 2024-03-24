@@ -20,6 +20,7 @@
 # # str3 = str2.replace("u", "y")
 # # print(str3)
 
+# решение3
 def replace_char(str1, old_char, new_char):
     new_str = ""
     for char in str1:
