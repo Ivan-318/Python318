@@ -4988,9 +4988,243 @@ import re
 # print(re.findall(r"one$", text, re.MULTILINE))  # ['one']
 # print(re.findall(r"one$", text2, re.MULTILINE))  # []
 
-print(re.findall("""[a-z.-]+@[a-z.-]+""", "test@mail.ru"))
-print(re.findall("""
-[a-z.-]+ # part 1
-@        # @
-[a-z.-]+ # part 2
-""", "test@mail.ru", re.VERBOSE))  # ['test@mail.ru'] - Позволяет включить пробелы и комментарии
+# print(re.findall("""[a-z.-]+@[a-z.-]+""", "test@mail.ru"))
+# print(re.findall("""
+# [a-z.-]+ # part 1
+# @        # @
+# [a-z.-]+ # part 2
+# """, "test@mail.ru", re.VERBOSE))  # ['test@mail.ru'] - Позволяет включить пробелы и комментарии
+
+# Занятие 18. Python
+# 30.03.2024
+
+# Добавление флагов в шаблон регулярного выражения:
+
+import re
+
+
+# text = """Python,
+# python,
+# PYTHON"""
+# reg = "(?mi)^python"  # m - для re.MULTILINE, i -> re.IGNORECASE
+# print(re.findall(reg, text))
+
+# Жадное соответствие в регулярных выражениях
+
+# text = "<body>Пример жадного соответствия в регулярных выражениях</body>"
+# print(re.findall("<.*>", text))  # Хотим вернуть список из элементов совпадений [<body>, </body>]
+# print(re.findall("<.*?>", text))  # Ленивые соответствия # ['<body>', '</body>'] - без содержимого -> по минимуму
+#
+# # *?, +?, ??
+# # {m,n}?, {,n}?, {m,}?
+#
+# s1 = "12 сентября 2024 года 4567897"
+# # reg1 = r"\d{2,4}" # ['12', '2024', '4567', '897']
+# # reg1 = r"\d{2,4}?"  # ['12', '20', '24', '45', '67', '89'] - ленивое совпадение с шаблоном регулярного выражения
+# reg1 = r"\d{2}"  # ['12', '20', '24', '45', '67', '89'] - то же, что и при ленивом совпадении->в нём нет смысла
+# reg2 = r"\d{,4}?"  # ['', '1', '', '2', '', '', '', '', '', '', '', '', '', '', '', '2', '', '0', '', '2', '', '4',
+# # '', '', '', '', '', '', '', '4', '', '5', '', '6', '', '7', '', '8', '', '9', '', '7', '']
+# reg3 = r"\d{3,}"  # ['2024', '4567897'] - от трёх и больше
+# reg4 = r"\d{3,}?"  # ['202', '456', '789'] берёт числа где есть три цифры, идущие подряд тоже что и reg1 = r"\d{3}"
+# print(re.findall(reg1, s1))
+# print(re.findall(reg2, s1))
+# print(re.findall(reg3, s1))
+# print(re.findall(reg4, s1))
+
+# Перечисление
+
+# s = "Пётр, Ольга и Виталий отлично учатся"
+# reg = r"Ольга|Виталий"
+# print(re.findall(reg, s))  # ['Ольга', 'Виталий'] - ищем или Ольгу, или Виталия
+
+# # Получить список элементов в виде "атрибут-значение" в виде списка
+# s = "int = 4, float = 4.0f, double = 8.0"
+# # reg = r"\w+\s*=\s*[.\w+]*" # ['int = 4', 'float = 4.0f', 'double = 8.0']
+# # Возьмём пары ключи-значения для int и float
+# # reg = r"int\s*=\s*[.\w+]*|float\s*=\s*[.\w+]*"  # ['int = 4', 'float = 4.0f']. Сократим:
+# # reg = r"(?:int|float)\s*=\s*[.\w+]*"  # ['int = 4', 'float = 4.0f']
+# # reg = r"(int|float)\s*=\s*([.\w+]*)"  # [('int', '4'), ('float', '4.0f')] - список кортежей
+# reg = r"((int|float)\s*=\s*([.\w+]*))"  # [('int = 4', 'int', '4'), ('float = 4.0f', 'float', '4.0f')]
+# print(re.findall(reg, s))
+# print(re.search(reg, s))  # <re.Match object; span=(0, 7), match='int = 4'> - search выводит только первое совпадение
+
+# (?: ...) - обозначает, что эта группирующая скобка является не сохраняющей
+
+
+# s = "5 +7*2 - 4"
+# # reg = r"\s*[+*-]\s*"
+# # print(re.split(reg, s))  # метод split из строки по символу разделителю разбивает текущий элемент
+# ['5', '7', '2', '4']
+# reg = r"\s*([+*-])\s*"  # ['5', '+', '7', '*', '2', '-', '4'] - круглые скобки отрабатывают как сохраняющие
+# print(re.split(reg, s))
+
+# Задача. Просите пользователя ввести текущую дату по заданному шаблону и проверьте данные на соответствие
+
+# Введите дату в формате dd-mm-YYYY: 28-08-2021
+# [('28', '08', '2021')]
+
+# a = "31-08-2021"
+# # pattern = r"\d\d-\d\d-\d\d\d\d"  # ['28-08-2021']
+# pattern = r"(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(19\d\d|20[0-9][0-9])"  # [('31', '08', '2021')]
+# # print(re.findall(pattern, a))
+# print(re.search(pattern, a))  # <re.Match object; span=(0, 10), match='31-08-2021'>
+# print(re.search(pattern, a).group())  # 31-08-2021
+# print(re.search(pattern, a).group(1))  # 31
+# print(re.search(pattern, a).group(2))  # 08
+# print(re.search(pattern, a).group(3))  # 2021
+# # print(re.search(pattern, a).group(4))  # IndexError: no such group
+# print(re.search(pattern, a).group(0))  # 31-08-2021
+# # m = re.search(pattern, a)
+# # print(m[0])  # 31-08-2021 - общее совпадение
+# # print(m[1])  # 31 - скобки нумеруются с единицы
+# # print(m[2])  # 08
+# # print(m[3])  # 2021
+# # # print(m[4])  # IndexError: no such group
+
+# # Создадим строку с текстом и датами в неудобном формате:
+# s = "Самолёт прилетает 10/23/2024. Будем рады вас видеть после 10/24/2024."  # Получить дату: 23.10.2024
+# reg = r"(\d{2})/(\d{2})/(\d{4})"
+# print(re.sub(reg, r"\2.\1.\3", s))  # Самолёт прилетает 23.10.2024. Будем рады вас видеть после 24.10.2024.
+
+# Сделаем строку и шаблон. Сделаем доменные имена ссылками, подставив http:
+
+# s = "yandex.com and yandex.ru"
+# reg = r"(([a-z0-9-]{2,}\.)+[a-z]{2,4})"
+# print(re.sub(reg, r"http://\1", s))
+
+# Функции. Рекурсия -> функция вызывает сама себя
+
+# def elevator(n):  # 5 -> print; 5 - 1 = 4 -> print -> 3 -> 2 -> 1 -> 0 в if -> вы в подвале
+#     if n == 0:  # базовый случай - условие выхода из рекурсии
+#         print("Вы в подвале")
+#         return
+#     print("=>", n)
+#     elevator(n - 1) # базовый случай
+#     print(n, end=" ")  # 5 сохраняется в стек - область памяти в компьютере, которая имеет строго определённую
+#     # последовательность сохранения, тот элемент, кот попал первым, к нему можно получить доступ самым последним
+#     # стек 5 4 3 2 1
+#
+#
+# n1 = int(input("На каком вы этаже: "))  # 5
+# elevator(n1)
+# # сохранение данных в стеке:
+# # 1 - достаётся из стека первой, забирается, потом доступ к ->
+# # -> 2
+# # 3
+# # 4
+# # 5
+# # Вывод:
+# # На каком вы этаже: 5
+# # => 5
+# # => 4
+# # => 3
+# # => 2
+# # => 1
+# # Вы в подвале
+# # 1 2 3 4 5
+
+# Есть список элементов с числовыми значениями. Найдём его сумму: с рекурсией и без
+
+# 1 Обычный цикл
+# def sum_list(lst):
+#     res = 0
+#     for i in lst:
+#         res += i
+#     return res
+#
+#
+# print(sum_list([1, 3, 5, 7, 9]))  # 25
+
+# 2 Рекурсия
+
+# def sum_list(lst):  # [1, 3, 5, 7, 9] | 2-й вызов [3, 5, 7, 9] | 3-й вызов [5, 7, 9] ...
+#     if len(lst) == 1:
+#         print(lst, "=> lst[0]:", lst[0])
+#         return lst[0]
+#     else:
+#         print(lst, "=> lst[0]:", lst[0])
+#         return lst[0] + sum_list(lst[1:])  # 1 + 3 + 5 + ... - базовый случай
+#
+#
+# print(sum_list([1, 3, 5, 7, 9]))  # 25
+
+# Вывод:
+# [1, 3, 5, 7, 9] => lst[0]: 1
+# [3, 5, 7, 9] => lst[0]: 3
+# [5, 7, 9] => lst[0]: 5
+# [7, 9] => lst[0]: 7
+# [9] => lst[0]: 9
+# 25
+
+
+# Пример
+
+# def to_str(n, base):  # n = 354, base -> 10
+#     convert = "0123456789ABCDEF"
+#     if n < base:
+#         return convert[n]  # convert[3] => '3'
+#     else:
+#         return to_str(n // base, base) + convert[n % base]  # convert[354 % 10] -> convert[4] => '3' + '5' + '4'
+#
+#
+# print(to_str(18, 2))  # 10010
+# print(to_str(18, 8))  # 22
+# print(to_str(18, 10))  # 18
+# print(to_str(18, 16))  # 12
+# print(to_str(354, 10))  # 354
+
+# # Пример с другими значениями
+# def to_str(n, base):  # 254 -> 15 (ост)
+#     convert = "0123456789ABCDEF"
+#     if n < base:
+#         return convert[n]  # convert[n] => '' -> convert[15] => 'F'
+#     else:
+#         return to_str(n // base, base) + convert[n % base]  # convert[254 % 16] => '' -> convert[14] => 'E'
+#
+#
+# print(to_str(254, 16))  # FE
+
+# Пример рекурсии. Нужно посчитать сколько всего элементов = 10
+
+
+# def count_items(item_list):  # ['Bob', ['Chat', 'Cat'], 'Bard', 'Bert']
+#     count = 0  # 1 # 0 -> Bob не list # 0 -> # 1 - переход на следующую итерацию цикла -> ['Chat', 'Cat'] -> count = 0
+#     # - Chat не list -> count = 1 - Cat не list -> count = 2 -> 3 ('Bard', 'Bert') "+2" = 5
+#     for item in item_list:
+#         if isinstance(item, list):
+#             count += count_items(item)  # 2 + 1 = 3 + 2 = 5
+#         else:
+#             count += 1
+#     return count
+#
+#
+# # names = ['Adam', ['Bob', ['Chat', 'Cat'], 'Bard', 'Bert'], 'Alex', ['Bea', 'Bill'], "Ann"] пров.универсальности-10эл
+# names = ['Adam', ['Bob', ['Chat', 'Cat', ['a', 'b']], 'Bard', 'Bert'], 'Alex', ['Bea', 'Bill'], "Ann"]  # 12эл
+# print(names)
+# print(len(names))  # 5 - длина списка
+# # Проверка типа данных
+# # print(isinstance(names, list))  # True -> names - тип данных list
+# # print(isinstance(names[0], list))  # False -> Adam - не тип данных list, это строка
+# # print(isinstance(names[1], list))  # True - список
+# # print(isinstance(names[1][0], list))  # False -> Bob - str
+# # print(isinstance(names[1][1][0], list))  # False -> Chat - str, не список
+# print(count_items(names))
+
+# Пример. С использованием рекурсии удалим пробелы и переносы на др. строку
+
+def remove(text):  # text = " Hello\nWorld "; функция 2: text = " ello\nWorld "
+    # return text
+    if not text:  # text = "" - попадание в условие - базовый случай
+        return ""
+    if text[0] == "\n" or text[0] == " " or text[0] == "l":  # HeoWord
+        return remove(text[1:])
+    else:
+        return text[0] + remove(text[1:])  # "H" + "" -> вызов функции 2
+
+
+print(remove(" Hello\nWorld "))  # HelloWorld
+
+print(bool(" Hello\nWorld "))  # True
+print(bool(""))  # False
+
+# Занятие 19. 31.03.2024
