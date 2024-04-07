@@ -5002,7 +5002,6 @@ import re
 
 import re
 
-
 # text = """Python,
 # python,
 # PYTHON"""
@@ -5212,19 +5211,338 @@ import re
 
 # Пример. С использованием рекурсии удалим пробелы и переносы на др. строку
 
-def remove(text):  # text = " Hello\nWorld "; функция 2: text = " ello\nWorld "
-    # return text
-    if not text:  # text = "" - попадание в условие - базовый случай
-        return ""
-    if text[0] == "\n" or text[0] == " " or text[0] == "l":  # HeoWord
-        return remove(text[1:])
-    else:
-        return text[0] + remove(text[1:])  # "H" + "" -> вызов функции 2
-
-
-print(remove(" Hello\nWorld "))  # HelloWorld
-
-print(bool(" Hello\nWorld "))  # True
-print(bool(""))  # False
+# def remove(text):  # text = " Hello\nWorld "; функция 2: text = " ello\nWorld "
+#     # return text
+#     if not text:  # text = "" - попадание в условие - базовый случай
+#         return ""
+#     if text[0] == "\n" or text[0] == " " or text[0] == "l":  # HeoWord
+#         return remove(text[1:])
+#     else:
+#         return text[0] + remove(text[1:])  # "H" + "" -> вызов функции 2
+#
+#
+# print(remove(" Hello\nWorld "))  # HelloWorld
+#
+# print(bool(" Hello\nWorld "))  # True
+# print(bool(""))  # False
 
 # Занятие 19. 31.03.2024
+
+# Метод open для открытия файла. Открывает файл для чтения или записи файлового потока
+
+# f = open("test.txt", "r")  # для режима чтения, "r" можно не передавать - относительный путь
+# f = open(r"C:\Users\Forz1kGG\Desktop\python\1. 14.01\Lessons\test.txt", "r")  # открытие по абсолютному пути
+# print(f)  # <_io.TextIOWrapper name='test.txt' mode='r' encoding='cp1251'> cp1251 - кодировка windows
+# print(*f)  # Hello! - содержимое text.txt
+# print(f.mode)  # режим r
+# print(f.name)  # C:\Users\Forz1kGG\Desktop\python\1. 14.01\Lessons\test.txt
+# print(f.encoding)  # режим r
+# print(f.closed)  # False - так как файл ещё открыт
+# f.close()  # закрывает и сохраняет данные
+# print(f.closed)  # True - файл закрыт
+
+# # f = open("test1.txt", "r")  # FileNotFoundError: [Errno 2] No such file or directory: 'test1.txt'
+# f = open("test.txt", "r")
+# print(f.read(3))  # Hel три буквы, три данных считали, если повторно ниже вызвать read дочитается до конца
+# # print(f.read())  # считывает содержимое: Hello!
+# f.close()
+# # print(f.read())  # I/O operation on closed file. НЕЛЬЗЯ СЧИТАТЬ ИЗ ЗАКРЫТОГО ФАЙЛА
+
+# f = open("test1.txt", "r")
+# # print(f.read())  # - считал все данные
+# # This is line 1.
+# # This is line 2.
+# # This is line 3.
+# print(f.readline())-> This is line 1.- только одна строка - абзац до переноса, где стоит курсор. При повторном вызове:
+# print(f.readline())  # This is line 2.
+# print(f.readline(8))  # This is # считали 8 символов
+# print(f.readline())  # line 3. # дочитал
+# f.close()
+
+# f = open("test1.txt", "r")
+# # print(f.readlines())  # ['This is line 1.\n', 'This is line 2.\n', 'This is line 3.']
+# print(f.readlines(16))  # если затронули строчку, то дочитает до конца ['This is line 1.\n', 'This is line 2.\n']
+# print(f.readlines())  # ['This is line 3.']
+# f.close()
+
+# f = open("test1.txt", "r")
+# for line in f:
+#     print(line)
+# f.close()
+# # Вывод:
+# # This is line 1.
+# #
+# # This is line 2.
+# #
+# # This is line 3.
+
+# # Задача. Определите количество строк в файле:
+# f = open("test1.txt", "r")
+# count = 0
+# for line in f:
+#     print(line)
+#     count += 1
+# f.close()
+# print("count: =", count)
+
+# 2-й способ
+
+# f = open("test1.txt", "r")
+# print("count =", len(f.readlines()))
+# f.close()
+
+# # Создание несуществующего файла, режим "w" также очищает файл - перезапись
+#
+# f = open("xyz.txt", "w") # режим "w" затирает старое содержимое файла и перезаписывает
+# f.write("Hello\nWorld!")
+# f.close()
+
+# f = open("xyz1.txt", "a")  # режим "a" дозаписывает строки текста после перезапуска кода
+# f.write("\nNew text")
+# f.close()
+
+# f = open("xyz.txt", "w")
+# f.writelines(['This is line 1\n', 'This is line 2\n'])
+# f.close()
+
+# 2 способ
+
+# line = ['This is line 1\n', 'This is line 2\n']  # записывает содержимое в текстовый док.
+# f = open("xyz.txt", "w")
+# f.writelines(line)
+# f.close()
+
+# lst = [str(i) for i in range(1, 20)]
+# print(lst)
+#
+# f = open("xyz.txt", "w")
+# for index in lst:
+#     # f.write(index + "\t")
+#     f.write(str(index))
+# f.close()
+#
+# f = open("xyz.txt", "r")
+# d = f.read()
+# print(d)  # 12345678910111213141516171819
+# print(type(d))  # <class 'str'>
+# f.close()
+
+# Изменим код. Соберём список числовых значений в одну строку
+
+# lst = [i for i in range(1, 20)]
+# print(lst)
+#
+# f = open("xyz.txt", "w")
+# for index in lst:
+#     f.write("\t".join(str(index)))
+# f.close()
+
+# Другой способ
+
+# lst = [i for i in range(1, 20)]
+# print(lst)  # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+#
+# f = open("xyz.txt", "w")
+# f.write("\t".join(map(str, lst)))
+# f.close()
+#
+# f = open("xyz.txt", "r")
+# d = f.read()
+# # print(d.split("\t"))  # ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16',
+# # '17', '18', '19']
+# # st = d.split("\t")
+# st = list(map(int, d.split("\t")))  # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+# print(st)  # ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19']
+# print(d)  # 1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19
+# print(type(d))  # <class 'str'>
+# print(type(st))  # <class 'list'>
+# print(type(st[0]))  # <class 'int'>
+# f.close()
+
+# Задача. Заменить строку в текстовом файле:
+# Текст:
+# Замена строки в текстовом файле;
+# изменить строку в списке;
+# записать список в файл;
+
+# Замена строки в текстовом файле;
+# Hello world!
+# записать список в файл;
+
+# Создадим файл и положим в переменную для дальнейшего пользования:
+
+# file = "text2.txt"
+#
+# f = open(file, "w")
+# f.write("Замена строки в текстовом файле;\nизменить строку в списке;\nзаписать список в файл;")
+# f.close()  # Сохраняет записанные данные
+#
+# f = open(file, "r")
+# read_line = f.readlines()
+# f.close()
+#
+# print(read_line)
+# read_line[1] = "Hello world!\n"
+# print(read_line)
+#
+#
+# f = open(file, "w")
+# f.writelines(read_line)
+# f.close()
+
+# # Удаление строки из файла по её индексу
+# file = "text2.txt"
+#
+# f = open(file, "w")
+# f.write("Замена строки в текстовом файле;\nизменить строку в списке;\nзаписать список в файл;")
+# f.close()
+#
+# f = open(file, "r")
+# s = f.readlines()
+# f.close()
+# print(s)
+#
+# pos = int(input("Какую строку удалять? pos = "))
+# if 0 <= pos < len(s):
+#     del s[pos]
+# else:
+#     print("Индекс введён неверно")
+# print(s)
+#
+# f = open(file, "w")
+# f.writelines(s)
+# f.close()
+
+# f = open("test.txt")
+# print(f.read(3))
+# print(f.tell())  # позиция условного курсора. Переместим условный курсор на заданную позицию: 3
+# print(f.seek(1))  # перемещение условного курсора в заданную позицию: 1
+# # Дочитаем данные
+# print(f.read())  # ello! - дочитали с первой позиции, куда переместили курсор
+# print(f.tell())  # 6
+# f.close()
+
+# Сделать чтобы данные не вытирались
+# f = open("test.txt", "r+")
+# f.write("I am learning Python")  # I am learning Python -> # I a-new string-ython - перезатёр
+# print(f.seek(3))
+# f.write("-new string-")
+# f.close()
+
+# # f = open("test45.txt", "r+")  # FileNotFoundError: [Errno 2] No such file or directory: 'test45.txt'
+# НЕ СОЗДАЁТ ФАЙЛЫ
+# f = open("test.txt", "r+")
+# f.write("I am learning Python")  # I am learning Python -> # I a-new string-ython - перезатёр
+# print(f.seek(3))
+# f.write("-new string-")  # I a-new string-ython
+# print(f.tell())  # позиция условного курсора после перезаписи - 15
+# print(f.read())
+# f.close()
+
+# f = open("test.txt", "a+")  # не очищает файл
+# f.write("I am learning Python")
+# print(f.seek(3))
+# f.write("-new string-")
+# print(f.read())  # метод read не считывает данные с a+, w+
+# f.close()
+
+# Контекстный менеджер для работы, в т. ч. и с файлами - сам закрывает файлы
+
+# with open('test.txt', "w") as f:
+#     print(f.write('0123456789'))  # 10 - кол-во символов
+#     print(f.closed)  # False файл ещё открыт
+# print(f.closed)  # True файл закрыт
+
+# with open('test.txt', "w") as f:
+#     print(f.write('012\n34567\n89'))
+# print(f.closed)
+
+# with open('test.txt', "r") as f:
+#     for line in f:
+#         print(line)     # 012
+#
+#                         # 34567
+#
+#                         # 89
+#         print(line[:2])
+# # 01
+# # 34
+# # 89 - делает через срез перенос на др. строку
+
+# Задача. Написать функцию, которая выводит слово из файла, имеющее максимальную длину
+# (или список слов, если таковых несколько).
+
+# ['методами', 'символов', 'попыткой']
+
+# def longest_words(file):
+#     with open(file, "r") as text:  # , encoding="utf-8" - если в консоль выводится битая кодировка из файла
+#         w = text.read().split()
+#         print(w)
+#         # max_length = max(w, key=len)  # сортировка по возрастанию
+#         max_length = len(max(w, key=len))  # 14 символов - слово с максимальной длиной
+#         res = [word for word in w if len(word) == max_length]
+#         # return max_length
+#         print(max_length)
+#         if len(res) == 1:
+#             return res[0]
+#         return res
+#
+#
+# print(longest_words('test.txt'))
+
+# Параллельная работа с файлами. Берём строку с one.txt, изменяем, записываем в two.txt
+
+# one = "one.txt"
+# two = "two.txt"
+#
+# # text = ("Строка № 1\nСтрока № 2\nСтрока № 3\nСтрока № 4\nСтрока № 5\nСтрока № 6\nСтрока № 7\nСтрока № 8\nСтрока № 9\n"
+# #         "Строка № 10\n")
+# #
+# # with open(one, 'w') as f:
+# #     f.write(text)
+#
+# with open(one, "r") as fr, open(two, "w") as fw:
+#     for line in fr:
+#         line = line.replace("Строка", "Линия -")
+#         fw.write(line)
+
+# Сделать объединение двух файлов. Третий файл = Первый файл.Второй файл
+
+# one = "one.txt"
+# two = "two.txt"
+# three = "three.txt"
+#
+# with open(one, 'r') as f1:
+#     a = f1.read()
+#     print(a)
+#
+# with open(two, 'r') as f2:
+#     b = f2.read()
+#     print(b)
+#
+# c = a + b
+# print(c)
+#
+# with open(three, 'w') as f3:
+#     f3.write(c)
+
+# Параллельная запись
+
+# one = "one.txt"
+# two = "two.txt"
+# three = "three.txt"
+#
+# with open(one, "r") as f1, open(two, "r") as f2, open(three, "w") as f3:
+#     a = f1.readlines()
+#     b = f2.readlines()
+#     # c = a + b Чередование элементов списка: строка-линия
+#     c = []
+#     for i in range(len(a)):
+#         c.append(a[i])
+#         c.append(b[i])
+#     print(a)
+#     print(b)
+#     print(c)
+#     f3.writelines(c)
+
+
