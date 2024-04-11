@@ -5546,3 +5546,267 @@ import re
 #     f3.writelines(c)
 
 
+# 6.04.2024
+
+# Задача.
+# В текстовом редакторе посчитать кол-во строк, а также для каждой отдельной строки определить
+# количество символов в ней и слов.
+
+# Пример
+# первая строка
+# 14 симв. 2 сл.
+# строка номер два
+# 17 симв. 3 сл.
+# третья строка
+# 14 симв. 2 сл.
+# 4 строка 8 симв. 2 сл.
+# 4 стр.
+
+# file = "text2.txt"
+#
+# f = open(file)
+# line = 0
+# for i in f:
+#     line += 1
+#     # print(i). Подсчёт слов:
+#     word = 0  # 1 # 5 -> выход
+#     flag = 0  # 1 # 1 -> выход
+#     for j in i:
+#         if j != " " and flag == 0:
+#             word += 1
+#             flag = 1
+#         elif j == " ":
+#             flag = 0  # помогает учесть пробел, отделить слова для подсчёта слов
+#
+#     print(i, len(i), "символов", word, "слов")
+#
+# print(line, "строки в документе")
+# f.close()
+#
+# # Вывод:
+# # Замена строки в текстовом файле;
+# #  33 символов 5 слов
+# # изменить строку в списке;
+# #  26 символов 4 слов
+# # записать список в файл;
+# #  24 символов 4 слов
+# # 3 строки в документе
+
+# Новая тема. Модуль OS (для работы с операционной системой) и OS.PATH (пути в операционной системе)
+
+import os
+
+
+# import os.path - дочерний os с os итак всё отрабатывает, универсальный import os
+
+# print(os.path.split(r"C:\Users\Forz1kGG\Desktop\python\1. 14.01\Lessons\nested1\nested2\nested3\text.txt"))
+# Вывод: ('C:\\Users\\Forz1kGG\\Desktop\\python\\1. 14.01\\Lessons\\nested1\\nested2\\nested3', 'text.txt')
+
+# print(os.getcwd())  # C:\Users\Forz1kGG\Desktop\python\1. 14.01\Lessons - путь к рабочей директории
+# print(os.listdir())  # ['.git', '.idea', '.venv', 'dz', 'main.py', 'main2.py', 'one.txt', 'readme.md', 'test.txt',
+# # 'test1.txt', 'text2.txt', 'three.txt', 'two.txt', 'xyz.txt', 'xyz1.txt'] - всё что есть в рабочей папки, список
+# # директорий и файлов
+# print(os.listdir("C:\\"))  # все папки диска С
+# print(os.listdir(".."))  # ['LessonOld', 'Lessons'] - на уровень выше
+
+# os.mkdir("folder1")  # создать папку
+# os.makedirs("nested1/nested2/nested3") # создать папку и промежуточные пути в рабочей директории
+# os.rmdir("folder1")  # удалить папку, если пустая, если нет, напр. есть 1.txt
+# os.remove("folder1/1.txt")  # удалить файл, даже с содержимым
+# os.rmdir("folder1")  # удалить пустую папку
+
+# Переименовать и переместить
+
+# os.rename("xyz1.txt", "test2.txt")
+# os.mkdir("folder") # создал
+# os.rename("folder", "test")  # переименовал, переименовывает файлы и папки, также переносит
+
+# os.rename("xyz.txt", "test/xy.txt")  # файл переименовал и перенёс, содержимое не трогал, если папка есть
+# os.rename("two.txt", "text/t.txt")  # файл переименовал и перенёс, содержимое не трогал # FileNotFoundError:
+# [WinError 3] Системе не удается найти указанный путь: 'two.txt' -> 'text/t.txt'
+
+# os.renames("two.txt", "text/t.txt")  # переименовывает файлы и перемещает их по несуществующему пути,
+# путём его создания
+
+# Посмотреть папку на всю её глубину, не только на первом уровне вложенности, но и содержимое всех её папок
+
+# for root, dirs, files in os.walk("nested1", topdown=False):
+#     print("Root:", root)
+#     print("\tSubdirs:", dirs)
+#     print("\tFiles:", files)
+# Root: nested1
+# 	Subdirs: ['nested2']
+# 	Files: ['one.txt', 'test.txt', 'test1.txt']
+# Root: nested1\nested2
+# 	Subdirs: ['nested3']
+# 	Files: ['test2.txt']
+# Root: nested1\nested2\nested3
+# 	Subdirs: []
+# 	Files: ['text.txt', 'text2.txt', 'three.txt']
+
+# topdown=False - перевернул
+# Root: nested1\nested2\nested3
+# 	Subdirs: []
+# 	Files: ['text.txt', 'text2.txt', 'three.txt']
+# Root: nested1\nested2
+# 	Subdirs: ['nested3']
+# 	Files: ['test2.txt']
+# Root: nested1
+# 	Subdirs: ['nested2']
+# 	Files: ['one.txt', 'test.txt', 'test1.txt']
+# Путь к пустой папки
+# print(os.listdir(r"nested1\folder1"))  # []
+# print(bool(os.listdir(r"nested1\folder1")))  # False
+# print(bool(os.listdir()))  # True
+# print(os.listdir())  # ['.git', '.idea', '.venv', 'dz', 'main.py', 'main2.py', 'nested1', 'readme.md', 'test', 'text']
+
+
+# Задача. Удаление пустых директорий в ветви nested1
+# ------------------------------------------------------
+# Директория nested1\folder1 удалена
+# Директория nested1\nested2\folder2 удалена
+# Директория nested1\nested2\folder3 удалена
+# Директория nested1\nested2\nested3\folder3 удалена
+# ------------------------------------------------------
+
+# def remove_empty_dirs(root_tree):
+#     print(f"Удаление пустых директорий в ветви {root_tree}")
+#     print("-" * 50)
+#     for root, dirs, files in os.walk(root_tree):
+#         if not os.listdir(root):
+#             os.rmdir(root)
+#             print(f"Директория {root} удалена")
+#     print("-" * 50)
+#
+#
+# remove_empty_dirs("nested1")
+
+# print(os.path.split(r"C:\Users\Forz1kGG\Desktop\python\1. 14.01\Lessons\nested1\nested2\nested3\text.txt"))
+# # ('C:\\Users\\Forz1kGG\\Desktop\\python\\1. 14.01\\Lessons\\nested1\\nested2\\nested3', 'text.txt') - кортеж,
+# # содержащий путь и название документа
+# # Из частей собрать путь, даже не существующий
+# print(os.path.join(r"C:\Users\Forz1kGG\Desktop\python", "1. 14.01", "nested2", "text.txt"))
+# # C:\Users\Forz1kGG\Desktop\python\1. 14.01\nested2\text.txt
+# print(os.path.join(r"C:\Users\Forz1kGG\Desktop\python", "1. 14.01", "test.txt", "nested2", "text.txt"))
+# # C:\Users\Forz1kGG\Desktop\python\1. 14.01\test.txt\nested2\text.txt - может собрать и невозможный путь
+
+# Задача. Написать программу, которая создаст приведённое на рисунке дерево директорий и файлов.
+# Work:
+# - w.txt
+# - F1:
+#     - f11.txt
+#     - f12.txt
+#     - f13.txt
+# - F2:
+#     - F21:
+#         f211.txt
+#         f212.txt
+# Заполните файлы w.txt, f12.txt, f211.txt, f212.txt некоторым текстом.
+# Выполните обход созданного дерева снизу вверх, а затем сверху вниз и выведите результаты на экран.
+
+# dirs = [r'Work\F1', r'Work\F2\F21']
+# for d in dirs:
+#     os.makedirs(d)
+
+# files = {
+#     'Work': ['w.txt'],
+#     r'Work\F1': ['f11.txt', 'f12.txt', 'f13.txt'],
+#     r'Work\F2\F21': ['f211.txt', 'f212.txt']
+# }
+# for d, f in files.items():
+#     for file in f:
+#         file_path = os.path.join(d, file)
+#         open(file_path, "w").close()
+#
+# files_with_text = [r'Work\w.txt', r'Work\F1\f12.txt', r'Work\F2\F21\f211.txt', r'Work\F2\F21\f212.txt']
+#
+# for file in files_with_text:
+#     with open(file, 'w') as f:
+#         f.write(f"Текст для файла {file}")
+
+
+# file_path:
+# Work\w.txt
+# Work\F1\f11.txt
+# Work\F1\f12.txt
+# Work\F1\f13.txt
+# Work\F2\F21\f211.txt
+# Work\F2\F21\f212.txt
+
+# Обход Work снизу вверх и сверху вниз, обходит все пути, ищет папки и файлы
+
+# def print_tree(root, topdown):
+#     print(f"Обход {root} {'сверху вниз' if topdown else 'снизу вверх'}")
+#     for root, dirs, files1 in os.walk(root, topdown):
+#         print(root)
+#         print(dirs)
+#         print(files1)
+#     print("-" * 50)
+#
+#
+# print_tree("Work", False)
+# print_tree("Work", True)
+
+# Проверить существует ли путь
+# print(os.path.exists(r"C:\Users\Forz1kGG\Desktop\python\1. 14.01\Lessons\nested1\nested2\nested3\text.txt"))  # True
+# print(os.path.exists(r"C:\Users\Forz1kGG\Desktop\python\Lessons\nested1\nested2\nested3\text.txt"))  # False
+
+# Размер файла
+# import time
+#
+# path = "main2.py"
+# print(os.path.getsize(path) // 1024)  # размер файла 235859 байт // 230 Кбайт
+# print(os.path.getsize(path) / 1024)  # размер файла 230.4921875 Кбайт
+#
+# # Время создания файла, время последнего доступа и изменения, с
+#
+# print(os.path.getctime(path))  # время создания файла
+# print(os.path.getatime(path))  # время последнего доступа к файлу
+# print(os.path.getmtime(path))  # время последнего изменения файла (в секундах)
+#
+# print(time.strftime("%d.%m.%Y, %H:%M:%S"))  # текущая дата и время
+# print(time.strftime("%d.%m.%Y, %H:%M:%S", time.localtime(os.path.getctime(path))))  # 20.03.2024, 05:38:34
+# print(time.strftime("%d.%m.%Y, %H:%M:%S", time.localtime(os.path.getmtime(path))))  # 11.04.2024, 06:36:25
+#
+# print(os.path.isdir(r"C:\Users\Forz1kGG\Desktop\python\1. 14.01\Lessons\nested1\nested2\nested3\text.txt"))
+# # False, так как это не папка
+# print(os.path.isfile(r"C:\Users\Forz1kGG\Desktop\python\1. 14.01\Lessons\nested1\nested2\nested3\text.txt"))
+# # True - это файл
+# print(os.path.isfile(r"C:\Users\Forz1kGG\Desktop\python\1. 14.01\Lessons\nested1\nested2\nested\text.txt"))
+# # False - т. к. проверяет, существует ли путь к этому файлу с файлом вместе, а путь был изменён на несуществующий
+
+# ООП. Создание класса
+
+class Point:
+    """Класс для представления координат точек на плоскости"""
+    x = 1
+    y = 1
+
+
+p1 = Point()  # экземпляр класса
+# print(x)  # NameError: name 'x' is not defined - это свойство и напрямую к нему мы обратиться не можем,
+# только через экземпляр класса
+p1.x = 5
+p1.y = 10
+p1.z = 30  # {'x': 5, 'y': 10, 'z': 30} - можем задать новую координату за пределом класса, не появиться у второго экз.
+print(p1.x)  # 1 # установили 5
+print(p1.y)  # 1 # установили 10
+print(p1.__dict__)  # {'x': 5, 'y': 10}
+
+p2 = Point()
+print(p2.x)  # 1
+print(p2.y)  # 1
+# print(p2.z)  # AttributeError: Point' object has no attribute 'z'
+print(p2.__dict__)  # {} - свои значения не установленны, берёт записанные значения с класса
+
+print(id(Point))  # 2220166108720
+print(id(p1))  # 2220164526032
+print(id(p2))  # 2220164525936
+
+print(Point.__dict__)  # {'__module__': '__main__', '__doc__': 'Класс для представления координат точек на плоскости',
+# 'x': 1, 'y': 1, '__dict__': <attribute '__dict__' of 'Point' objects>, '__weakref__': <attribute '__weakref__' of
+# 'Point' objects>} - '__dict__' - уже есть у самого класса, его не пишут, так как любой класс наследуется
+# от класса Object
+print(Point.__doc__)  # Класс для представления координат точек на плоскости
+
+# Занятие 21. 07.04.2024
