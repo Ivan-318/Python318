@@ -5777,36 +5777,281 @@ import os
 
 # ООП. Создание класса
 
-class Point:
-    """Класс для представления координат точек на плоскости"""
-    x = 1
-    y = 1
-
-
-p1 = Point()  # экземпляр класса
-# print(x)  # NameError: name 'x' is not defined - это свойство и напрямую к нему мы обратиться не можем,
-# только через экземпляр класса
-p1.x = 5
-p1.y = 10
-p1.z = 30  # {'x': 5, 'y': 10, 'z': 30} - можем задать новую координату за пределом класса, не появиться у второго экз.
-print(p1.x)  # 1 # установили 5
-print(p1.y)  # 1 # установили 10
-print(p1.__dict__)  # {'x': 5, 'y': 10}
-
-p2 = Point()
-print(p2.x)  # 1
-print(p2.y)  # 1
-# print(p2.z)  # AttributeError: Point' object has no attribute 'z'
-print(p2.__dict__)  # {} - свои значения не установленны, берёт записанные значения с класса
-
-print(id(Point))  # 2220166108720
-print(id(p1))  # 2220164526032
-print(id(p2))  # 2220164525936
-
-print(Point.__dict__)  # {'__module__': '__main__', '__doc__': 'Класс для представления координат точек на плоскости',
-# 'x': 1, 'y': 1, '__dict__': <attribute '__dict__' of 'Point' objects>, '__weakref__': <attribute '__weakref__' of
-# 'Point' objects>} - '__dict__' - уже есть у самого класса, его не пишут, так как любой класс наследуется
-# от класса Object
-print(Point.__doc__)  # Класс для представления координат точек на плоскости
+# class Point:
+#     """Класс для представления координат точек на плоскости"""
+#     x = 1
+#     y = 1
+#
+#
+# p1 = Point()  # экземпляр класса
+# # print(x)  # NameError: name 'x' is not defined - это свойство и напрямую к нему мы обратиться не можем,
+# # только через экземпляр класса
+# p1.x = 5
+# p1.y = 10
+# p1.z = 30  # {'x': 5, 'y': 10, 'z': 30} - можем задать новую координату за пределом класса, не появиться у
+# # второго экз.
+# print(p1.x)  # 1 # установили 5
+# print(p1.y)  # 1 # установили 10
+# print(p1.__dict__)  # {'x': 5, 'y': 10}
+#
+# p2 = Point()
+# print(p2.x)  # 1
+# print(p2.y)  # 1
+# # print(p2.z)  # AttributeError: Point' object has no attribute 'z'
+# print(p2.__dict__)  # {} - свои значения не установленны, берёт записанные значения с класса
+#
+# print(id(Point))  # 2220166108720
+# print(id(p1))  # 2220164526032
+# print(id(p2))  # 2220164525936
+#
+# print(Point.__dict__)  # {'__module__': '__main__', '__doc__': 'Класс для представления координат точек на плоскости',
+# # 'x': 1, 'y': 1, '__dict__': <attribute '__dict__' of 'Point' objects>, '__weakref__': <attribute '__weakref__' of
+# # 'Point' objects>} - '__dict__' - уже есть у самого класса, его не пишут, так как любой класс наследуется
+# # от класса Object
+# print(Point.__doc__)  # Класс для представления координат точек на плоскости
 
 # Занятие 21. 07.04.2024
+
+# class Point:
+#     x = 1  # свойства = исходные данные со значениями, хранящие информацию
+#     y = 1
+#
+#     def set_coord(self, x, y):  # в методах - действия над этими данными, первый параметр метода называется self -
+#         # аналог this в JavaScript
+#         # print("Hello Wold")
+#         # x = x
+#         # y = y
+#         self.x = x
+#         self.y = y  # универсальная запись, позволяет не дублировать код
+#         print(self.__dict__)  # {'x': 5, 'y': 10}
+#
+#
+# p1 = Point()  # создание первого экземпляра класса
+# # p1.x = 5
+# # p1.y = 10
+# p1.set_coord(5, 10)
+# # Point.set_coord(p1)  # {'x': 5, 'y': 10} другой способ вызова метода
+# Point.set_coord(p1, 2, 4)  # {'x': 2, 'y': 4}
+#
+# p2 = Point()  # создание второго экземпляра класса
+# # p2.x = 3
+# # p2.y = 7
+# p2.set_coord(3, 7)  # {} Нужно переопределить параметры
+# # p2.set_coord()  # {'x': 3, 'y': 7}
+
+# Задача. Реализуйте класс "Человек". Необходимо хранить в полях класса: имя, дату рождения, контактный телефон,
+# страну, город, домашний адрес. Реализуйте методы класса для ввода данных, вывода данных, реализуйте доступ
+# к отдельным полям через методы класса.
+
+# ********* Персональные данные *********
+# Имя: Юля
+# Дата рождения: 23.05.1986
+# Номер телефона: 45-46-98
+# Страна: Россия
+# Город: Москва
+# Домашний адрес: Чистопрудный бульвар 1А
+# =======================================
+
+
+# class Human:
+#     name = "name"  # полям нужно присвоить первоначальное значение
+#     birthday = "00.00.0000"
+#     phone = "00-00-00"
+#     country = "country"
+#     city = "city"
+#     address = "street, house"  # поля
+#
+#     def print_info(self):  # методы
+#         print(" Персональные данные ".center(40, "*"))
+#         print(f"Имя: {self.name}\nДата рождения: {self.birthday}\nНомер телефона: {self.phone}\n"
+#               f"Страна: {self.country}\nГород: {self.city}\nДомашний адрес: {self.address}")
+#         print("=" * 40)
+#
+#     def input_info(self, first_name, birthday, phone, country, city, address):  # важна последовательность
+#         self.name = first_name
+#         self.birthday = birthday
+#         self.phone = phone
+#         self.country = country
+#         self.city = city
+#         self.address = address
+#
+#     # возможность присвоить новые значения
+#     def set_name(self, name):  # устанавливаем новое имя
+#         self.name = name
+#
+#     def get_name(self):  # получаем имя
+#         return self.name
+#
+#     def set_birthday(self, value):
+#         self.birthday = value
+#
+#     def get_birthday(self):
+#         return self.birthday
+#
+#
+# h1 = Human()
+# h1.print_info()  # с исходными данными
+# h1.input_info("Юля", "23.05.1986", "45-46-48", "Россия", "Москва",
+#               "Чистопрудный бульвар, 1А")  # изменяем данные
+# h1.print_info()  # передаём
+# h1.set_name("Юлия")
+# print(h1.get_name())  # Юлия
+# h1.set_birthday("25.05.1986")
+# print(h1.get_birthday())  # 25.05.1986
+
+# Задача 2
+# Создать класс Person с данными о сотруднике (имя, фамилия) и двумя методами. Первый должен выводить данные о
+# сотруднике, второй должен увеличивать уровень квалификации сотрудника на передаваемое количество единиц.
+
+# Данные сотрудника: Viktor Reznik
+# Квалификация сотрудника: 13
+
+# Данные сотрудника: Anna Dolgih
+# Квалификация сотрудника: 12
+
+# class Person:
+#     skill = 10
+#     name = ""
+#     surname = ""
+#
+#     def print_info(self, name, surname):
+#         self.name = name
+#         self.surname = surname
+#         print("Данные сотрудника: ", self.name, self.surname)
+#
+#     def add_skill(self, k):
+#         self.skill += k
+#         print("Квалификация сотрудника: ", self.skill, end="\n\n")
+#
+#
+# p1 = Person()  # экземпляр класса 1
+# p1.print_info("Виктор", "Резник")
+# p1.add_skill(3)
+#
+# p2 = Person()  # экземпляр класса 2
+# p1.print_info("Анна", "Долгих")
+# p2.add_skill(2)
+
+# 2-й способ
+# class Person:
+#     skill = 10  # статическое свойство с первоначальным значением
+#
+#     # def print_info(self, name, surname):
+#     #     self.name = name  # Instance attribute name defined outside __init__
+#     #     self.surname = surname
+#     #     print("Данные сотрудника: ", self.name, self.surname)
+#
+#     def __init__(self, name, surname):  # служебные методы, Инициализатор = конструктор, но один для одного класса
+#         self.name = name  # динамические свойства или свойства класса = Магические методы (dunder-методы)
+#         self.surname = surname
+#         print("Инициализатор класса Person")  # запускается 2 заза - процесс присвоения первоначального значения св-ам
+#
+#     def __del__(self):  # деструктор, отрабатывает в случае удаления ссылки на экз-ляр класса
+#         print("Удаление экземпляра класса")  # Вызовется когда закончится программа(зак-ся ссылки на экз. класса)
+#
+#     def print_info(self):
+#         print("Данные сотрудника: ", self.name, self.surname)
+#
+#     def add_skill(self, k):
+#         self.skill += k
+#         print("Квалификация сотрудника: ", self.skill, end="\n\n")
+#
+#
+# p1 = Person("Виктор", "Резник")  # экземпляр класса 1
+# p1.print_info()
+# p1.add_skill(3)
+#
+# # del p1 - разрыв ссы лки на экз класса
+# p1 = 5
+#
+# p2 = Person("Анна", "Долгих")  # экземпляр класса 2
+# p2.print_info()
+# p2.add_skill(2)
+#
+# # a = 10
+# # print(a)
+# # a = "Hello"  # Удаление экземпляра класса -> в самом низу. После завершения программы
+# # print(a)
+
+# Работа статический свойств - посчитаем сколько экз класса было создано
+# class Point:
+#     count = 0  # 3
+#
+#     def __init__(self, x, y):
+#         self.x = x
+#         self.y = y
+#         # self.count += 1
+#         Point.count += 1
+#
+#     def get_coord(self):
+#         print(self.__dict__)
+#
+#
+# p1 = Point(5, 10)
+# p1.get_coord()
+# print(p1.count)  # 1
+#
+# p2 = Point(3, 7)
+# p2.get_coord()
+# print(p2.count)  # 1 у каждого экземпляра класса только один раз отрабатывает инициализатор
+#
+# p3 = Point(8, 16)
+# p3.get_coord()
+# print(p3.count)  # 1
+#
+# print(Point.count)  # 0
+#
+# # {'x': 5, 'y': 10}
+# # {'x': 3, 'y': 7}
+# # {'x': 8, 'y': 16}
+
+# Необходимо создать класс Robot. Каждый экземпляр робота нужно инициализировать. Робот должен поздороваться
+# и представиться. При этом должен вестись подсчёт роботов. По завершению работы роботов нужно выключить
+
+class Robot:  # Все методы видны в пределах класса вне зависимости от порядка их описания, но код нужно упорядочить
+    k = 0
+
+    def __init__(self, name):
+        self.name = name
+        print("Инициализация робота:", self.name)
+        Robot.k += 1
+
+    def __del__(self):
+        print(self.name, "выключается!")
+        Robot.k -= 1
+
+        if Robot.k == 0:
+            print(self.name, "был последним")
+        else:
+            print("Работающих роботов осталось:", Robot.k)
+
+    def say_hi(self):
+        print(f"Приветствую! Меня зовут:", self.name)
+
+
+droid1 = Robot("R2-D2")
+droid1.say_hi()
+print("Численность роботов:", Robot.k)
+
+droid2 = Robot("C-3PO")
+droid2.say_hi()
+print("Численность роботов:", Robot.k)
+
+droid3 = Robot("TO-P3O")
+droid3.say_hi()
+print("Численность роботов:", Robot.k)
+
+print("\nЗдесь роботы могут проделать какую-то работу.\n")
+
+print("Роботы закончили свою работу. Давайте их выключим.")
+
+# del droid1
+# del droid2
+# del droid3
+del droid3
+del droid2
+del droid1
+
+print("Численность роботов:", Robot.k)
+
+# 13.04.2024
