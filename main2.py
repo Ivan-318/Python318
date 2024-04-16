@@ -2471,8 +2471,6 @@
 # else:
 #     print("Это не надёжный пароль")
 
-from random import randint
-
 # !!! Домашнее задание. Написать программу, которая случайным образом заполняет двумерный список размерностью 3x4
 # цифрами от -20 до 10. Необходимо найти количество отрицательных элементов. Необходимо найти количество отрицательных
 # элементов. dz6 03.02.2024.py
@@ -4744,8 +4742,6 @@ from random import randint
 # Регулярные выражения - когда из строки можем найти по какому-либо шаблону есть ли совпадения или нет, ШАБЛОНЫ
 # РЕГУЛЯРНЫХ ВЫРАЖЕНИЙ НЕ ПРИВЯЗЫВАЮТСЯ К ЯЗЫКУ ПРОГРАММИРОВАНИЯ, методы и синтаксис у каждого ЯП свои
 
-import re
-
 # s = "Я ищу совпадения в 2024 году. И я их найду в 2 счёта."
 # reg = "я"  # шаблон
 # reg1 = "я1"  # шаблон
@@ -4999,8 +4995,6 @@ import re
 # 30.03.2024
 
 # Добавление флагов в шаблон регулярного выражения:
-
-import re
 
 # text = """Python,
 # python,
@@ -5594,8 +5588,6 @@ import re
 
 # Новая тема. Модуль OS (для работы с операционной системой) и OS.PATH (пути в операционной системе)
 
-import os
-
 
 # import os.path - дочерний os с os итак всё отрабатывает, универсальный import os
 
@@ -6008,50 +6000,362 @@ import os
 # Необходимо создать класс Robot. Каждый экземпляр робота нужно инициализировать. Робот должен поздороваться
 # и представиться. При этом должен вестись подсчёт роботов. По завершению работы роботов нужно выключить
 
-class Robot:  # Все методы видны в пределах класса вне зависимости от порядка их описания, но код нужно упорядочить
-    k = 0
-
-    def __init__(self, name):
-        self.name = name
-        print("Инициализация робота:", self.name)
-        Robot.k += 1
-
-    def __del__(self):
-        print(self.name, "выключается!")
-        Robot.k -= 1
-
-        if Robot.k == 0:
-            print(self.name, "был последним")
-        else:
-            print("Работающих роботов осталось:", Robot.k)
-
-    def say_hi(self):
-        print(f"Приветствую! Меня зовут:", self.name)
-
-
-droid1 = Robot("R2-D2")
-droid1.say_hi()
-print("Численность роботов:", Robot.k)
-
-droid2 = Robot("C-3PO")
-droid2.say_hi()
-print("Численность роботов:", Robot.k)
-
-droid3 = Robot("TO-P3O")
-droid3.say_hi()
-print("Численность роботов:", Robot.k)
-
-print("\nЗдесь роботы могут проделать какую-то работу.\n")
-
-print("Роботы закончили свою работу. Давайте их выключим.")
-
-# del droid1
-# del droid2
+# class Robot:  # Все методы видны в пределах класса вне зависимости от порядка их описания, но код нужно упорядочить
+#     k = 0
+#
+#     def __init__(self, name):
+#         self.name = name
+#         print("Инициализация робота:", self.name)
+#         Robot.k += 1
+#
+#     def __del__(self):
+#         print(self.name, "выключается!")
+#         Robot.k -= 1
+#
+#         if Robot.k == 0:
+#             print(self.name, "был последним")
+#         else:
+#             print("Работающих роботов осталось:", Robot.k)
+#
+#     def say_hi(self):
+#         print(f"Приветствую! Меня зовут:", self.name)
+#
+#
+# droid1 = Robot("R2-D2")
+# droid1.say_hi()
+# print("Численность роботов:", Robot.k)
+#
+# droid2 = Robot("C-3PO")
+# droid2.say_hi()
+# print("Численность роботов:", Robot.k)
+#
+# droid3 = Robot("TO-P3O")
+# droid3.say_hi()
+# print("Численность роботов:", Robot.k)
+#
+# print("\nЗдесь роботы могут проделать какую-то работу.\n")
+#
+# print("Роботы закончили свою работу. Давайте их выключим.")
+#
+# # del droid1
+# # del droid2
+# # del droid3
 # del droid3
-del droid3
-del droid2
-del droid1
+# del droid2
+# del droid1
+#
+# print("Численность роботов:", Robot.k)
 
-print("Численность роботов:", Robot.k)
 
 # 13.04.2024
+
+# Инкапсуляция - создаёт возможность защиты данных; сокрытие данных от несанкционированного доступа из вне
+
+
+# class Point:
+#     def __init__(self, x, y):
+#         self.__x = self.__y = 0  # **
+#         if Point.__check_value(x) and Point.__check_value(y):
+#             self.__x = x  # закрыли доступ(private) - НОВОЕ ИМЯ СВОЙСТВА '_Point__x'
+#             self.__y = y  # закрыли доступ(private) - НОВОЕ ИМЯ СВОЙСТВА '_Point__y'
+#
+#     # Закрытые методы
+#
+#     def __check_value(s):
+#         if isinstance(s, int) or isinstance(s, float):
+#             return True
+#         return False
+#
+#     def set_coord(self, x, y):  # получили доступ -> установить новые значения
+#         # if (isinstance(x, int) or isinstance(x, float)) and (isinstance(y, int) or isinstance(y, float)):
+#         if Point.__check_value(x) and Point.__check_value(y):  # проверка упростилась (*)
+#             self.__x = x
+#             self.__y = y
+#         else:
+#             print("Координаты должны быть числами")  # Получить доступ к закрытым данным(пишем ниже):
+#
+#     def get_coord(self):  # получаем новые значения
+#         return self.__x, self.__y
+#
+#     # Проверка на одну координату (***)
+#     def set_x(self, x):
+#         if Point.__check_value(x):
+#             self.__x = x
+#         else:
+#             print("Координата x должна быть числом")
+#
+#     def set_y(self, y):
+#         if Point.__check_value(y):
+#             self.__y = y
+#         else:
+#             print("координата y должна быть числом")
+#
+#
+# # p1 = Point(5, 10)
+# # # print(p1.x, p1.y)  # 5 10
+# # # print(p1.__x, p1.__y)  # AttributeError: 'Point' object has no attribute '__x' СМ ВЫШЕ, СВ-ВА ПОМЕНЯЛИ ИМЯ
+# # print(p1.__dict__)  # {'_Point__x': 5, '_Point__y': 10}
+# # # p1.set_coord(100, 200)
+# # # p1.set_coord(100, "abc")  # {'_Point__x': 100, '_Point__y': 'abc'} - всё равно смогли записать строку
+# # # print(p1.__dict__)  # {'_Point__x': 100, '_Point__y': 200}
+# # # Новые значения:
+# # # p1.x = 100
+# # # p1.y = "abc"  # нельзя просто так запретить другой тип данных, даже если он некорректный (строка не координата)
+# # # print(p1.x, p1.y)
+# # # Напрямую получить доступ к закрытым свойствам нельзя, так как у них другое название
+# #
+# # # Вывод, если некорректная: p1.set_coord(100, "abc")
+# # # {'_Point__x': 5, '_Point__y': 10}
+# # # Координаты должны быть числами
+# # # {'_Point__x': 5, '_Point__y': 10}
+# #
+# # # print(p1.__x, p1.__y)  # не можем получить свойства
+# # p1.set_coord(100, "abc")  # Координаты должны быть числами -> (5, 10)
+# # p1.set_coord(100, 500)  # (100, 500)
+# # print(p1.get_coord())
+#
+# # Проверим работоспособность (*)
+# # p1 = Point(5, 10)
+# p1 = Point(5, "abc")  # {'_Point__x': 5, '_Point__y': 'abc'} - попадает в момент инициализации в init нет проверки
+# print(p1.__dict__)
+# # p1.set_coord(100, "abc")
+# # print(p1.get_coord())
+# # # {'_Point__x': 5, '_Point__y': 10}
+# # # Координаты должны быть числами
+# # # (5, 10)
+# # # print(Point.__check_value())  # type object 'Point' has no attribute '__check_value'
+# # print(Point.__dict__)  # '_Point__check_value'
+# print(p1.get_coord())  # (0, 0) ** c проверкой в init -> строка не запишется
+# # Установим новое значение (***)
+# p1.set_x("abc")  # Координата x должна быть числом
+# print(p1.__dict__)
+
+
+# Задача. Создать класс Rectangle, описывающий прямоугольник. В классе должны быть все необходимые методы, а так же
+# методы вычисления площади, периметра и диагонали, и метод, который рисует прямоугольник. Должны инициализироваться
+# свойства и сделать защиту на некорректный ввод данных (строки, ... не числ.).
+
+# Длина прямоугольника: 3
+# Ширина прямоугольника: 9
+# Площадь прямоугольника: 27
+# Периметр прямоугольника: 24
+# Гипотенуза прямоугольника: 9.49
+# *********
+# *********
+# *********
+# import math
+#
+#
+# class Rectangle:
+#     def __init__(self, length, width):
+#         self.__length = length
+#         self.__width = width
+#
+#     def __check_value(s):  # _Rectangle__check_value
+#         if isinstance(s, int) or isinstance(s, float):
+#             return True
+#         return False
+#
+#     def set_width(self, value):
+#         if Rectangle.__check_value(value):
+#             self.__width = value
+#
+#     def set_length(self, value):
+#         if Rectangle.__check_value(value):
+#             self.__length = value
+#
+#     def get_width(self):
+#         return self.__width
+#
+#     def get_length(self):
+#         return self.__length
+#
+#     def get_area(self):
+#         return self.__length * self.__width
+#
+#     def get_perimeter(self):
+#         return 2 * (self.__length + self.__width)
+#
+#     def get_hypotenuse(self):
+#         return round(math.sqrt(self.__length ** 2 + self.__width ** 2), 2)
+#
+#     def draw(self):
+#         print(("*" * self.__width + "\n") * self.__length)
+#
+#
+# a = Rectangle(4, 12)  # Один экземпляр класса - один прямоугольник, другой - другой
+# a.set_length(3)
+# a.set_width(9)
+# print("Длина прямоугольника:", a.get_length())
+# print("Ширина прямоугольника:", a.get_width())
+# print("Площадь прямоугольника:", a.get_area())
+# print("Периметр прямоугольника:", a.get_perimeter())
+# print("Гипотенуза прямоугольника:", a.get_hypotenuse())
+# a.draw()
+
+# class Point:
+#     # Запретить создание новых координат
+#     __slots__ = ["__x", "__y", "z"]  # список разрешённых
+#
+#     def __init__(self, x, y):
+#         self.__x = x
+#         self.__y = y
+#
+#
+# p1 = Point(5, 10)
+# p1.z = 15  # AttributeError: 'Point' object has no attribute 'z'
+# # print(p1.__dict__)  # {'_Point__x': 5, '_Point__y': 10, 'z': 15}, где 'z': 15 - новая координата
+# print(p1.z)  # 15 в dict z не посмотреть
+
+# Закроем методы в классе Point
+
+# class Point:
+#     def __init__(self, x, y):
+#         self.__x = x
+#         self.__y = y
+#
+#     @property
+#     def x(self):
+#         return self.__x
+#
+#     @x.setter
+#     def x(self, x):
+#         if Point.__check_value(x):
+#             self.__x = x
+#         else:
+#             print("Координата X должны быть числом")
+#
+#     def __check_value(s):
+#         if isinstance(s, int) or isinstance(s, float):
+#             return True
+#         return False
+#
+#     # x = property(__get_x, __set_x)
+#
+#
+# p1 = Point(5, 10)
+# p1.x = "aaa"
+# # print(p1.x)
+# print(p1.__dict__)
+
+# Создать класс для преобразования килограмм в фунты.
+
+# class KgToPounds:
+#     def __init__(self, kg):
+#         self.__kg = kg
+#
+#     @property
+#     def kg(self):
+#         return self.__kg
+#
+#     @kg.setter
+#     def kg(self, new_kg):
+#         if isinstance(new_kg, (int, float)):
+#             self.__kg = new_kg
+#         else:
+#             print("Килограммы задаются только числами")
+#
+#     def to_pounds(self):
+#         return self.__kg * 2.205
+#
+#
+# weight = KgToPounds(12)
+# print(weight.kg, "кг =>", end=" ")
+# print(weight.to_pounds(), "фунтов")
+# weight.kg = 41
+# print(weight.kg, "кг =>", end=" ")
+# print(weight.to_pounds(), "фунтов")
+# weight.kg = 'десять'  # Килограммы задаются только числами
+
+# Удаление свойства декоратором @__.deleter
+
+# class KgToPounds:
+#     def __init__(self, kg):
+#         self.__kg = kg
+#
+#     @property
+#     def kg(self):
+#         return self.__kg
+#
+#     @kg.setter
+#     def kg(self, new_kg):
+#         if isinstance(new_kg, (int, float)):
+#             self.__kg = new_kg
+#         else:
+#             print("Килограммы задаются только числами")
+#
+#     @kg.deleter
+#     def kg(self):
+#         print("Удаление свойства")
+#         del self.__kg
+#
+#     def to_pounds(self):
+#         return self.__kg * 2.205
+#
+#
+# weight = KgToPounds(12)
+# print(weight.kg, "кг =>", end=" ")
+# print(weight.to_pounds(), "фунтов")
+# weight.kg = 41
+# print(weight.kg, "кг =>", end=" ")
+# print(weight.to_pounds(), "фунтов")
+# weight.kg = 'десять'  # Килограммы задаются только числами
+# del weight.kg
+
+# Закроем вспомогательные свойства - статическое
+
+# class Point:
+#     __count = 0  # _Point__count
+#
+#     def __init__(self, x, y):
+#         self.x = x
+#         self.y = y
+#         Point.__count += 1
+#
+#     # @staticmethod - первый способ через декоратор (новый)
+#     def get_count():
+#         return Point.__count
+#
+#     get_count = staticmethod(get_count)  # второй способ объявления
+#
+#
+# p1 = Point(5, 10)
+# p2 = Point(5, 10)
+# p3 = Point(5, 10)
+#
+# # print(Point.__count) # AttributeError: type object 'Point' has no attribute '__count'
+# # print(p1.__count)  # AttributeError: 'Point' object has no attribute '__count'
+#
+# print(Point.get_count())  # 3
+# print(p1.get_count())  # TypeError: get_count() takes 0 positional arguments but 1 was given без @staticmethod # 3
+
+# Для статических методов необязательно создавать экземпляр класса.
+import math
+import random
+
+
+class Change:
+    @staticmethod
+    def inc(x):
+        return x + 1
+
+    @staticmethod
+    def dec(x):
+        return x - 1
+
+
+print(Change.inc(10), Change.dec(10))  # 11 9
+
+
+# В ООП статические методы работают как отдельные функции без экземпляра класса:
+def inc(x):
+    return x + 1
+
+
+def dec(x):
+    return x - 1
+
+
+print(inc(10), dec(10))  # 11 9
+
+# 14.04.2024
