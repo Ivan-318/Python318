@@ -6330,32 +6330,290 @@
 # print(p1.get_count())  # TypeError: get_count() takes 0 positional arguments but 1 was given без @staticmethod # 3
 
 # Для статических методов необязательно создавать экземпляр класса.
-import math
-import random
+# import math
+# import random
 
 
-class Change:
-    @staticmethod
-    def inc(x):
-        return x + 1
-
-    @staticmethod
-    def dec(x):
-        return x - 1
-
-
-print(Change.inc(10), Change.dec(10))  # 11 9
-
-
-# В ООП статические методы работают как отдельные функции без экземпляра класса:
-def inc(x):
-    return x + 1
-
-
-def dec(x):
-    return x - 1
-
-
-print(inc(10), dec(10))  # 11 9
+# class Change:
+#     @staticmethod
+#     def inc(x):
+#         return x + 1
+#
+#     @staticmethod
+#     def dec(x):
+#         return x - 1
+#
+#
+# print(Change.inc(10), Change.dec(10))  # 11 9
+#
+#
+# # В ООП статические методы работают как отдельные функции без экземпляра класса:
+# def inc(x):
+#     return x + 1
+#
+#
+# def dec(x):
+#     return x - 1
+#
+#
+# print(inc(10), dec(10))  # 11 9
 
 # 14.04.2024
+
+# Задача. Создайте класс для подсчёта максимума из четырёх аргументов (4, 5, 7, 9), минимума из четырёх аргументов,
+# среднеарифметического из четырёх аргументов, факториала аргумента (5). Функциональность необходимо реализовать в виде
+# статических методов.
+
+# Минимальное число: 9
+# Максимальное число: 3
+# Среднее арифметическое: 6.0
+# Факториал числа: 120
+
+# Внутри класса все методы будут статическими
+# class Numbers:
+#     @staticmethod
+#     def max(a, b, c, d):
+#         mx = a  # 3
+#         if b > mx:  # 5 > 3
+#             mx = b  # 5
+#         if c > mx:  # 7 > 5
+#             mx = c  # 7
+#         if d > mx:  # 9 > 7
+#             mx = d  # 9
+#         return mx
+#
+#     @staticmethod
+#     def min(*args):
+#         mn = args[0]
+#         for i in args:
+#             if i < mn:
+#                 mn = i
+#         return mn
+#
+#     @staticmethod
+#     def average(*args):
+#         return sum(args) / len(args)
+#
+#     @staticmethod
+#     def factorial(n):
+#         fact = 1
+#         for i in range(1, n + 1):
+#             fact *= i
+#         return fact
+#
+#
+# print("Максимальное число:", Numbers.max(3, 5, 7, 9))
+# print("Минимальное число:", Numbers.min(3, 5, 7, 9))
+# print("Среднее арифметическое:", Numbers.average(3, 5, 7, 9))
+# print("Факториал числа:", Numbers.factorial(5))
+
+# Программа для поиска и решения проблем с помощью методов классов
+
+# class Date:
+#     def __init__(self, day=0, month=0, year=0):
+#         self.day = day
+#         self.month = month
+#         self.year = year
+#
+#     def string_to_db(self):
+#         return f"{self.year}-{self.month}-{self.day}"
+#
+#
+# string_date = "23.10.2024"
+# day, month, year = map(int, string_date.split('.'))  # ['23', '10', '2024'] -> (map int) -> [23, 10, 2024] (*)
+# print(day, month, year)  # day = 23 month = 10 year = 2024
+# date = Date(day, month, year)  # Date(23, 10, 2024) (*)
+# print(date.string_to_db())  # 2024-10-23
+
+# Изменим код, чтобы не делать каждый раз разбиение элементов. Занесём (*) в метод.
+
+# class Date:
+#     def __init__(self, day=0, month=0, year=0):
+#         self.day = day
+#         self.month = month
+#         self.year = year
+#
+#     def string_to_db(self):
+#         return f"{self.year}-{self.month}-{self.day}"
+#
+#     @classmethod
+#     def from_string(cls, date_as_string):
+#         day, month, year = map(int, date_as_string.split('.'))  # [23, 10, 2024]
+#         date = cls(day, month, year)  # data = Date(23, 10, 2024)
+#         return date
+#
+#     @staticmethod  # (**)
+#     def is_date_valid(date_as_string):
+#         if date_as_string.count(".") == 2:
+#             day, month, year = map(int, date_as_string.split('.'))
+#             return day <= 31 and month <= 12 and year <= 3999
+#
+#
+# dates = [
+#     "23.10.2024",
+#     "21/12/2023",
+#     "01.01.2022",
+#     "12.31.2021"
+# ]
+#
+# for i in dates:
+#     if Date.is_date_valid(i):
+#         date = Date.from_string(i)
+#         print(date.string_to_db())
+#     else:
+#         print(f"Неправильная дата или формат строки с датой")
+
+# date1 = Date.from_string("23.10.2024")
+# print(date1.string_to_db())
+# # date2 = Date.from_string("21.12.2023")
+# # print(date2.string_to_db())
+# # Если дата приходит в другом формате:
+# date2 = Date.from_string("21/12/2023")  # - ValueError: invalid literal for int() with base 10: '21/12/2023' -> (**)
+# print(date2.string_to_db())
+
+# Вспомним, создание экземпляра класса за пределами класса:
+# data = Date(23, 10, 2024) - в задаче выше этого нет (не можем вызвать метод не у экземпляра класса) -> date1 и date2
+# становятся экземплярами класса
+
+# Решим задачу, совмещающую все изученные свойства и методы см ООП-теория.txt. Создать класс "Account",
+# представляющий собой банковский счёт. Класс должен содержать:
+# динамические свойства: фамилия владельца, номер счёта, процент начисления, сумма в рублях;
+# статические свойства: курс рубля по отношению к доллару, курс рубля по отношению к евро;
+# классовые методы: редактировать курс рубля по отношению к доллару, редактировать курс рубля по отношению к евро;
+# статические методы: перевод суммы в доллары и евро;
+# инициализатор: определяет динамические свойства класса и выводит информацию об открытом счёте;
+# деструктор: выводит сообщение о том, что банковский счёт закрыт;
+# методы: смена владельца счёта, снятие заданной суммы, начисление заданной суммы, начисление процентов, перевод в
+# доллары и евро (в отличие от аналогичных статических методов, данные методы не принимают параметров),
+# вывод информации о счёте; КАРТИНКА 1_2.JPG -> ВЫВОД
+
+# class Account:
+#     rate_usd = 0.013
+#     rate_eur = 0.011
+#     suffix = 'RUB'
+#     suffix_usd = 'USD'
+#     suffix_eur = 'EUR'
+#
+#     def __init__(self, surname, num, percent, value):
+#         self.surname = surname
+#         self.num = num
+#         self.percent = percent
+#         self.value = value
+#         print(f"Счёт #{self.num} принадлежащий {self.surname} был открыт.")
+#         print("*" * 50)
+#
+#     def __del__(self):  # магические методы пишутся вместе, хоть и данный метод отрабатывает в конце
+#         print(f"Остаток средств с текущего счёта {self.value} был переведён на правопреемника")
+#         self.value = 0
+#         self.print_balance()
+#         print("*" * 50)
+#         print(f"Счёт #{self.num} принадлежащий {self.surname} был закрыт.")
+#
+#     @classmethod
+#     def set_usd_rate(cls, rate):
+#         cls.rate_usd = rate
+#
+#     @classmethod
+#     def set_eur_rate(cls, rate):
+#         cls.rate_eur = rate
+#
+#     @staticmethod
+#     def convert(value, rate):
+#         return value * rate
+#
+#     def convert_to_usd(self):
+#         usd_val = Account.convert(self.value, Account.rate_usd)
+#         print(f"Состояние счёта: {usd_val} {Account.suffix_usd}")
+#
+#     def convert_to_eur(self):
+#         eur_val = Account.convert(self.value, Account.rate_eur)
+#         print(f"Состояние счёта: {eur_val} {Account.suffix_eur}")
+#
+#     def print_balance(self):  # лучше написать ниже
+#         print(f"Текущий баланс {self.value} {Account.suffix}")
+#
+#     def print_info(self):  # лучше написать ниже
+#         print("Информация о счёте:")
+#         print("-" * 20)
+#         print(f"#{self.num}")
+#         print(f"Владелец: {self.surname}")
+#         self.print_balance()
+#         print(f"Проценты: {self.percent:.0%}")  # 3% - 0 cимволов после точки
+#         print("-" * 20)
+#
+#     def edit_owner(self, surname):
+#         self.surname = surname
+#
+#     def add_percents(self):
+#         self.value += self.value * self.percent
+#         print("Проценты были успешно начислены")
+#         self.print_balance()
+#
+#     def withdraw_money(self, val):
+#         if val > self.value:
+#             print(f"К сожалению, у вас нет {val} {Account.suffix}.")
+#         else:
+#             self.value -= val
+#             print(f"{val} {Account.suffix} было успешно снято!")
+#         self.print_balance()
+#
+#     def add_money(self, val):
+#         self.value += val
+#         print(f"{val} {Account.suffix} было успешно добавлено!")
+#         self.print_balance()
+#
+#
+# acc = Account("Долгих", "12345", 0.03, 1000)
+# acc.print_info()
+# acc.convert_to_usd()
+# acc.convert_to_eur()
+# print()
+#
+# Account.set_usd_rate(2)  # курс доллара изменился с 0.013 до 2 (13 до 2000)
+# acc.convert_to_usd()
+# Account.set_eur_rate(3)
+# acc.convert_to_eur()
+# print()
+#
+# acc.edit_owner("Дюма")
+# acc.print_info()
+# print()
+#
+# acc.add_percents()
+# print()
+#
+# acc.withdraw_money(100)
+# print()
+#
+# acc.withdraw_money(3000)
+# print()
+#
+# acc.add_money(5000)
+# print()
+#
+# acc.withdraw_money(3000)
+# print()
+#
+# # acc.convert_to_usd()
+# # acc.convert_to_eur()
+# # print()  # перевести в доллары и евро
+
+class UserData:
+    def __init__(self, fio, old, ps, weight):
+        self.verify_fio(fio)
+        self.__fio = fio
+        self.__old = old
+        self.__password = ps
+        self.__weight = weight
+
+    @staticmethod
+    def verify_fio(fio):
+        if not isinstance(fio, str):
+            raise TypeError("ФИО должно быть строкой")  # выбросить исключение самостоятельно
+        f = fio.split()  # ['Волков-Смирнов', 'Игорь', 'Николаевич']
+        # print(f)
+        if len(f) != 3:
+            raise TypeError("Неверный формат ФИО")
+
+
+p1 = UserData("Волков-Смирнов Игорь Николаевич", 26, "1234 567890", 80.8)
