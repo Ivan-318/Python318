@@ -21,10 +21,14 @@ class Person:
 
     @name.setter
     def name(self, value):
-        if isinstance(value, str):
-            self.__name = value
+        # if isinstance(value, str):
+        #     self.__name = value
+        # else:
+        #     raise ValueError("Имя должно быть строкой.") Другой способ записи ->
+        if not isinstance(value, str):
+            raise TypeError("Имя должно быть строкой")
         else:
-            raise ValueError("Имя должно быть строкой.")
+            self.__name = value
 
     @property
     def age(self):
@@ -53,11 +57,14 @@ class Person:
 
 
 person = Person("Irina", 26)
-print(person.info)  # Выводит: Name: Irina, Age: 26
+# print(person.info)  # Выводит: Name: Irina, Age: 26
+print(person.__dict__)  # {'_Person__name': 'Irina', '_Person__age': 26}
 
 person.name = "Igor"  # Устанавливает новое имя
 person.age = 31  # Устанавливает новый возраст
-print(person.info)  # Выводит: Name: Igor, Age: 31
+# print(person.info)  # Выводит: Name: Igor, Age: 31
+print(person.name)  # Igor
+print(person.age)  # 31
 
 del person.name  # Удаляет имя
 del person.age  # Удаляет возраст
