@@ -7198,26 +7198,379 @@
 
 # Обратная ситуация
 
-class Color:
+# class Color:
+#
+#     def __init__(self):
+#         self.name = "Green"
+#         self.lg = self.LightGreen()
+#
+#     def show(self):  # доступ ко вложенному классу -> внутрь
+#         print("Name:", self.name)
+#
+#     class LightGreen:
+#         def __init__(self):
+#             self.name = "Light Green"
+#
+#         def display(self):
+#             print("Name:", self.name)
+#
+#
+# outer = Color()
+# outer.show()
+# g = outer.lg
+# g.display()
+
+# 27.04.2024
+
+# Создадим класс, содержащий два вложенных класса, один из них сделаем независимым
+
+# class Intern:  # независимый класс
+#     def __init__(self):
+#         self.name = "Smith"
+#         self.id = "657"
+#
+#     def show(self):
+#         print("Name:", self.name)
+#         print("Id:", self.id)
+#         print("*" * 20)
+#
+#
+# class Employee:
+#     def __init__(self):
+#         self.name = "Employee"
+#         self.intern = Intern()  # 2-й способ -> комментируем
+#         self.head = self.Head()
+#
+#     def show(self):
+#         print("Name:", self.name, self.intern.id)
+#         print("*" * 20)
+#
+#     class Head:
+#         def __init__(self):
+#             self.name = "Boss"
+#             self.id = "789"
+#
+#         def show(self):
+#             print("Name:", self.name)
+#             print("Id:", self.id)
+#             print("*" * 20)
+#
+#
+# outer = Employee()
+# outer.show()
+#
+# d1 = outer.intern
+# d2 = outer.head
+# # d1 = Employee.Intern()  # 2-й способ
+# # d2 = Employee.Head()
+#
+# d1.show()
+# d2.show()
+
+# Назначение вложенных классов
+
+# class Computer:
+#     def __init__(self):
+#         self.name = "PC001"
+#         self.os = self.OS()
+#         self.cpu = self.CPU()
+#
+#     class OS:
+#         def system(self):
+#             return "Window"
+#
+#     class CPU:
+#         def make(self):
+#             return "Intel"
+#
+#         def model(self):
+#             return "Core-i7"
+#
+#
+# comp = Computer()
+# my_os = comp.os
+# my_cpu = comp.cpu
+# print(comp.name)
+# print(my_os.system())
+# print(my_cpu.make())
+# print(my_cpu.model())
+
+# class Cat:
+#     def __init__(self, name):
+#         self.name = name
+#
+#     def __repr__(self):
+#         return f"{self.__class__}: {self.name}"  # <class '__main__.Cat'>: Пушок
+#
+#     def __str__(self):
+#         return f"{self.name}"  # Пушок - отработает первым
+#
+#
+# # cat = Cat("Пушок")
+# cat = [Cat("Пушок")]  # [<class '__main__.Cat'>: Пушок] -> больше чем один(коллекция), консоль -> repr
+# print(cat)
+
+# class Point:
+#     def __init__(self, *args):
+#         self.__coord = args
+#
+#     def __len__(self):
+#         return len(self.__coord)
+#
+#
+# p = Point(5, 7)
+# print(len(p))  # 2 - точка в двумерном
+# p1 = Point(4, 6, 8)
+# print(len(p1))  # 3 - точка в трёхмерном
+
+# class Point:
+#     __slots__ = ('x', 'y')
+#
+#     def __init__(self, x, y):
+#         self.x = x
+#         self.y = y
+#
+#
+# p1 = Point(10, 20)
+# print(p1.x, p1.y)
+# p1.z = 30 # AttributeError: 'Point' object has no attribute 'z' -> нет в slots
+# print(p1.z)
+
+# Рассмотрим
+# class Point:
+#     __slots__ = ('x', 'y')
+#
+#     def __init__(self, x, y):
+#         self.x = x
+#         self.y = y
+#
+#
+# class Point2D:
+#     def __init__(self, x, y):
+#         self.x = x
+#         self.y = y
+#
+#
+# p1 = Point(10, 20)
+# p2 = Point2D(10, 20)
+# # print(p1.__dict__)  # AttributeError: 'Point' object has no attribute '__dict__' dict там где нет slots
+# print("p1 =", p1.__sizeof__())  # с коллекцией slots -> p1 = 32
+# print("p2 =", p2.__sizeof__())  # без коллекции slots -> p2 = 32
+# print("p2 =", p2.__sizeof__() + p2.__dict__.__sizeof__())  # p2 = 120 - меньше быстродействия
+# # print(p2.__dict__)  # {'x': 10, 'y': 20}
+
+
+# При наследовании
+
+# class Point:
+#     __slots__ = ('x', 'y')
+#
+#     def __init__(self, x, y):
+#         self.x = x
+#         self.y = y
+#
+#
+# class Point3D(Point):  # slots не наследуется  # pt3.z = 30 - можно создать и вывести
+#     __slots__ = ('z',)
+#
+#
+# pt = Point(1, 2)
+# pt3 = Point3D(10, 20)
+# pt3.z = 30
+# print(pt3.z)  # 30
+# print(pt3.x, pt3.y, pt3.z)  # 10 20 30
+
+# Множественное наследование (несколько родительских элементов)
+
+# class Creature:
+#     def __init__(self, name):
+#         self.name = name
+#
+#
+# class Animal(Creature):
+#     def sleep(self):
+#         print(self.name + " is sleeping")
+#
+#
+# class Pet(Creature):
+#     def play(self):
+#         print(self.name + " is playing")
+#
+#
+# class Dog(Animal, Pet):
+#     def bark(self):
+#         print(self.name + " is barking")
+#
+#
+# dog = Dog("Buddy")
+# dog.bark()  # Buddy is barking
+# dog.sleep()  # Buddy is sleeping
+# dog.play()  # Buddy is playing
+
+# Пример 1
+# class A:
+#     def __init__(self):
+#         print("Инициализатор класса A")
+#
+#
+# class B(A):
+#     def __init__(self):
+#         print("Инициализатор класса B")
+#
+#
+# class C(A):
+#     def __init__(self):
+#         print("Инициализатор класса C")
+#
+#
+# class D(B, C):
+#     # def __init__(self):
+#     #     print("Инициализатор класса D")
+#     pass  # Инициализатор класса B
+#
+#
+# d = D()  # Инициализатор класса D
+# print(D.mro())  # [<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>,
+# # <class '__main__.A'>, <class 'object'>]
+# print(D.__mro__)  # (<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>,
+# # <class '__main__.A'>, <class 'object'>) - последовательность вызова
+
+# Пример 2
+# class A:
+#     def __init__(self):
+#         print("Инициализатор класса A")
+#
+#
+# class AA:
+#     def __init__(self):
+#         print("Инициализатор класса AA")
+#
+#
+# class B(A):
+#     def __init__(self):
+#         print("Инициализатор класса B")
+#
+#
+# class C(AA):
+#     def __init__(self):
+#         print("Инициализатор класса C")
+#
+#
+# class D(B, C):
+#     # def __init__(self):
+#     #     print("Инициализатор класса D")
+#     pass
+#
+#
+# d = D()  # Инициализатор класса B
+# print(D.mro()) # [<class '__main__.D'>, <class '__main__.B'>, <class '__main__.A'>, <class '__main__.C'>,
+# # <class '__main__.AA'>, <class 'object'>]
+# # print(D.__mro__)
+
+# Вернёмся к примеру 1, когда был один и тот же родитель и у B и у C
+
+# class A:
+#     def __init__(self):
+#         print("Инициализатор класса A")
+#
+#
+# class B(A):
+#     def __init__(self):
+#         # C.__init__(self)
+#         super().__init__()  # Инициализатор класса C -> на уровень выше
+#         print("Инициализатор класса B")
+#
+#
+# class C(A):
+#     def __init__(self):
+#         print("Инициализатор класса C")
+#
+#
+# class D(B, C):
+#     # def __init__(self):
+#         # # super().__init__()
+#         # # super().__init__() -> Доступ к C
+#         # C.__init__(self)
+#         # B.__init__(self)
+#         # print("Инициализатор класса D")
+#         pass
+#
+#
+# d = D()
+# # Инициализатор класса B
+# # Инициализатор класса B
+# # Инициализатор класса D - не получаем доступ к С
+# print(D.mro())
+# #  -> Доступ к C
+# # Инициализатор класса C
+# # Инициализатор класса B
+# # Инициализатор класса D
+# # [<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.A'>, <class 'object'>]
+
+# Реализация множественного наследования с решением проблем при его применении
+
+# class Point:
+#     def __init__(self, x, y):
+#         self.__x = x
+#         self.__y = y
+#
+#     def __str__(self):
+#         return f"({self.__x}, {self.__y})"
+#
+#
+# class Styles:
+#     def __init__(self, color="red", width=1):
+#         print("Инициализатор Styles")
+#         self._color = color
+#         self._width = width
+#
+#
+# class Pos:
+#     def __init__(self, sp: Point, ep: Point, *args):
+#         self._sp = sp
+#         self._ep = ep
+#         # Styles.__init__(self, *args) -> корректный синтаксис ->
+#         super().__init__(*args)
+#
+#
+# class Line(Pos, Styles):
+#     def draw(self):
+#         print(f"Рисование линии: {self._sp}, {self._ep}, {self._color}, {self._width}")
+#
+#
+# l1 = Line(Point(10, 10), Point(100, 100), "green", 5)
+# l1.draw()
+
+# Сложности множественного наследования - не вызывается инициализатор
+
+# Миксины(могут избавить от дублирования кода, например добавление id)
+
+class Goods:
+    def __init__(self, name, weight, price):
+        super().__init__()
+        self.name = name
+        self.weight = weight
+        self.price = price
+
+    def print_info(self):
+        print(f"{self.name}, {self.weight}, {self.price}")
+
+
+class MixinLog:
+    ID = 0
 
     def __init__(self):
-        self.name = "Green"
-        self.lg = self.LightGreen()
+        MixinLog.ID += 1
+        self.id = self.ID
 
-    def show(self):  # доступ ко вложенному классу -> внутрь
-        print("Name:", self.name)
-
-    class LightGreen:
-        def __init__(self):
-            self.name = "Light Green"
-
-        def display(self):
-            print("Name:", self.name)
+    def save_sell_log(self):
+        print(f"{self.id}: товар был продан в 00:00 часов")
 
 
-outer = Color()
-outer.show()
-g = outer.lg
-g.display()
+class Notebook(Goods, MixinLog):
+    pass
 
 
+n = Notebook("HP", 1.5, 35000)
+n.print_info()
+n.save_sell_log()
