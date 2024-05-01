@@ -7545,32 +7545,249 @@
 
 # Миксины(могут избавить от дублирования кода, например добавление id)
 
-class Goods:
-    def __init__(self, name, weight, price):
-        super().__init__()
-        self.name = name
-        self.weight = weight
-        self.price = price
+# class Goods:
+#     def __init__(self, name, weight, price):
+#         super().__init__()
+#         self.name = name
+#         self.weight = weight
+#         self.price = price
+#
+#     def print_info(self):
+#         print(f"{self.name}, {self.weight}, {self.price}")
+#
+#
+# class MixinLog:
+#     ID = 0
+#
+#     def __init__(self):
+#         MixinLog.ID += 1
+#         self.id = self.ID
+#
+#     def save_sell_log(self):
+#         print(f"{self.id}: товар был продан в 00:00 часов")
+#
+#
+# class Notebook(Goods, MixinLog):
+#     pass
+#
+#
+# n = Notebook("HP", 1.5, 35000)
+# n.print_info()
+# n.save_sell_log()
 
-    def print_info(self):
-        print(f"{self.name}, {self.weight}, {self.price}")
+# 28.04.2024
+
+# Перегрузка операторов
+
+# + - * / // % - операторы
+# "==" ">" "<" ">=" "<="
+# поведение квадратных скобок []
+
+# Имеем класс, который по кол-ву секунд возвращает в отформатированном формате время. Будем работать с его экземплярами
+# Число секунд в одном дне: 24 * 60 * 60 = 86400 с
+
+# class Clock:
+#     __DAY = 86400
+#
+#     def __init__(self, sec: int):
+#         if not isinstance(sec, int):
+#             raise ValueError("Секунды должны быть целым числом")
+#         self.sec = sec % self.__DAY
+#
+#     def get_format_time(self):
+#         s = self.sec % 60
+#         m = (self.sec // 60) % 60
+#         h = (self.sec // 3600) % 24
+#         return f"{Clock.__get_form(h)}:{Clock.__get_form(m)}:{Clock.__get_form(s)}"
+#
+#     @staticmethod
+#     def __get_form(
+#             x):  # не можем обратиться за пределами класса (два подчёркивания), он и не нужен (добавлять "0" к числу)
+#         return str(x) if x > 9 else "0" + str(x)
+#
+#     def __add__(self, other):  # для сложения -> перегрузка оператора для "+"
+#         if not isinstance(other, Clock):
+#             raise ArithmeticError("Правый операнд должен быть типом Clock")
+#         return Clock(self.sec + other.sec)
+#
+#     def __sub__(self, other):  # для вычитания -> перегрузка оператора для "-"
+#         if not isinstance(other, Clock):
+#             raise ArithmeticError("Правый операнд должен быть типом Clock")
+#         return Clock(self.sec - other.sec)
+#
+#     def __eq__(self, other):
+#         if not isinstance(other, Clock):
+#             raise ArithmeticError("Правый операнд должен быть типом Clock")
+#         return self.sec == other.sec
+#
+#     def __ne__(self, other):
+#         return not self.__eq__(other)
+#     # if not isinstance(other, Clock):
+#     #     raise ArithmeticError("Правый операнд должен быть типом Clock")
+#     # return self.sec != other.sec
+#
+#
+# c1 = Clock(100)
+# c2 = Clock(200)
+# print(c1.get_format_time())  # 0:1:40; c __get_form(x) 00:01:40
+# print(c2.get_format_time())  # 00:03:20
+# # c3 = c1 + c2  # только тип данных Clock
+# # print(c3.get_format_time())  # 00:05:00 Проверим работу "+=" - перезапись c1:
+# # # c1 += c2
+# # c4 = c1 + c2 + c3  # работает за счёт __add__
+# # print(c4.get_format_time())  # 00:10:00
+# # c5 = c4 - c2
+# # print(c5.get_format_time())  # 00:06:40
+# # if c1 == c2:
+# #     print("Время равно")
+# # else:
+# #     print("Время разное")
+# if c1 != c2:
+#     print("Время разное")
+# else:
+#     print("Время равно")
+
+# Смотрим назначение перегрузки операторов. Задача. Написать программу разведение котов и кошек,
+# с предполагаемым количеством котят
+
+# Tom is good boy!!!
+# Elsa is good girl!!!
+# [Cat(name='No name', age=0, pol='M'), Cat(name='No name', age=0, pol='F']
+
+# from random import choice, randint
+#
+#
+# class Cat:
+#     def __init__(self, name, age, pol):
+#         self.name = name
+#         self.age = age
+#         self.pol = pol
+#
+#     def __str__(self):
+#         if self.pol == "M":
+#             return f"{self.name} is good boy!!!"
+#         elif self.pol == "F":
+#             return f"{self.name} is good girl!!!"
+#         else:
+#             return f"{self.name} is good Kitty"
+#
+#     def __repr__(self):
+#         return f"Cat(name= '{self.name}', age={self.age}, pol='{self.pol}')"
+#
+#     def __add__(self, other):
+#         if self.pol != other.pol:
+#             return [Cat("No name", 0, choice(['M', 'F'])) for _ in range(randint(1, 5))]  # от 1 до 5
+#         else:
+#             raise TypeError("Types are not supported!")  # если не разнополые
+#
+#
+# cat1 = Cat("Tom", 4, "M")
+# cat2 = Cat("Else", 5, "F")
+# cat3 = Cat("Murzic", 3, "M")
+# print(cat1)
+# print(cat2)
+# # print(cat3)
+# print(cat1 + cat2)
+# # print(cat1 + cat3)
+
+# Перегрузка оператора []
+
+# class Student:
+#     def __init__(self, name, *args):
+#         self.name = name
+#         self.marks = list(args)
+#
+#     def __getitem__(self, item):  # (*)
+#         if 0 <= item < len(self.marks):
+#             return self.marks[item]
+#         else:
+#             raise IndexError("Неверный индекс")
+#
+#     def __setitem__(self, key, value):
+#         if not isinstance(key, int) or key < 0:
+#             raise TypeError("Индекс должен быть целым положительным числом")
+#         # (**)
+#         if key >= len(self.marks):
+#             off = key + 1 - len(self.marks)  # 10 + 1 - 5 => 6
+#             self.marks.extend([None] * off)  # None -> чем-то в промежутке заполняет данные
+#         self.marks[key] = value
+#
+#     def __delitem__(self, key):
+#         if not isinstance(key, int):
+#             raise TypeError("Индекс должен быть целым числом")
+#         del self.marks[key]  # удалить оценку
+#         # self.marks[key] = None  # перезаписать оценку на None
+#
+#
+# s1 = Student("Сергей", 5, 5, 3, 4, 5)
+# # print(s1.marks[2])  # 3
+# # print(s1[2])  # 3  # (*)
+# print(s1[2])  # IndexError: tuple index out of range от 0 до 4-го
+# # s1[2] = 4 # [5, 5, 4, 4, 5]
+# s1[10] = 4  # IndexError: list assignment index out of range (**) -> [5, 5, 3, 4, 5, None, None, None, None, None, 4]
+# del s1[2]  # удаление [5, 5, 4, 5, None, None, None, None, None, 4]
+# print(s1.marks)
+#
+# a = [5, 5, 3, 4, 5]
+# # ch = [None] * 5
+# # print(ch)
+# a.extend([None] * 5)
+# print(a)
+
+# Получим по отдельности часы, минуты и секунды и при необходимости установить в них новые значения
+class Clock:
+    __DAY = 86400
+
+    def __init__(self, sec: int):
+        if not isinstance(sec, int):
+            raise ValueError("Секунды должны быть целым числом")
+        self.sec = sec % self.__DAY
+
+    def get_format_time(self):
+        s = self.sec % 60
+        m = (self.sec // 60) % 60
+        h = (self.sec // 3600) % 24
+        return f"{Clock.__get_form(h)}:{Clock.__get_form(m)}:{Clock.__get_form(s)}"
+
+    @staticmethod
+    def __get_form(x):
+        return str(x) if x > 9 else "0" + str(x)
+
+    def __getitem__(self, item):
+        if not isinstance(item, str):
+            raise ValueError("Ключ должен быть строкой")
+
+        if item == "hour":
+            return self.sec // 3600 % 24
+        if item == "min":
+            return self.sec // 60 % 60
+        if item == "sec":
+            return self.sec % 60
+
+    def __setitem__(self, key, value):
+        if not isinstance(key, str):
+            raise ValueError("Ключ должен быть строкой")
+
+        if not isinstance(value, int):
+            raise ValueError("Значение должно быть числом")
+
+        s = self.sec % 60
+        m = (self.sec // 60) % 60
+        h = (self.sec // 3600) % 24
+
+        if key == "hour":
+            self.sec = s + 60 * m + value * 3600
+        if key == "min":
+            self.sec = s + 60 * value + h * 3600
+        if key == "sec":
+            self.sec = value + 60 * m + h * 3600
 
 
-class MixinLog:
-    ID = 0
+c1 = Clock(80000)
+print(c1.get_format_time())
 
-    def __init__(self):
-        MixinLog.ID += 1
-        self.id = self.ID
-
-    def save_sell_log(self):
-        print(f"{self.id}: товар был продан в 00:00 часов")
-
-
-class Notebook(Goods, MixinLog):
-    pass
-
-
-n = Notebook("HP", 1.5, 35000)
-n.print_info()
-n.save_sell_log()
+c1["hour"] = 15
+c1["min"] = 65
+c1["sec"] = 42
+print(c1["hour"], c1["min"], c1["sec"])  # оператор [] будем перегружать
+print(c1.get_format_time())  # 16:05:20 при 15 часах и 65 минутах -> пересчиталось
