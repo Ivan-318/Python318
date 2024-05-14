@@ -8259,23 +8259,292 @@
 
 # Декорирование методов
 
-def dec(fn):
-    def wrap(*args, **kwargs):
-        print("*" * 20)
-        fn(*args, **kwargs)
-        print("*" * 20)
-    return wrap
+# def dec(fn):
+#     def wrap(*args, **kwargs):
+#         print("*" * 20)
+#         fn(*args, **kwargs)
+#         print("*" * 20)
+#     return wrap
+#
+#
+# class Person:
+#     def __init__(self, name, surname):
+#         self.name = name
+#         self.surname = surname
+#
+#     @dec
+#     def info(self):
+#         print(f"{self.name} {self.surname}")
+#
+#
+# p1 = Person("Виталий", "Карасёв")
+# p1.info()
+
+# 05.05.2024 -> ВЫХОДНОЙ
+
+# Занятие 29. 11.05.2024
+
+# Декорирование методов внутри класса. Декорирование класса.
+
+# def decorator(cls):
+#     class Wrapper(cls):
+#         def doubler(self, value):
+#             return value * 2
+#
+#     return Wrapper
+#
+#
+# @decorator  # модифицирует поведение и содержание класса без его изменения
+# class ActualClass:
+#     def __init__(self):
+#         print("Init ActualClass()")
+#
+#     def quad(self, value):
+#         return value * 4
+#
+#
+# obj = ActualClass()
+# print(obj.quad(4))
+# print(obj.doubler(4))
+
+# Дескриптор - избавляет от дублирования кода, часто не используется
+
+# Пример
+
+# class Person:
+#     def __init__(self, name, surname):
+#         self.name = name
+#         self.surname = surname
+#
+#     @property
+#     def name(self):
+#         return self.__name
+#
+#     @name.setter
+#     def name(self, value):
+#         if not isinstance(value, str):
+#             raise TypeError(f"{value} должно быть строкой")
+#         self.__name = value
+#
+#     @property
+#     def surname(self):
+#         return self.__surname
+#
+#     @surname.setter
+#     def surname(self, value):
+#         if not isinstance(value, str):
+#             raise TypeError(f"{value} должно быть строкой")
+#         self.__surname = value
+#
+#
+# # p = Person(12, "Ivan") # TypeError: 12 должно быть строкой
+# # p = Person("Ivan", 12)  # TypeError: 12 должно быть строкой
+# p = Person("Ivan", "Petrov")  # +
+#
+#
+# # Вывод: один класс потребовал 4 свойства, с отчеством -> 6 свойств -> много однотипных элементов нарушают "DRY"
+
+# Другой способ:
+
+# class String:
+#     def __init__(self, value):
+#         if value:
+#             self.set(value)
+#
+#     def set(self, value):
+#         if not isinstance(value, str):
+#             raise TypeError(f"{value} должно быть строкой")
+#         self.__value = value
+#
+#     def get(self):
+#         return self.__value
+#
+#
+# class Person:  # класс однотипных свойств
+#     def __init__(self, name, surname):
+#         self.name = String(name)
+#         self.surname = String(surname)
+#
+#     # @property
+#     # def name(self):
+#     #     return self.__name
+#     #
+#     # @name.setter
+#     # def name(self, value):
+#     #     if not isinstance(value, str):
+#     #         raise TypeError(f"{value} должно быть строкой")
+#     #     self.__name = value
+#     #
+#     # @property
+#     # def surname(self):
+#     #     return self.__surname
+#     #
+#     # @surname.setter
+#     # def surname(self, value):
+#     #     if not isinstance(value, str):
+#     #         raise TypeError(f"{value} должно быть строкой")
+#     #     self.__surname = value
+#
+#
+# # p = Person(12, "Petrov")  # TypeError: 12 должно быть строкой.
+# p = Person("Ivan", "Petrov")  # Недостаток способа -> нужно явно обращаться через название метода
+# # -> устанавливаем новое значение
+# # p.name.set("Petr")
+# p.name.set(47)
+# # -> получить данные
+# print(p.name.get)  # TypeError: 47 должно быть строкой
 
 
-class Person:
-    def __init__(self, name, surname):
-        self.name = name
-        self.surname = surname
+# Дескриптор (свойства)
+# __get__() - магический метод
+# __set()
+# __delete__()
+# __set_name__()
 
-    @dec
-    def info(self):
-        print(f"{self.name} {self.surname}")
+# Синтаксис Дескриптора
 
+# class ValidString:
+#     def __set_name__(self, owner, name):
+#         # print(owner)  # <class '__main__.Person'> | <class '__main__.Person'>
+#         self.__name = name
+#
+#     def __get__(self, instance, owner):
+#         # print(instance)  # <__main__.Person object at 0x000001BF2C507D60>
+#         return instance.__dict__[self.__name]
+#
+#     def __set__(self, instance, value):
+#         if not isinstance(value, str):
+#             raise ValueError(f"{self.__name} должно быть строкой")
+#         instance.__dict__[self.__name] = value
+#
+#
+# class Person:
+#     first_name = ValidString()
+#     surname = ValidString()
+#
+#     def __init__(self, first_name, surname):
+#         self.first_name = first_name
+#         self.surname = surname
+#
+#
+# p = Person("Ivan", "Petrov")  # +
+# # p = Person(45, "Petrov")  # ValueError: first_name должно быть строкой
+# # p = Person("Ivan", 76)  # ValueError: surname должно быть строкой
+# # Присвоить новое значение
+# # p.first_name = 13
+# p.first_name = "Petr"  # + Получить значение свойства ->
+# print(p.first_name)  # Petr
+# print(p.surname)  # Petrov
 
-p1 = Person("Виталий", "Карасёв")
-p1.info()
+# Задача. Создать дескриптор для класса Point3D (создание точки в трёхмерном пространстве) с проверкой на ввод
+# координат точки только целочисленных значений
+
+# {'_x' : 1, '_y': 2, '_z' : 3}
+
+# class Integer:
+#     @staticmethod
+#     def verify_coord(coord):
+#         if not isinstance(coord, int):
+#             raise ValueError(f"Координата {coord} должна быть целым числом")
+#
+#     def __set_name__(self, owner, name):
+#         # self.__name = "_" + name
+#         self.__name = "a" + name  # {'ax': 1, 'ay': 2, 'az': 3}
+#
+#     def __get__(self, instance, owner):
+#         # return instance.__dict__[self.__name] Другой вариант записи ->
+#         return getattr(instance, self.__name)  # нужно self.__name = "_" + name
+#
+#     def __set__(self, instance, value):
+#         self.verify_coord(value)
+#         # instance.__dict__[self.__name] = value  Другой вариант записи ->
+#         setattr(instance, self.__name, value)  # нужно self.__name = "_" + name
+#
+#
+# class Point3D:
+#     x = Integer()
+#     y = Integer()
+#     z = Integer()
+#
+#     def __init__(self, x, y, z):
+#         self.x = x
+#         self.y = y
+#         self.z = z
+#
+#
+# p1 = Point3D(1, 2, 3)
+# # p2 = Point3D("abc", 2, 3)
+# print(p1.__dict__)  # {'x': 1, 'y': 2, 'z': 3}
+# # print(p2.__dict__)  # {'x': 'abc', 'y': 2, 'z': 3} -> не должна быть строка
+# print(p1.x)  # 1
+
+# Метаклассы - специальный класс, который создаёт другие классы. Его экземпляры являются классами
+# <- используется разработчиками языка; type - это метакласс на основе которого можно создавать другие классы
+
+# a = 5
+# print(type(a))  # <class 'int'>
+# print(type(int))  # <class 'type'> -> встроенный метакласс Python
+
+# class MyList(list):
+#     def get_length(self):
+#         return len(self) -> другой синтаксис записи класса через метакласс type
+
+# MyList = type(
+#     'MyList',
+#     (list,),
+#     dict(get_length=lambda self: len(self))
+# )
+#
+#
+# lst = MyList()
+# lst.append(5)
+# lst.append(7)
+# lst.append(9)
+# print(lst, lst.get_length())  # [5, 7, 9] 3
+
+# Создание модулей
+
+# import math
+# import random
+
+# Создадим модуль на примере задачи
+
+# import geometry.rect
+# import geometry.sq
+# import geometry.trian
+#
+# r1 = geometry.rect.Rectangle(1, 2)
+# r2 = geometry.rect.Rectangle(3, 4)
+#
+# s1 = geometry.sq.Square(10)
+# s2 = geometry.sq.Square(20)
+#
+# t1 = geometry.trian.Triangle(1, 2, 3)
+# t2 = geometry.trian.Triangle(4, 5, 6)
+#
+# shape = [r1, r2, s1, s2, t1, t2]
+#
+# for g in shape:
+#     print(g.get_perimeter())
+
+# Другой вариант import
+
+from geometry import rect, sq, trian  # - для такого import не нужен __init__.py
+
+# from geometry import *
+
+r1 = rect.Rectangle(1, 2)
+r2 = rect.Rectangle(3, 4)
+
+s1 = sq.Square(10)
+s2 = sq.Square(20)
+
+t1 = trian.Triangle(1, 2, 3)
+t2 = trian.Triangle(4, 5, 6)
+
+shape = [r1, r2, s1, s2, t1, t2]
+
+for g in shape:
+    print(g.get_perimeter())
+
+# Занятие 30. 12.05.2024

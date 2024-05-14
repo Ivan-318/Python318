@@ -28,6 +28,12 @@ private - self.__name - защищённый доступ (нельзя полу
 В Python не преветствуется дублирование кода(например, одинакового инициализатора):
 DRY (Don`t Repeate Yourself) -  не повторяйся! -> помагает наследование
 
+# пакет
+geometry -> создать: New -> Python Package
+	# модули:
+	rect.py
+	sq.py
+	trian.py
 
 
 
