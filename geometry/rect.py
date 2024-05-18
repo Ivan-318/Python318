@@ -7,6 +7,8 @@ class Rectangle:
         return 2 * (self.w + self.h)
 
 
+# print(__name__)  # __main__ - запуск сделан с этого документа
 
-
-
+__autor__ = "admin"
+if __name__ == "__main__":
+    print(f"Module {__name__} (autor: {__autor__}).")

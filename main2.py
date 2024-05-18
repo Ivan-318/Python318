@@ -1,6 +1,7 @@
 # first_name = "Nikolay"  # комментарий
 # print("Hello, " + first_name + "!")
 
+
 # a = 30
 # b = "Hello"
 # c = 2.8
@@ -8529,22 +8530,329 @@
 
 # Другой вариант import
 
-from geometry import rect, sq, trian  # - для такого import не нужен __init__.py
-
-# from geometry import *
-
-r1 = rect.Rectangle(1, 2)
-r2 = rect.Rectangle(3, 4)
-
-s1 = sq.Square(10)
-s2 = sq.Square(20)
-
-t1 = trian.Triangle(1, 2, 3)
-t2 = trian.Triangle(4, 5, 6)
-
-shape = [r1, r2, s1, s2, t1, t2]
-
-for g in shape:
-    print(g.get_perimeter())
+# from geometry import rect, sq, trian
+#
+#
+# # geometry.rect
+#
+# # from geometry import *
+#
+# def run():  # если код понадобиться в некотором документе
+#     r1 = rect.Rectangle(1, 2)
+#     r2 = rect.Rectangle(3, 4)
+#
+#     s1 = sq.Square(10)
+#     s2 = sq.Square(20)
+#
+#     t1 = trian.Triangle(1, 2, 3)
+#     t2 = trian.Triangle(4, 5, 6)
+#
+#     shape = [r1, r2, s1, s2, t1, t2]
+#
+#     for g in shape:
+#         print(g.get_perimeter())
+#
+#
+# if __name__ == '__main__':
+#     run()
 
 # Занятие 30. 12.05.2024
+
+# Задача. Создадим класс Автомобиль со свойствами бренд, модель, год выпуска и пробег.
+# Он будет иметь метод вывода данных на экран. От него будет унаследован класс Электро автомобиль с мощностью
+# батареи 100 %. Работа с классами должна быть организована через пакет и модули.
+
+# Tesla, T, 2018 год, 99000 км
+# Этот автомобиль имеет мощность 100 %
+
+# from car import electrocar # 1 способ
+# from lesson_1.car.electrocar import ElectroCar
+#
+# # e_car = electrocar.ElectroCar("Tesla", "T", 2018, 99000) # 1 способ
+# e_car = ElectroCar("Tesla", "T", 2018, 99000)
+# e_car.show_car()
+# e_car.description_battery()
+
+# Упаковка данных (сериализация -> сохранение данных в файлах)
+# Распаковка данных (десериализация)
+
+# Модули из стандартной библиотеки Python
+# marshal - для чтения и записи bytecode модулей Python; поддерживал старое расширение (.pyc)
+# pickle - формат Python, только все типы данных Python
+# json - на любом ЯП
+
+# Работа модуля pickle
+
+# import pickle
+#
+# file_name = "basket.txt"
+#
+# shop_list = {
+#     "фрукты": ["яблоки", "груши"],
+#     "овощи": ("морковь",),
+#     "бюджет": 1000
+# }
+#
+# with open(file_name, "wb") as f:  # wb - байтовая строка
+#     pickle.dump(shop_list, f)
+#
+# with open(file_name, "rb") as f:  # rb - считываем в байтовом формате
+#     shop_list_2 = pickle.load(f)
+#
+# print(shop_list_2)  # {'фрукты': ['яблоки', 'груши'], 'овощи': ('морковь',), 'бюджет': 1000}
+
+# class Test:
+#     num = 35
+#     string = "Привет"
+#     lst = [1, 2, 3]
+#     tpl = (25, 98)
+#
+#     def __str__(self):
+#         return f"Число: {Test.num}\nСтрока: {Test.string}\nСписок: {Test.lst}\nКортеж: {Test.tpl}"
+#
+#
+# obj = Test()
+# # print(obj)
+# my_obj = pickle.dumps(obj)
+# print(my_obj)  # b'\x80\x04\x95\x18\x00\x00\x00\x00\x00\x00\x00\x8c\x08__main__\x94\x8c\x04Test\x94\x93\x94)\x81\x94.'
+#
+# new_obj = pickle.loads(my_obj)
+# print(new_obj)
+#                 # Число: 35
+#                 # Строка: Привет
+#                 # Список: [1, 2, 3]
+#                 # Кортеж: (25, 98)
+
+# pickle -> работа с типами данных:
+
+# import pickle
+
+
+# class Test2:
+#     def __init__(self):
+#         self.a = 35
+#         self.b = "test"
+#         self.c = lambda x: x + x
+#
+#     def __str__(self):
+#         # return f"{self.a} {self.b} {self.c}"  # 35 test <function Test2.__init__.<locals>.<lambda> at 0x000002506692F1F0>
+#         return f"{self.a} {self.b} {self.c(2)}"  # 35 test 4
+#
+#     def __getstate__(self):  # получить и сохранить данные
+#         attr = self.__dict__.copy()
+#         del attr['c']
+#         return attr
+#
+#     def __setstate__(self, state):  # считать и установить данные заново в новую переменную
+#         self.__dict__ = state
+#         self.c = lambda x: x + x
+#
+#
+# item1 = Test2()
+# # print(item1)
+# item2 = pickle.dumps(item1)
+# print(item2)
+# item3 = pickle.loads(item2)
+# print(item3)
+
+# Работа формата json
+
+# import json
+
+# data = {
+#     'name': 'Olga',
+#     'age': 20,
+#     20: None,
+#     1: True,
+#     False: 0,
+#     'hobbies': ('running', 'singing'),
+#     'children': {
+#         'first_name': ['Alice', 'Bob'],
+#         'age': [6, 12]
+#     }
+# }
+#
+# with open("data_file.json", "w") as f:
+#     json.dump(data, f, indent=4)  # 4 отступа для каждого уровня вложенности вправо
+#
+# # Из JSON в Python
+#
+# with open("data_file.json", "r") as f:
+#     data2 = json.load(f)
+#
+# print(data2)
+
+# Сохраним в строку
+
+# json_string = json.dumps(data)
+# print(json_string)
+# print(type(json_string))  # <class 'str'>
+#
+# data3 = json.loads(json_string)
+# print(data3)
+# print(type(data3))  # <class 'dict'> - после считывания
+
+# Работа с русскими символами
+
+# x = {"name": "Виктор"}
+# a = json.dumps(x)
+# print(a)  # {"name": "\u0412\u0438\u043a\u0442\u043e\u0440"} - битый с русским
+# b = json.dumps(x, ensure_ascii=False)  # {"name": "Виктор"}
+# print(b)
+# print(json.loads(a))  # {'name': 'Виктор'}
+#
+# data = {
+#     'name': 'Ольга',
+#     'age': 20,
+#     20: None,
+#     1: True,
+#     False: 0,
+#     'hobbies': ('running', 'singing'),
+#     'children': {
+#         'first_name': ['Алиса', 'Боб'],
+#         'age': [6, 12]
+#     }
+# }
+#
+# with open("data_file.json", "w") as f:
+#     json.dump(data, f, indent=4)
+#
+# # Из JSON в Python
+#
+# with open("data_file.json", "r") as f:
+#     data2 = json.load(f)
+#
+# print(data2)
+
+# Особенности модуля json. Написать программу, которая будет генерировать случайный набор символов для имени
+# и случайный набор символов для номера телефона
+
+# import json
+# from random import choice
+#
+#
+# def gen_person():
+#     name = ''
+#     tel = ''
+#
+#     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+#     nums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+#
+#     while len(name) != 7:
+#         name += choice(letters)
+#     # print(name) # cadgcdc
+#
+#     while len(tel) != 10:
+#         tel += choice(nums)
+#     # print(tel)  # 8830343478
+#
+#     person = {
+#         'name': name,
+#         "tel": tel
+#     }
+#     return person
+#
+#
+# # Для того чтобы данные "дозаписывались" - конструкция список
+# def write_json(person_dict):
+#     try:
+#         data = json.load(open('persons.json'))
+#     except FileNotFoundError:
+#         data = []
+#
+#     data.append(person_dict)
+#     with open('persons.json', 'w') as f:
+#         json.dump(data, f, indent=2)
+#
+#
+# for i in range(5):
+#     write_json(gen_person())
+#     # print(gen_person())  # {'name': 'aeegdhf', 'tel': '1639099692'} - пять словарей
+#     # persons.append(gen_person())
+# # print(persons)
+# # [{'name': 'hbcchfb', 'tel': '3481497127'}, {'name': 'bceadga', 'tel': '1737442257'}, {'name': 'bedheae',
+# # 'tel': '3949002217'}, {'name': 'ehdcgae', 'tel': '1581487187'}, {'name': 'ghhfeda', 'tel': '3516570973'}]
+# # сохраним в файл
+
+# Занятие 31. 18.05.2024
+
+# Задача.
+
+class Student:
+    def __init__(self, name, marks):
+        self.name = name
+        self.marks = marks
+
+    def __str__(self):
+        # st = '' # 1 способ
+        # for i in self.marks:
+        #     st += str(i) + ', '
+        # return f"{self.name}: {st[:-2]}"
+        st = ", ".join(map(str, self.marks))
+        return f"{self.name}: {st}"
+
+    def add_mark(self, new_mark):
+        self.marks.append(new_mark)
+
+    def delete_mark(self, index):
+        self.marks.pop(index)
+
+    def edit_mark(self, index, new_mark):
+        self.marks[index] = new_mark
+
+    def average_mark(self):
+        return sum(self.marks) / len(self.marks)
+
+
+class Group:
+    def __init__(self, students, group):
+        self.students = students
+        self.group = group
+
+    def __str__(self):
+        # st = ''  # 1 способ
+        # for i in self.students:
+        #     st += str(i) + '\n'
+        # return f"{st}"
+        st = "\n".join(map(str, self.students))
+        return f"Группа: {self.group}\n{st}"
+
+    @staticmethod
+    def change_group(gr1, gr2, index):
+        return gr2.add_student(gr1.remove_student(index))
+
+    def add_student(self, student):
+        self.students.append(student)
+
+    def remove_student(self, index):
+        return self.students.pop(index)
+
+
+st1 = Student('Bodnya', [5, 4, 3, 4, 5, 3])
+# print(st1)  # <__main__.Student object at 0x0000025C3E3AC640>
+# st1.add_mark(4)
+# print(st1)
+# st1.delete_mark(2)
+# print(st1)
+# st1.edit_mark(4, 5)
+# print(st1)
+# print(st1.average_mark())
+st2 = Student('Nikolaenko', [2, 3, 5, 4, 4, 2])
+st3 = Student('Birukov', [3, 5, 3, 2, 5, 4])
+sts1 = [st1, st2]
+group1 = Group(sts1, "ГК Python")
+group1.add_student(st3)
+# print(group1)
+# print()
+group1.remove_student(1)
+print(group1)
+print()
+sts2 = [st2]
+group2 = Group(sts2, "ГК Веб")
+print(group2)
+print("." * 20)
+Group.change_group(group1, group2, 0)
+print(group1)
+print()
+print(group2)
+
