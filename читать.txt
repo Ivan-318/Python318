@@ -3,3 +3,12 @@
 2) https://pythonist.ru/vvedenie-v-mnozhestvennoe-nasledovanie-i-super/
 3) https://habr.com/ru/articles/62203/
 4) https://translated.turbopages.org/proxy_u/en-ru.ru.88ee103b-662cfcac-c85d9884-74722d776562/https/www.geeksforgeeks.org/multiple-inheritance-in-python/?__ya_mt_enable_static_translations=1
+
+Установка модулей
+
+pip install requests -> для отправки http-запросов
+csv (Comma Separated Values - переменные разделённые запятыми)
+data.csv
+
+reader => []
+DictReader => 

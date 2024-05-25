@@ -1,6 +1,6 @@
 # first_name = "Nikolay"  # комментарий
 # print("Hello, " + first_name + "!")
-
+import re
 
 # a = 30
 # b = "Hello"
@@ -8778,81 +8778,535 @@
 
 # Задача.
 
-class Student:
-    def __init__(self, name, marks):
-        self.name = name
-        self.marks = marks
-
-    def __str__(self):
-        # st = '' # 1 способ
-        # for i in self.marks:
-        #     st += str(i) + ', '
-        # return f"{self.name}: {st[:-2]}"
-        st = ", ".join(map(str, self.marks))
-        return f"{self.name}: {st}"
-
-    def add_mark(self, new_mark):
-        self.marks.append(new_mark)
-
-    def delete_mark(self, index):
-        self.marks.pop(index)
-
-    def edit_mark(self, index, new_mark):
-        self.marks[index] = new_mark
-
-    def average_mark(self):
-        return sum(self.marks) / len(self.marks)
-
-
-class Group:
-    def __init__(self, students, group):
-        self.students = students
-        self.group = group
-
-    def __str__(self):
-        # st = ''  # 1 способ
-        # for i in self.students:
-        #     st += str(i) + '\n'
-        # return f"{st}"
-        st = "\n".join(map(str, self.students))
-        return f"Группа: {self.group}\n{st}"
-
-    @staticmethod
-    def change_group(gr1, gr2, index):
-        return gr2.add_student(gr1.remove_student(index))
-
-    def add_student(self, student):
-        self.students.append(student)
-
-    def remove_student(self, index):
-        return self.students.pop(index)
-
-
-st1 = Student('Bodnya', [5, 4, 3, 4, 5, 3])
-# print(st1)  # <__main__.Student object at 0x0000025C3E3AC640>
+# import json
+#
+#
+# class Student:
+#     def __init__(self, name, marks):
+#         self.name = name
+#         self.marks = marks
+#
+#     def __str__(self):
+#         # st = '' # 1 способ
+#         # for i in self.marks:
+#         #     st += str(i) + ', '
+#         # return f"{self.name}: {st[:-2]}"
+#         st = ", ".join(map(str, self.marks))
+#         return f"{self.name}: {st}"
+#
+#     def add_mark(self, new_mark):
+#         self.marks.append(new_mark)
+#
+#     def delete_mark(self, index):
+#         self.marks.pop(index)
+#
+#     def edit_mark(self, index, new_mark):
+#         self.marks[index] = new_mark
+#
+#     def average_mark(self):
+#         return sum(self.marks) / len(self.marks)
+#
+#     def dump_to_json(self, file_name):
+#         data = {"name": self.name, "marks": self.marks}
+#         with open(file_name, "w") as f:
+#             json.dump(data, f, indent=2)
+#
+#     def load_from_file(self, file_name):
+#         with open(file_name, 'r') as f:
+#             print(json.load(f))
+#
+#
+# class Group:
+#     def __init__(self, students, group):
+#         self.students = students
+#         self.group = group
+#
+#     def __str__(self):
+#         # st = ''  # 1 способ
+#         # for i in self.students:
+#         #     st += str(i) + '\n'
+#         # return f"{st}"
+#         st = "\n".join(map(str, self.students))
+#         return f"Группа: {self.group}\n{st}"
+#
+#     @staticmethod
+#     def change_group(gr1, gr2, index):
+#         return gr2.add_student(gr1.remove_student(index))
+#
+#     def add_student(self, student):
+#         self.students.append(student)
+#
+#     def remove_student(self, index):
+#         return self.students.pop(index)
+#
+#     def dump_group(self, file_name):
+#         with open(file_name, 'w') as f:
+#             stud_list = []
+#             for i in self.students:
+#                 stud_list.append([i.name, i.marks])
+#             json.dump(stud_list, f, indent=2)
+#
+#     def jornal_groups(self, file_name):
+#         try:
+#             data = json.load(open(file_name))
+#         except FileNotFoundError:
+#             data = []
+#
+#         with open(file_name, 'w') as f:
+#             stud_list = []
+#             for i in self.students:
+#                 stud_list.append([i.name, i.marks])
+#             data.append(stud_list)
+#             json.dump(data, f, indent=2)
+#
+#     @staticmethod
+#     def upload_group(file_name):
+#         with open(file_name, "r") as f:
+#             print(json.load(f))
+#
+#
+# st1 = Student('Bodnya', [5, 4, 3, 4, 5, 3])
+# # print(st1)  # <__main__.Student object at 0x0000025C3E3AC640>
 # st1.add_mark(4)
-# print(st1)
-# st1.delete_mark(2)
-# print(st1)
-# st1.edit_mark(4, 5)
-# print(st1)
-# print(st1.average_mark())
-st2 = Student('Nikolaenko', [2, 3, 5, 4, 4, 2])
-st3 = Student('Birukov', [3, 5, 3, 2, 5, 4])
-sts1 = [st1, st2]
-group1 = Group(sts1, "ГК Python")
-group1.add_student(st3)
-# print(group1)
-# print()
-group1.remove_student(1)
-print(group1)
-print()
-sts2 = [st2]
-group2 = Group(sts2, "ГК Веб")
-print(group2)
-print("." * 20)
-Group.change_group(group1, group2, 0)
-print(group1)
-print()
-print(group2)
+# # print(st1)
+# # st1.delete_mark(2)
+# # print(st1)
+# # st1.edit_mark(4, 5)
+# # print(st1)
+# # print(st1.average_mark())
+# # file = "student.json"
+# # st1.dump_to_json(file)
+# # st1.load_from_file(file)
+# st2 = Student('Nikolaenko', [2, 3, 5, 4, 4, 2])
+# st3 = Student('Birukov', [3, 5, 3, 2, 5, 4])
+# sts1 = [st1, st2]
+# group1 = Group(sts1, "ГК Python")
+# group1.add_student(st3)
+# # print(group1)
+# # print()
+# group1.remove_student(1)
+# # print(group1)
+# # print()
+# sts2 = [st2]
+# group2 = Group(sts2, "ГК Веб")
+# # print(group2)
+# # print("." * 20)
+# Group.change_group(group1, group2, 0)
+# # print(group1)
+# # print()
+# # print(group2)
+#
+# # file = "group.1.json"
+# # group1.dump_group(file)
+# # group1.upload_group(file)
+# #
+# # file2 = "group2.json"
+# # group2.dump_group(file2)
+# # group2.upload_group(file2)
+#
+# files_group = "journal.json"
+# # group1.jornal_groups(files_group)
+# group2.jornal_groups(files_group)
 
+# Задача. Есть некоторый словарь, который хранит название стран и столиц.
+# Название стран используется в качестве ключа, название столицы в качестве значения.
+# Необходимо реализовать: добавление, удаление, поиск, редактирование и просмотр данных
+# (используя упаковку и распаковку данных)
+
+# import json
+#
+# data = {}
+#
+#
+# class CountryCapital:
+#     def __init__(self, country, capital):
+#         self.country = country
+#         self.capital = capital
+#         data[self.country] = self.capital
+#
+#     def __str__(self):
+#         return f"{self.country}: {self.capital}"
+#
+#     @staticmethod
+#     def add_country(filename):
+#         country_name = input("Введите название страны: ")
+#         capital_name = input("Введите название столицы: ")
+#
+#         try:
+#             date = json.load(open(filename))
+#         except FileNotFoundError:
+#             date = {}
+#
+#         date[country_name] = capital_name
+#
+#         with open(filename, "w") as f:
+#             json.dump(date, f, indent=2)
+#
+#     @staticmethod
+#     def load_from_file(filename):
+#         with open(filename, "r") as f:
+#             print(json.load(f))
+#
+#
+# file = 'list_capital.json'
+# index = ''
+# while index != '6':
+#     index = input("Выбор действия:\n1 - добавление данных\n2 - удаление данных\n5 - просмотр данных"
+#                   "\n6 - завершение работы\nВвод: ")
+#     if index == "1":
+#         CountryCapital.add_country(file)
+#     if index == "5":
+#         CountryCapital.load_from_file(file)
+
+# ДЗ - доделать!!!
+
+# Занятие 32. 19.05.2024
+
+import requests
+import json
+
+# response = requests.get("https://jsonplaceholder.typicode.com/todos")  # todos - задачи
+# # print(response)  # <Response [200]> - успешное сообщение клиента и сервера
+# # print(response.text)  # получили доступ к json-объекту
+# # print(type(response.text))  # <class 'str'> -> неудобно работать с типом данных
+# todos = json.loads(response.text)
+# # print(todos)
+# # print(type(todos))  # <class 'list'>
+# # print(type(todos[0]))  # <class 'dict'>
+
+# # Найдём и выведем пользователей, сделавших максимальное количество задач(только 5-го выводит):
+#
+# todos_by_user = {}  # {1: 3, 2: 1}
+#
+# for todo in todos:
+#     if todo["completed"]:
+#         try:
+#             todos_by_user[todo["userId"]] += 1  # todos_by_user[1] += 1 => todos_by_user[1]
+#         except KeyError:
+#             todos_by_user[todo["userId"]] = 1  # todos_by_user[1] = 1
+#
+# print(todos_by_user)  # {1: 11, 2: 8, 3: 7, 4: 6, 5: 12, 6: 6, 7: 9, 8: 11, 9: 8, 10: 12} - данные могут обновиться
+#
+# # top_user = sorted(todos_by_user.items())
+# # print(top_user)  # [(1, 11), (2, 8), (3, 7), (4, 6), (5, 12), (6, 6), (7, 9), (8, 11), (9, 8), (10, 12)]
+#
+# top_user = sorted(todos_by_user.items(), key=lambda x: x[1], reverse=True)
+# print(top_user)  # [(5, 12), (10, 12), (1, 11), (8, 11), (7, 9), (2, 8), (9, 8), (3, 7), (4, 6), (6, 6)]
+#
+# max_complete = top_user[0][1]
+# print(max_complete)  # 12
+#
+# users = []
+# for user, num_complete in top_user:
+#     if num_complete < max_complete:
+#         break
+#     users.append(str(user))
+#
+# print(users)  # [5, 10] -> id
+# users = ["5"]
+# max_users = " and ".join(users)  # читабельный вид
+# s = "s" if len(users) > 1 else ""
+# # print(f"User {users} completed {max_complete} TODOs")  # User [5, 10] completed 12 TODOs -> читабельный вид ->
+# print(f"User{s} {max_users} completed {max_complete} TODOs")
+#
+#
+# def keep(tod):
+#     is_completed = tod["completed"]
+#     has_max_count = str(tod["userId"]) in users
+#     return is_completed and has_max_count
+#
+#
+# with open("filtered_data.json", "w") as f:
+#     filtered = list(filter(keep, todos))
+#
+#     json.dump(filtered, f, indent=2)
+
+# Код и с "5" и с "10" -> Правильный код
+
+# response = requests.get("https://jsonplaceholder.typicode.com/todos")
+# # print(response.text)
+# # print(type(response.text))
+# todos = json.loads(response.text)
+# # print(todos)
+# # print(type(todos[0]))
+#
+# todos_by_user = {}  # {1: 3, 2: 1}
+#
+# for todo in todos:
+#     if todo["completed"]:
+#         try:
+#             todos_by_user[todo["userId"]] += 1  # todos_by_user[1] += 1 => todos_by_user[1] = todos_by_user[1] + 1
+#         except KeyError:
+#             todos_by_user[todo["userId"]] = 1  # todos_by_user[1] = 1
+#
+# print(todos_by_user)  # {1: 11, 2: 8, 3: 7, 4: 6, 5: 12, 6: 6, 7: 9, 8: 11, 9: 8, 10: 12}
+#
+# top_user = sorted(todos_by_user.items(), key=lambda x: x[1], reverse=True)
+# print(top_user)  # [(5, 12), (10, 12), (1, 11), (8, 11), (7, 9), (2, 8), (9, 8), (3, 7), (4, 6), (6, 6)]
+#
+# max_complete = top_user[0][1]
+# print(max_complete)  # 12
+#
+# users = []
+# for user, num_complete in top_user:
+#     if num_complete < max_complete:  # 11 < 12
+#         break
+#     users.append(str(user))
+#
+# print(users)  # [5, 10]
+# # users = ["5"]
+# max_users = " and ".join(users)
+# s = "s" if len(users) > 1 else ""
+# print(f"User{s} {max_users} completed {max_complete} TODOs")
+#
+#
+# def keep(tod):
+#     is_completed = tod["completed"]
+#     has_max_count = str(tod["userId"]) in users
+#     return is_completed and has_max_count
+#
+#
+# with open("filtered_data.json", "w") as f:
+#     filtered = list(filter(keep, todos))
+#
+#     json.dump(filtered, f, indent=2)
+
+# Считаем данные из data.csv
+
+import csv
+
+# with open("data.csv") as f:
+#     file_reader = csv.reader(f, delimiter=";")
+#     count = 0
+#     for row in file_reader:
+#         # print(row)
+#         if count == 0:
+#             print(f"Файл содержит столбцы: {', '.join(row)}") # Файл содержит столбцы: Имя, Профессия, Год рождения
+#         else:
+#             print(f"\t{row[0]} - {row[1]}. Родился в {row[2]}")
+#         count += 1
+
+# Файл содержит столбцы: Имя, Профессия, Год рождения
+# 	Виктор - Веб дизайнер. Родился в 1995
+# 	Игорь - Программист. Родился в 1983
+
+# Не работает код!!!
+# with open("data.csv") as f:
+#     filed_names = ['Имя', 'Профессия', 'Год рождения']
+#     file_reader = csv.DictReader(f, delimiter=";", fieldnames=filed_names)
+#     count = 0
+#     for row in file_reader:
+#         if count == 0:
+#             print(f"Файл содержит столбцы: {', '.join(row)}")
+#     print(f"\t{row['Имя']} - {row['Профессия']}. Год рождения {row['Год рождения']}")
+#     count += 1
+
+# Записать в файл
+
+# with open("student.csv", "w") as f:
+#     writer = csv.writer(f, delimiter=";", lineterminator="\r")
+#     writer.writerow(["Имя", "Класс", "Возраст"])
+#     writer.writerow(["Женя", "9", "15"])
+#     writer.writerow(["Саша", 5, 12])
+#     writer.writerow(["Маша", 11, 18])
+
+# data = [['hostname', 'vendor', 'model', 'location'],
+#         ['sw1', 'Cisco', '3750', 'London, Best str'],
+#         ['sw2', 'Cisco', '3850', 'Liverpool, Better str'],
+#         ['sw3', 'Cisco', '3650', 'Liverpool, Better str'],
+#         ['sw4', 'Cisco', '3650', 'London, Best str']]
+#
+# with open("data_new.csv", "w") as f:
+#     writer = csv.writer(f, delimiter=";", lineterminator="\r")
+#     # for row in data:
+#     #     writer.writerow(row)
+#     writer.writerows(data)
+
+# with open("student1.csv", "w") as f:
+#     names = ["Имя", "Возраст"]
+#     writer = csv.DictWriter(f, delimiter=";", lineterminator="\r", fieldnames=names)
+#     writer.writeheader()
+#     writer.writerow({"Имя": "Саша", "Возраст": 6})
+#     writer.writerow({"Имя": "Маша", "Возраст": 15})
+#     writer.writerow({"Имя": "Вова", "Возраст": 14}
+
+# data = [{
+#     'hostname': 'sw1',
+#     'location': 'London',
+#     'model': '3750',
+#     'vendor': 'Cisco'
+# }, {
+#     'hostname': 'sw2',
+#     'location': 'Liverpool',
+#     'model': '3850',
+#     'vendor': 'Cisco'
+# }, {
+#     'hostname': 'sw3',
+#     'location': 'Liverpool',
+#     'model': '3650',
+#     'vendor': 'Cisco'
+# }, {
+#     'hostname': 'sw4',
+#     'location': 'London',
+#     'model': '3650',
+#     'vendor': 'Cisco'
+# }]
+#
+# with open("dict_writer.csv", "w") as f:
+#     writer = csv.DictWriter(f, delimiter=";", lineterminator="\r", fieldnames=list(data[0].keys()))
+#     writer.writeheader()
+#     for d in data:
+#         writer.writerow(d)
+
+# Преобразовать 200 todos json в csv
+
+# Занятие 33. 25.05.2024. Парсинг
+
+# from bs4 import BeautifulSoup
+#
+# f = open('index.html').read()
+# # print(f)
+# soup = BeautifulSoup(f, "html.parser")
+# row = soup.find("div", class_="row")
+# row = soup.find_all("div", class_="row")[1].find("div", class_="name")  # <div class="name">Alena</div>
+# row = soup.find_all("div", class_="row")[1].find("div", class_="name").text  # Alena
+# row = soup.find_all("div", {"data-set": "salary"})[0].text # salary: 2700 usd per month
+# row = soup.find_all("div", string="Alena")  # [<div class="name">Alena</div>]
+# row = soup.find("div", string="Alena").parent  # <div class="name1">\n <div class="name">Alena</div>\n </div>
+# row = soup.find("div", string="Alena").find_parent(class_="row")  # Выводит класс, где написано Алёна
+# row = soup.find("div", id="whois3")  # <div class="whois" id="whois3">Designer</div>
+# row = soup.find("div", id="whois3")  # <div class="whois" id="whois3">Designer</div>
+# row = soup.find("div", id="whois3").find_next_sibling()  # <div data-set="salary">2300 usd</div> - след. эл-нт
+# row = soup.find("div", id="whois3").find_previous_sibling()  # <div class="name">Ksenia</div> - пред. эл-нт
+# print(row)
+
+# from bs4 import BeautifulSoup
+
+
+# Ищем copywriter
+
+# def get_copywriter(tag):
+#     whois = tag.find('div', class_="whois").text
+#     # print(whois)
+#     if "Copywriter" in whois:
+#         return tag
+#     return None
+#
+#
+# f = open('index.html').read()
+# soup = BeautifulSoup(f, "html.parser")
+#
+# copywriter = []
+# row = soup.find_all("div", class_="row")
+# for i in row:
+#     cw = get_copywriter(i)
+#     if cw:
+#         copywriter.append(cw)
+#
+# print(copywriter)
+
+# Ищем зар. платы сотрудников
+# from bs4 import BeautifulSoup
+# import re
+#
+#
+# def get_salary(s):
+#     pattern = r"\d+"  # ищем цифры
+#     # res = re.findall(pattern, s)[0] # 1 способ
+#     res = re.search(pattern, s).group()  # 2 способ
+#     print(res)
+#
+#
+# f = open('index.html').read()
+# soup = BeautifulSoup(f, "html.parser")
+# salary = soup.find_all("div", {"data-set": "salary"})
+# # print(salary)
+# for i in salary:
+#     get_salary(i.text)
+
+# import requests
+#
+# r = requests.get("https://ru.wordpress.org/")  # сайт из интернета
+# # print(r)
+# # print(r.status_code)
+# # print(r.headers)
+# # print(
+# # r.content)  # b'<!DOCTYPE html>\n<html lang="ru-RU">\n\t<head>\n\t\t<meta charset="UTF-8" />\n\t\t<meta name=
+# # "viewport" content="width=device-width, initial-scale=1" ... - байтовая строка
+# print(r.text)
+
+# Функциональный подход(пишем внутри функций)
+# import requests
+# from bs4 import BeautifulSoup
+#
+#
+# def get_html(url):
+#     r = requests.get(url)
+#     return r.text
+#
+#
+# def get_data(html):
+#     # soup = BeautifulSoup(html, "html.parser")
+#     soup = BeautifulSoup(html, 'lxml')  # 2 способ
+#     p1 = soup.find("header", id="masthead").find("p", class_="site-title").text  # Встречайте WordPress
+#     return p1
+#
+#
+# def main():
+#     url = "https://ru.wordpress.org/"
+#     print(get_data(get_html(url)))
+#
+#
+# if __name__ == '__main__':
+#     main()
+
+import requests
+from bs4 import BeautifulSoup
+import re
+import csv
+
+
+def get_html(url):
+    r = requests.get(url)
+    return r.text
+
+
+def refined(s):
+    res = re.sub(r"\D+", "", s)
+    return res
+
+
+def write_csv(data):
+    with open("plugins.csv", "a") as f:
+        writer = csv.writer(f, lineterminator="\r", delimiter=";")
+        writer.writerow((data['name'], data['url'], data['rating']))
+
+
+def get_data(html):
+    soup = BeautifulSoup(html, 'lxml')
+    # p1 = soup.find("header", id="masthead").find("p", class_="site-title").text
+    p1 = soup.find_all("section", class_="plugin-section")[1]
+    plugins = p1.find_all("div", class_="entry")
+
+    for plugin in plugins:
+        name = plugin.find("h3").text
+        url = plugin.find("h3").find("a").get("href")  # 4 ссылки -> значения атрибутов
+        rating = plugin.find("span", class_="rating-count").text
+        r = refined(rating)
+        # print(name)
+        # print(url)
+        # print(rating)
+        data = {'name': name, 'url': url, 'rating': r}
+        # print(r)
+        # print(data)
+        write_csv(data)
+
+
+def main():
+    # url = "https://ru.wordpress.org/"
+    url = "https://ru.wordpress.org/plugins/"
+    get_data(get_html(url))
+
+
+if __name__ == '__main__':
+    main()
