@@ -1,6 +1,6 @@
 # first_name = "Nikolay"  # комментарий
 # print("Hello, " + first_name + "!")
-import re
+# import re
 
 # a = 30
 # b = "Hello"
@@ -8958,12 +8958,12 @@ import re
 #     if index == "5":
 #         CountryCapital.load_from_file(file)
 
-# ДЗ - доделать!!!
+#  Доделано в dz/dz31 18.05.2024.py
 
 # Занятие 32. 19.05.2024
 
-import requests
-import json
+# import requests
+# import json
 
 # response = requests.get("https://jsonplaceholder.typicode.com/todos")  # todos - задачи
 # # print(response)  # <Response [200]> - успешное сообщение клиента и сервера
@@ -9071,12 +9071,14 @@ import json
 #
 #     json.dump(filtered, f, indent=2)
 
-# Считаем данные из data.csv
+# Считаем данные из data.csv, кодировка ANSI
 
-import csv
+# import csv
+
+# метод reader
 
 # with open("data.csv") as f:
-#     file_reader = csv.reader(f, delimiter=";")
+#     file_reader = csv.reader(f, delimiter=";") # если в ОС формат .csv делит по ",", то delimiter=";" НЕ НУЖЕН!
 #     count = 0
 #     for row in file_reader:
 #         # print(row)
@@ -9086,29 +9088,34 @@ import csv
 #             print(f"\t{row[0]} - {row[1]}. Родился в {row[2]}")
 #         count += 1
 
+# Вывод:
 # Файл содержит столбцы: Имя, Профессия, Год рождения
 # 	Виктор - Веб дизайнер. Родился в 1995
 # 	Игорь - Программист. Родился в 1983
 
-# Не работает код!!!
+# метод DictReader
+
 # with open("data.csv") as f:
-#     filed_names = ['Имя', 'Профессия', 'Год рождения']
-#     file_reader = csv.DictReader(f, delimiter=";", fieldnames=filed_names)
+#     field_names = ['Имя', 'Профессия', 'Год рождения']  # без заголовочной строки
+#     file_reader = csv.DictReader(f, delimiter=";", fieldnames=field_names)
 #     count = 0
 #     for row in file_reader:
 #         if count == 0:
-#             print(f"Файл содержит столбцы: {', '.join(row)}")
-#     print(f"\t{row['Имя']} - {row['Профессия']}. Год рождения {row['Год рождения']}")
-#     count += 1
+#             print(f"Файл содержит столбцы: {', '.join(row)}")  # Файл содержит столбцы: Имя, Профессия, Год рождения
+#         # print(f"\t{row[0]} - {row[1]}. Год рождения {row[2]}") # KeyError: 0 - нет ключа по индексу 0
+#         print(f"\t{row['Имя']} - {row['Профессия']}. Год рождения {row['Год рождения']}")  # ++
+#         count += 1
 
-# Записать в файл
+# Записать в файл student.csv
 
 # with open("student.csv", "w") as f:
-#     writer = csv.writer(f, delimiter=";", lineterminator="\r")
+#     writer = csv.writer(f, delimiter=";", lineterminator="\r")  # lineterminator="\r" - убирает пустые строки
 #     writer.writerow(["Имя", "Класс", "Возраст"])
 #     writer.writerow(["Женя", "9", "15"])
 #     writer.writerow(["Саша", 5, 12])
 #     writer.writerow(["Маша", 11, 18])
+
+# Записать в файл data_new.csv, метод writer
 
 # data = [['hostname', 'vendor', 'model', 'location'],
 #         ['sw1', 'Cisco', '3750', 'London, Best str'],
@@ -9118,17 +9125,21 @@ import csv
 #
 # with open("data_new.csv", "w") as f:
 #     writer = csv.writer(f, delimiter=";", lineterminator="\r")
-#     # for row in data:
+#     # for row in data: -> 1-й способ
 #     #     writer.writerow(row)
-#     writer.writerows(data)
+#     writer.writerows(data)  # 2-й способ
+
+# Записать в файл student1.csv, метод DictWriter
 
 # with open("student1.csv", "w") as f:
 #     names = ["Имя", "Возраст"]
 #     writer = csv.DictWriter(f, delimiter=";", lineterminator="\r", fieldnames=names)
-#     writer.writeheader()
+#     writer.writeheader()  # записать заголовочную строку, 1-ю
 #     writer.writerow({"Имя": "Саша", "Возраст": 6})
 #     writer.writerow({"Имя": "Маша", "Возраст": 15})
-#     writer.writerow({"Имя": "Вова", "Возраст": 14}
+#     writer.writerow({"Имя": "Вова", "Возраст": 14})
+
+# Записать в структуру JSON в файл, структура есть ниже:
 
 # data = [{
 #     'hostname': 'sw1',
@@ -9152,11 +9163,13 @@ import csv
 #     'vendor': 'Cisco'
 # }]
 #
+# # dict(data[0].keys()) -> взять из словаря только ключи -> преобразовать их в список list(data[0].keys())
+#
 # with open("dict_writer.csv", "w") as f:
 #     writer = csv.DictWriter(f, delimiter=";", lineterminator="\r", fieldnames=list(data[0].keys()))
 #     writer.writeheader()
 #     for d in data:
-#         writer.writerow(d)
+#         writer.writerow(d)  # ++
 
 # Преобразовать 200 todos json в csv
 
