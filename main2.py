@@ -9198,7 +9198,7 @@
 
 # Ищем copywriter
 
-# def get_copywriter(tag):
+# def get_copywriter(tag): # 1 функция
 #     whois = tag.find('div', class_="whois").text
 #     # print(whois)
 #     if "Copywriter" in whois:
@@ -9206,7 +9206,7 @@
 #     return None
 #
 #
-# f = open('index.html').read()
+# f = open('index.html').read() # 2 вызов
 # soup = BeautifulSoup(f, "html.parser")
 #
 # copywriter = []
@@ -9273,53 +9273,120 @@
 # if __name__ == '__main__':
 #     main()
 
-import requests
-from bs4 import BeautifulSoup
-import re
-import csv
+# import requests
+# from bs4 import BeautifulSoup
+# import re
+# import csv
+#
+#
+# def get_html(url):
+#     r = requests.get(url)
+#     return r.text
+#
+#
+# def refined(s):
+#     res = re.sub(r"\D+", "", s)
+#     return res
+#
+#
+# def write_csv(data):
+#     with open("plugins.csv", "a") as f:
+#         writer = csv.writer(f, lineterminator="\r", delimiter=";")
+#         writer.writerow((data['name'], data['url'], data['rating']))
+#
+#
+# def get_data(html):
+#     soup = BeautifulSoup(html, 'lxml')
+#     # p1 = soup.find("header", id="masthead").find("p", class_="site-title").text
+#     p1 = soup.find_all("section", class_="plugin-section")[1]
+#     plugins = p1.find_all("div", class_="entry")
+#
+#     for plugin in plugins:
+#         name = plugin.find("h3").text
+#         url = plugin.find("h3").find("a").get("href")  # 4 ссылки -> значения атрибутов
+#         rating = plugin.find("span", class_="rating-count").text
+#         r = refined(rating)
+#         # print(name)
+#         # print(url)
+#         # print(rating)
+#         data = {'name': name, 'url': url, 'rating': r}
+#         # print(r)
+#         # print(data)
+#         write_csv(data)
+#
+#
+# def main():
+#     # url = "https://ru.wordpress.org/"
+#     url = "https://ru.wordpress.org/plugins/"
+#     get_data(get_html(url))
+#
+#
+# if __name__ == '__main__':
+#     main()
 
+# Занятие 35. 26.05.2024
 
-def get_html(url):
-    r = requests.get(url)
-    return r.text
+# Парсинг. Получаем информацию с 24-х страниц
+# Пересмотреть!!!
+# import requests
+# from bs4 import BeautifulSoup
+#
+#
+# def get_html(url):
+#     r = requests.get(url)
+#     return r.text
+#
+#
+# def refine_cy(s):
+#     return s.split()[-1]
+#
+#
+# def get_data(html):
+#     soup = BeautifulSoup(html, 'lxml')
+#     elements = soup.find_all("div", class_="plugin-card")
+#     for el in elements:
+#         try:
+#             name = el.find("h3", class_="entry-title").text
+#         except AttributeError:
+#             name = ""
+#
+#         try:
+#             url = el.find("h3", class_="entry-title").find('a')["href"]
+#         except AttributeError:
+#             url = ""
+#
+#         try:
+#             active = el.find("span", class_="active-installs").text.strip()
+#         except AttributeError:
+#             active = ""
+#
+#         try:
+#             c = el.find("span", class_="tested-with").text.strip()
+#             cy = refine_cy(c)
+#         except AttributeError:
+#             cy = ""
+#             print(cy)
+#
+#
+# def main():
+#     url = "https://ru.wordpress.org/plugins/browse/blocks/"
+#     get_data(get_html(url))
+#
+#
+# if __name__ == '__main__':
+#     main()
 
+# Пересмотреть!!!
 
-def refined(s):
-    res = re.sub(r"\D+", "", s)
-    return res
+# Парсинг ООП -> parsers.py
 
-
-def write_csv(data):
-    with open("plugins.csv", "a") as f:
-        writer = csv.writer(f, lineterminator="\r", delimiter=";")
-        writer.writerow((data['name'], data['url'], data['rating']))
-
-
-def get_data(html):
-    soup = BeautifulSoup(html, 'lxml')
-    # p1 = soup.find("header", id="masthead").find("p", class_="site-title").text
-    p1 = soup.find_all("section", class_="plugin-section")[1]
-    plugins = p1.find_all("div", class_="entry")
-
-    for plugin in plugins:
-        name = plugin.find("h3").text
-        url = plugin.find("h3").find("a").get("href")  # 4 ссылки -> значения атрибутов
-        rating = plugin.find("span", class_="rating-count").text
-        r = refined(rating)
-        # print(name)
-        # print(url)
-        # print(rating)
-        data = {'name': name, 'url': url, 'rating': r}
-        # print(r)
-        # print(data)
-        write_csv(data)
-
-
-def main():
-    # url = "https://ru.wordpress.org/"
-    url = "https://ru.wordpress.org/plugins/"
-    get_data(get_html(url))
-
-
-if __name__ == '__main__':
-    main()
+# from parsers import Parser
+#
+#
+# def main():
+#     pars = Parser("https://www.ixbt.com/live/index/news/", "news.txt")
+#     pars.run()
+#
+#
+# if __name__ == '__main__':
+#     main()
