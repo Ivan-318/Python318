@@ -47,7 +47,49 @@ car (не называть папки только цифрами и через 
 	{},
 }
 
+Занятие 35.
+
+Парсинг. Ресурс: https://ru.wordpress.org/plugins/browse/blocks/page/1/ - 1 стр
+				 https://ru.wordpress.org/plugins/browse/blocks/page/2/ - 2 стр
+				 https://ru.wordpress.org/plugins/browse/blocks/page/3/ - 3 стр
+				 ...
+				 https://ru.wordpress.org/plugins/browse/blocks/page/24/ - 24 стр
+				 
+Парсинг ООП. Ресурс: https://www.ixbt.com/live/index/news/
+			 Создать: parsers.py
+			 
+			 
+# Задача. Создать приложение, которое позволит манипулировать статьями. Необходимо хранить информацию:
+# - название статьи
+# - автор статьи
+# - количество страниц
+# - краткое описание.
+# Создайте классы и методы для этого приложения. Реализуйте паттерн MVC.
+
+articles
+	project_articles.py
+	model.py
+	controller.py
+	view.py
 	
+	
+Хранение данных -> по принципу вложенных словарей
+
+articles = {
+	"qqq": {
+	'title': 'qqq', 
+	'author': 'www', 
+	'page': 'eee',
+	'description': 'rrr'
+	},
+	"aaa": {
+		'title': 'aaa', 
+		'author': 'sss', 
+		'page': 'eee',
+		'description': 'rrr'
+	}
+}
+
 	
 	
 	

@@ -9324,69 +9324,8 @@
 # if __name__ == '__main__':
 #     main()
 
-# Занятие 35. 26.05.2024
-
-# Парсинг. Получаем информацию с 24-х страниц
-# Пересмотреть!!!
-# import requests
-# from bs4 import BeautifulSoup
-#
-#
-# def get_html(url):
-#     r = requests.get(url)
-#     return r.text
-#
-#
-# def refine_cy(s):
-#     return s.split()[-1]
-#
-#
-# def get_data(html):
-#     soup = BeautifulSoup(html, 'lxml')
-#     elements = soup.find_all("div", class_="plugin-card")
-#     for el in elements:
-#         try:
-#             name = el.find("h3", class_="entry-title").text
-#         except AttributeError:
-#             name = ""
-#
-#         try:
-#             url = el.find("h3", class_="entry-title").find('a')["href"]
-#         except AttributeError:
-#             url = ""
-#
-#         try:
-#             active = el.find("span", class_="active-installs").text.strip()
-#         except AttributeError:
-#             active = ""
-#
-#         try:
-#             c = el.find("span", class_="tested-with").text.strip()
-#             cy = refine_cy(c)
-#         except AttributeError:
-#             cy = ""
-#             print(cy)
-#
-#
-# def main():
-#     url = "https://ru.wordpress.org/plugins/browse/blocks/"
-#     get_data(get_html(url))
-#
-#
-# if __name__ == '__main__':
-#     main()
-
-# Пересмотреть!!!
-
-# Парсинг ООП -> parsers.py
-
-# from parsers import Parser
-#
-#
-# def main():
-#     pars = Parser("https://www.ixbt.com/live/index/news/", "news.txt")
-#     pars.run()
-#
-#
-# if __name__ == '__main__':
-#     main()
+# Продолжение в maim3.py -> Занятие 26
+# main2.py -> перестал работать, ошибка:
+# Error running 'main2' Argument for @NotNull parameter 'module'
+# of com/intellij/openapi/roots/ModuleRootManager.getInstance must not be null
+print("1")
