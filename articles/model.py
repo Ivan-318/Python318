@@ -1,3 +1,7 @@
+import pickle
+import os.path
+
+
 class Article:
     def __init__(self, title, author, page, description):
         self.title = title
@@ -11,7 +15,8 @@ class Article:
 
 class ArticleModel:
     def __init__(self):
-        self.articles = {}
+        self.db_name = "db.txt"
+        self.articles = self.load_data()
 
     # def __repr__(self):
     #     return f"{self.articles}" # просмотр сохр. данных str -> repr
@@ -23,4 +28,30 @@ class ArticleModel:
 
     def get_all_articles(self):
         return self.articles.values()
+
+    def get_single_article(self, user_title):
+        article = self.articles[user_title]
+        dict_article = {
+            "название": article.title,
+            "автора": article.author,
+            "количество страниц": article.page,
+            "описание": article.description
+        }
+        return dict_article
+
+    def remove_article(self, user_title):
+        return self.articles.pop(user_title)
+
+    def save_data(self):
+        with open(self.db_name, "wb") as f:
+            pickle.dump(self.articles, f)
+
+    def load_data(self):
+        if os.path.exists(self.db_name):
+            with open(self.db_name, "rb") as f:
+                return pickle.load(f)
+        else:
+            return dict()
+
+
 
