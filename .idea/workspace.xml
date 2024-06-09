@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ad87402-d8f9-4d52-8d7c-84a50f5ebf6b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dz/links.csv" beforeDir="false" afterPath="$PROJECT_DIR$/dz/links.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main2.py" beforeDir="false" afterPath="$PROJECT_DIR$/main2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/news.txt" beforeDir="false" afterPath="$PROJECT_DIR$/news.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Задачи.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Задачи.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main3.py" beforeDir="false" afterPath="$PROJECT_DIR$/main3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/теория.txt" beforeDir="false" afterPath="$PROJECT_DIR$/теория.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,26 +41,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.controller.executor": "Run",
-    "Python.dz31 18.05.2024.executor": "Run",
-    "Python.dz33 25.05.2024.executor": "Run",
-    "Python.dz35 (1).executor": "Run",
-    "Python.dz35 26.05.2024.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.main2.executor": "Run",
-    "Python.main3.executor": "Run",
-    "Python.parsers.executor": "Run",
-    "Python.project_articles.executor": "Run",
-    "Python.view.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/Forz1kGG/Desktop/python/1. 14.01/Lessons"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.controller.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dz31 18.05.2024.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dz33 25.05.2024.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dz35 (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.dz35 26.05.2024.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main3.executor&quot;: &quot;Run&quot;,
+    &quot;Python.parsers.executor&quot;: &quot;Run&quot;,
+    &quot;Python.project_articles.executor&quot;: &quot;Run&quot;,
+    &quot;Python.view.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Forz1kGG/Desktop/python/1. 14.01/Lessons&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Python.project_articles">
+}</component>
+  <component name="RunManager" selected="Python.main3">
     <configuration name="controller" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Lesson1" />
       <option name="ENV_FILES" value="" />
@@ -175,11 +173,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main3" />
         <item itemvalue="Python.project_articles" />
         <item itemvalue="Python.dz35 (1)" />
         <item itemvalue="Python.controller" />
         <item itemvalue="Python.view" />
-        <item itemvalue="Python.main3" />
       </list>
     </recent_temporary>
   </component>

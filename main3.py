@@ -93,6 +93,99 @@
 # - краткое описание.
 # Создайте классы и методы для этого приложения. Реализуйте паттерн MVC.
 
+# Занятие 37. 02.06.2024. СУБД.
+
+import sqlite3
+
+# Первый способ создания БД
+# con = sqlite3.connect("profile.db")  # соединение с БД
+# cur = con.cursor()  # соединение с объектом курсора
+#
+# cur.execute(""" # запросы
+# """)
+#
+# con.close()  # закрыть БД, обязательно!
+
+# Второй способ создания БД. Контекстный менеджер
+
+# # with sqlite3.connect("profile.db") as con:
+# #     cur = con.cursor()
+#
+#     # cur.execute("""CREATE TABLE IF NOT EXISTS USERS(
+#     # id INTEGER PRIMARY KEY AUTOINCREMENT,
+#     # name TEXT NOT NULL,
+#     # summa REAL,
+#     # date BLOB)""") # закрывается табуляцией автоматически
+#
+#     '''Удаление таблицы'''
+#     # cur.execute("DROP TABLE users")
+
+# Занятие 38. 08.06.2024. Запросы
 
 
+# with sqlite3.connect("users.db") as con:
+#     cur = con.cursor()
+#
+#     cur.execute("""CREATE TABLE IF NOT EXISTS person(
+#     id INTEGER PRIMARY KEY AUTOINCREMENT,
+#     name TEXT NOT NULL,
+#     phone BLOB NOT NULL DEFAULT "+79090000000",
+#     age INTEGER CHECK(age > 0 AND age < 100),
+#     email TEXT UNIQUE
+#     )""")
+#
+#     # Работа с созданной таблицей. 1. Переименовать таблицу
+#     cur.execute("""
+#     ALTER TABLE person
+#     RENAME TO person_table
+#     """)
+#
+#     # 2. Добавить поле(столбец) в таблицу
+#     cur.execute("""
+#        ALTER TABLE person_table
+#        ADD COLUMN address NOT NULL DEFAULT "Москва"
+#        """)
+#
+#     # 3. Удалить столбец(поле)
+#     cur.execute("""
+#        ALTER TABLE person_table
+#        DROP COLUMN address
+#        """)
+#
+#     # 4. Переименовать существующий столбец(поле)
+#     cur.execute("""
+#        ALTER TABLE person_table
+#        RENAME COLUMN address TO home_address
+#        """)
+#
+#     # 5. Удаление таблицы
+#     cur.execute("""
+#        DROP TABLE person_table
+#        """)
 
+
+with sqlite3.connect("db_3.db") as con:
+    cur = con.cursor()
+
+    cur.execute("""
+    SELECT *
+    FROM T1
+    LIMIT 2, 5
+    """)
+
+    # print(cur)  # <sqlite3.Cursor object at 0x00000170C79CAF80>
+    # for i in cur:
+    #     print(i)
+    # Получить данные из объекта cur
+
+    # res = cur.fetchone()
+    # print(res)  # (3, 'Бутенко', 'Директор', 7, 2560.0)
+    #
+    # # res2 = cur.fetchmany()
+    # res2 = cur.fetchmany(2)  # [(4, 'Бутков', 'Менеджер', 2, 1200.0), (5, 'Василенко', 'Оператор', 6, 970.0)]
+    # print(res2)  # [(4, 'Бутков', 'Менеджер', 2, 1200.0)]
+
+    res3 = cur.fetchall()
+    print(res3)  # [(6, 'Васильев', 'Менеджер', 6, 1750.0), (7, 'Дзюба', 'Переводчик', 2, 1380.0)]
+    # Без res и res2 [(3, 'Бутенко', 'Директор', 7, 2560.0), (4, 'Бутков', 'Менеджер', 2, 1200.0), (5, 'Василенко',
+    # 'Оператор', 6, 970.0), (6, 'Васильев', 'Менеджер', 6, 1750.0), (7, 'Дзюба', 'Переводчик', 2, 1380.0)]
