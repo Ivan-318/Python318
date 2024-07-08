@@ -1,0 +1,42 @@
+1.	Выведите перечень сумм заказов продавца Rifkin.
+SELECT o.amt
+FROM Salespeople s, Orders o
+WHERE s.snum=o.snum AND s.sname="Rifkin";
+2 способ - вложенный запрос
+SELECT amt
+FROM Orders
+WHERE snum = 
+    (SELECT snum
+    FROM Salespeople
+    WHERE sname="Rifkin");
+
+SELECT amt
+FROM Orders
+WHERE snum IN --1007
+    (SELECT snum
+    FROM Salespeople
+    WHERE sname="Rifkin") => верно
+
+2.	Определите  комиссионные всех продавцов, обслуживающих заказчиков в Риме
+SELECT com
+FROM Salespeople
+WHERE snum IN 
+    (SELECT snum --(1003, 1004, 1000)
+    FROM Customers
+    WHERE city="Rome"
+    )
+
+
+3.	Напишите запрос, который определит заказчиков имеющих рейтинг ниже среднего.
+
+4.	Определите города проживания заказчиков с наименьшим рейтингом.
+
+5.	Напишите запрос, который выводил бы заказы клиента Liu
+
+6.	Определите наибольшие комиссионные продавца для Рима.
+
+7.	Напишите запрос который выведет всех клиентов обслуживаемых продавцом Motiка.
+
+8.	Напишите запрос, который выведет максимальный рейтинг заказчика для продавцов имеющих комиссионные больше 0,11%.
+
+
