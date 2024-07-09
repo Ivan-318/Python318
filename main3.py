@@ -95,7 +95,7 @@
 
 # Занятие 37. 02.06.2024. СУБД.
 
-import sqlite3
+# import sqlite3
 
 # Первый способ создания БД
 # con = sqlite3.connect("profile.db")  # соединение с БД
@@ -164,28 +164,98 @@ import sqlite3
 #        """)
 
 
-with sqlite3.connect("db_3.db") as con:
+# with sqlite3.connect("db_3.db") as con:
+#     cur = con.cursor()
+#
+#     cur.execute("""
+#     SELECT *
+#     FROM T1
+#     LIMIT 2, 5
+#     """)
+
+# print(cur)  # <sqlite3.Cursor object at 0x00000170C79CAF80>
+# for i in cur:
+#     print(i)
+# Получить данные из объекта cur
+
+# res = cur.fetchone()
+# print(res)  # (3, 'Бутенко', 'Директор', 7, 2560.0)
+#
+# # res2 = cur.fetchmany()
+# res2 = cur.fetchmany(2)  # [(4, 'Бутков', 'Менеджер', 2, 1200.0), (5, 'Василенко', 'Оператор', 6, 970.0)]
+# print(res2)  # [(4, 'Бутков', 'Менеджер', 2, 1200.0)]
+
+# res3 = cur.fetchall()
+# print(res3)  # [(6, 'Васильев', 'Менеджер', 6, 1750.0), (7, 'Дзюба', 'Переводчик', 2, 1380.0)]
+# Без res и res2 [(3, 'Бутенко', 'Директор', 7, 2560.0), (4, 'Бутков', 'Менеджер', 2, 1200.0), (5, 'Василенко',
+# 'Оператор', 6, 970.0), (6, 'Васильев', 'Менеджер', 6, 1750.0), (7, 'Дзюба', 'Переводчик', 2, 1380.0)]
+
+# Занятие 40 15.06.2024
+# import sqlite3
+#
+# cars_list = [
+#     ('BMW', 54000),
+#     ('Chevrolet', 46000),
+#     ('Daewoo', 36000),
+#     ('Citroen', 29000),
+#     ('Honda', 33000),
+# ]
+#
+# with sqlite3.connect("car.db") as con:
+#     cur = con.cursor()
+#     cur.execute("""
+#     CREATE TABLE IF NOT EXISTS cars(
+#         car_id INTEGER PRIMARY KEY AUTOINCREMENT,
+#         model TEXT,
+#         price INTEGER
+#     )
+#     """)
+#
+# # удаление марок автомобилей, начинающихся с буквы B
+#
+#     cur.executescript("""
+#     DELETE FROM cars WHERE model LIKE 'B%';
+#     UPDATE cars SET price = price + 100;
+#     """)
+
+# способ 2 без цикла
+
+    # cur.executemany("INSERT INTO cars VALUES(NULL, ?, ?)", cars_list)
+
+# способ, 1 c циклом
+    # for car in cars_list:
+    #     cur.execute("INSERT INTO cars VALUES(NULL, ?, ?)", car)
+
+    # cur.execute("INSERT INTO cars VALUES(1, 'Renault', 22000)")
+    # cur.execute("INSERT INTO cars VALUES(2, 'Volvo', 29000)")
+    # cur.execute("INSERT INTO cars VALUES(3, 'Mercedes', 57000)")
+    # cur.execute("INSERT INTO cars VALUES(4, 'Bentley', 35000)")
+    # cur.execute("INSERT INTO cars VALUES(5, 'Audi', 52000)")
+
+# con.commit - контрольная точка
+# con.close - закрыть - не используются в контекстном менеджере with
+
+import sqlite3
+
+con = None
+try:
+    con = sqlite3.connect("car.db")
     cur = con.cursor()
-
-    cur.execute("""
-    SELECT *
-    FROM T1
-    LIMIT 2, 5
-    """)
-
-    # print(cur)  # <sqlite3.Cursor object at 0x00000170C79CAF80>
-    # for i in cur:
-    #     print(i)
-    # Получить данные из объекта cur
-
-    # res = cur.fetchone()
-    # print(res)  # (3, 'Бутенко', 'Директор', 7, 2560.0)
-    #
-    # # res2 = cur.fetchmany()
-    # res2 = cur.fetchmany(2)  # [(4, 'Бутков', 'Менеджер', 2, 1200.0), (5, 'Василенко', 'Оператор', 6, 970.0)]
-    # print(res2)  # [(4, 'Бутков', 'Менеджер', 2, 1200.0)]
-
-    res3 = cur.fetchall()
-    print(res3)  # [(6, 'Васильев', 'Менеджер', 6, 1750.0), (7, 'Дзюба', 'Переводчик', 2, 1380.0)]
-    # Без res и res2 [(3, 'Бутенко', 'Директор', 7, 2560.0), (4, 'Бутков', 'Менеджер', 2, 1200.0), (5, 'Василенко',
-    # 'Оператор', 6, 970.0), (6, 'Васильев', 'Менеджер', 6, 1750.0), (7, 'Дзюба', 'Переводчик', 2, 1380.0)]
+    cur.executescript("""
+     CREATE TABLE IF NOT EXISTS cars(
+         car_id INTEGER PRIMARY KEY AUTOINCREMENT,
+         model TEXT,
+         price INTEGER
+     );
+    BEGIN;
+    INSERT INTO cars VALUES(NULL, 'Renault', 22000);
+    UPDATE cars2 SET Price = price + 100;
+     """)
+    con.commit()
+except sqlite3.Error as e:
+    if con:
+        con.rollback()
+    print("Ошибка выполнения запроса")
+finally:
+    if con:
+        con.close()

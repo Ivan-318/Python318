@@ -28,8 +28,19 @@ WHERE snum IN
 
 
 3.	Напишите запрос, который определит заказчиков имеющих рейтинг ниже среднего.
+SELECT cname, rating
+FROM Customers
+WHERE rating < 
+    (SELECT AVG(rating)
+    FROM Customers);
 
 4.	Определите города проживания заказчиков с наименьшим рейтингом.
+SELECT city, MIN(rating)
+FROM Customers
+GROUP BY city
+HAVING MIN(rating) IN -- 100
+    (SELECT MIN(rating)
+    FROM Customers);
 
 5.	Напишите запрос, который выводил бы заказы клиента Liu
 

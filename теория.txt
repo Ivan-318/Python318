@@ -94,6 +94,7 @@ WHERE условие
 		[^...] - инвертирование, любой, кроме заданных [^abc], [^0-9] 
 	выражение IS [NOT] NULL - является пустым
 	выражение [NOT] IN(набор значений | выражение)
+	EXISTS (существует)
 GROUP BY - (группировать по)	имя_столбца
 HAVING (условие) - для сравнение функции агрегирования
 ORDER BY столбец_1 | номер столбца [ASC | DESC] - (сортировки по возрастанию (можно не указывать) и убыванию соответственно) [, столбец_N]
@@ -143,6 +144,21 @@ MAX		любые типы дынных
 Многострочный подзапрос
 	IN, NOT IN
 	
+UNION - исключает повторяющиеся элементы(объединяет запросы)
+UNION ALL - выводит повторяющиеся элементы(объединяет результаты 2-х SELECT)
+
+SELECT столбцы
+FROM таблица_1 [INNER] JOIN таблица_2
+ON условие
+
+SELECT столбцы
+FROM таблица_1 LEFT JOIN таблица_2
+ON условие
+
+SELECT столбцы
+FROM таблица_1 RIGHT JOIN таблица_2
+ON условие
+	
 Пример:
 SELECT s.com
 FROM Salespeople s, Customers c
@@ -161,6 +177,12 @@ WHERE snum IN --1007
     (SELECT snum
     FROM Salespeople
     WHERE sname="Rifkin");*/
+SELECT cname, city, rating, "Высокий рейтинг"
+FROM Customers
+WHERE rating >= 200
 
+SELECT cname, city, rating, "Низкий рейтинг"
+FROM Customers
+WHERE Rating < 200
 
 
