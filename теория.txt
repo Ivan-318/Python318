@@ -185,11 +185,21 @@ SELECT cname, city, rating, "Низкий рейтинг"
 FROM Customers
 WHERE Rating < 200
 
+# Занятие 41 16.06.2024
+
 Установка SQLAlchemy
 
 pip install sqlalchemy
 
 пакет models
+	__init.py__
+	database.py
+	student.py
+	group.py
+	lesson.py
+create_database.py
+
+pip install faker - помагает делать фейковые данные
 
 
 
