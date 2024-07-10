@@ -13,8 +13,8 @@ def create_database(load_fake_data=True):
 
 
 def _load_fake_data(session):
-    lessons_name = ['Математика', 'Программирование', 'Философия', 'Алгоритмы и структуры данных', 'Линейная алгебра',
-                    'Статистика', 'Физика']
+    lessons_name = ['Математика', 'Программирование', 'Философия', 'Алгоритмы и структуры данных',
+                    'Линейная алгебра', 'Статистика', 'Физика']
 
     group1 = Group(group_name="MDA-7")
     group2 = Group(group_name="MDA-9")
@@ -36,7 +36,7 @@ def _load_fake_data(session):
     for _ in range(50):
         full_name = faker.name().split()
         age = faker.random.randint(16, 25)
-        group = faker.random.choise(group_list)
+        group = faker.random.choice(group_list)
         student = Student(full_name, age, group.id)
         session.add(student)
 

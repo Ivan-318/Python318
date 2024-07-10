@@ -4,7 +4,7 @@ from models.database import Base
 
 association_table = Table('association', Base.metadata,
                           Column('lesson_id', Integer, ForeignKey('lessons.id')),
-                          Column('qroup_id', Integer, ForeignKey(groups.id)))
+                          Column('group_id', Integer, ForeignKey('groups.id')))
 
 
 class Lesson(Base):

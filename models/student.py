@@ -21,7 +21,7 @@ class Student(Base):
         self.group = id_group
 
     def __repr__(self):
-        return (f"Студент (ФИО: {self.surname} {self.name} {self.patronymic}, "
-                f"Возраст: {self.age}, ID группы: {self.group})")
+        return f"Студент (ФИО: {self.surname} {self.name} {self.patronymic}, " \
+               f"Возраст: {self.age}, ID группы: {self.group})"
 
 
