@@ -185,4 +185,16 @@ SELECT cname, city, rating, "Низкий рейтинг"
 FROM Customers
 WHERE Rating < 200
 
+Установка SQLAlchemy
+
+pip install sqlalchemy
+
+пакет models
+
+
+
+
+
+
+
 

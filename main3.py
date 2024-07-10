@@ -220,42 +220,157 @@
 
 # способ 2 без цикла
 
-    # cur.executemany("INSERT INTO cars VALUES(NULL, ?, ?)", cars_list)
+# cur.executemany("INSERT INTO cars VALUES(NULL, ?, ?)", cars_list)
 
 # способ, 1 c циклом
-    # for car in cars_list:
-    #     cur.execute("INSERT INTO cars VALUES(NULL, ?, ?)", car)
+# for car in cars_list:
+#     cur.execute("INSERT INTO cars VALUES(NULL, ?, ?)", car)
 
-    # cur.execute("INSERT INTO cars VALUES(1, 'Renault', 22000)")
-    # cur.execute("INSERT INTO cars VALUES(2, 'Volvo', 29000)")
-    # cur.execute("INSERT INTO cars VALUES(3, 'Mercedes', 57000)")
-    # cur.execute("INSERT INTO cars VALUES(4, 'Bentley', 35000)")
-    # cur.execute("INSERT INTO cars VALUES(5, 'Audi', 52000)")
+# cur.execute("INSERT INTO cars VALUES(1, 'Renault', 22000)")
+# cur.execute("INSERT INTO cars VALUES(2, 'Volvo', 29000)")
+# cur.execute("INSERT INTO cars VALUES(3, 'Mercedes', 57000)")
+# cur.execute("INSERT INTO cars VALUES(4, 'Bentley', 35000)")
+# cur.execute("INSERT INTO cars VALUES(5, 'Audi', 52000)")
 
 # con.commit - контрольная точка
 # con.close - закрыть - не используются в контекстном менеджере with
 
-import sqlite3
+# import sqlite3
+#
+# con = None
+# try:
+#     con = sqlite3.connect("car.db")
+#     cur = con.cursor()
+#     cur.executescript("""
+#      CREATE TABLE IF NOT EXISTS cars(
+#          car_id INTEGER PRIMARY KEY AUTOINCREMENT,
+#          model TEXT,
+#          price INTEGER
+#      );
+#     BEGIN;
+#     INSERT INTO cars VALUES(NULL, 'Renault', 22000);
+#     UPDATE cars2 SET Price = price + 100;
+#      """)
+#     con.commit()
+# except sqlite3.Error as e:
+#     if con:
+#         con.rollback()
+#     print("Ошибка выполнения запроса")
+# finally:
+#     if con:
+#         con.close()
 
-con = None
-try:
-    con = sqlite3.connect("car.db")
-    cur = con.cursor()
-    cur.executescript("""
-     CREATE TABLE IF NOT EXISTS cars(
-         car_id INTEGER PRIMARY KEY AUTOINCREMENT,
-         model TEXT,
-         price INTEGER
-     );
-    BEGIN;
-    INSERT INTO cars VALUES(NULL, 'Renault', 22000);
-    UPDATE cars2 SET Price = price + 100;
-     """)
-    con.commit()
-except sqlite3.Error as e:
-    if con:
-        con.rollback()
-    print("Ошибка выполнения запроса")
-finally:
-    if con:
-        con.close()
+
+# Занятие 41 16.06.2024
+
+# import sqlite3
+#
+# with sqlite3.connect("car.db") as con:
+#     con.row_factory = sqlite3.Row    # чтобы обращаться к элементам по ключам и значениям
+#     cur = con.cursor()
+#     cur.executescript("""
+#     CREATE TABLE IF NOT EXISTS cars(
+#         car_id INTEGER PRIMARY KEY AUTOINCREMENT,
+#         model TEXT,
+#         price INTEGER
+#     );
+#     CREATE TABLE IF NOT EXISTS cost(
+#         name TEXT, tr_in INTEGER, buy INTEGER
+#     );
+#     """)
+
+# cur.execute("INSERT INTO cars VALUES(NULL, 'Запорожец', 1000)")  # см. схема данных_1
+# last_row_id = cur.lastrowid
+# buy_car_id = 2
+# cur.execute("INSERT INTO cost VALUES('Илья', ?, ?)", (last_row_id, buy_car_id))
+
+# Получим данные
+# cur.execute("SELECT model, price FROM cars")
+
+# rows = cur.fetchone()
+# print(rows)  # ('Renault', 22200)
+#
+# rows1 = cur.fetchmany()
+# print(rows1)    # [('Volvo', 29200)]
+#
+# rows2 = cur.fetchmany(5)
+# print(rows2)    # [('Mercedes', 57200), ('Audi', 52200), ('Chevrolet', 46200), ('Daewoo', 36200),
+# # ('Citroen', 29200)] - след. 5 авто
+
+# rows3 = cur.fetchall()
+# print(rows3)     # [('Honda', 33200), ('Chevrolet', 46200), ('Daewoo', 36200), ('Citroen', 29200), ('Honda', 33200),
+# # ('Renault', 22100), ('Запорожец', 1000)] -> все оставшиеся элементы
+
+# for res in cur:
+#     # print(res[0], "->", res[1])
+#     print(res["model"], "->", res["price"])     # далее см. схема данных_2
+
+
+# import sqlite3
+#
+#
+# def read_ava(n):
+#     try:
+#         with open(f"avatars/{n}.png", "rb") as f:
+#             return f.read()
+#     except IOError as e:
+#         print(e)
+#         return False
+#
+#
+# def write_ava(name, data):
+#     try:
+#         with open(name, "wb") as f:
+#             f.write(data)
+#     except IOError as e:
+#         print(e)
+#
+#
+# with sqlite3.connect("car.db") as con:
+#     con.row_factory = sqlite3.Row
+#     cur = con.cursor()
+#
+#     cur.executescript("""
+#     CREATE TABLE IF NOT EXISTS users(
+#         name TEXT,
+#         ava BLOB,
+#         score INTEGER
+#     )""")
+#
+#     # img = read_ava(1)
+#     # if img:
+#     #     binary = sqlite3.Binary(img)
+#     #     cur.execute("INSERT INTO users VALUES('Илья', ?, 1000)", (binary,))
+#
+#     cur.execute("SELECT ava FROM users")
+#     img = cur.fetchone()['ava']
+#
+#     write_ava("out.png", img)
+
+# Восстановление БД
+# import sqlite3
+
+# with sqlite3.connect("car.db") as con:
+#     cur = con.cursor()
+#
+#     with open("sql_dump.sql", "w") as f:
+#         for sql in con.iterdump():
+#             f.write(sql)
+
+# with sqlite3.connect("car_project.db") as con:
+#     cur = con.cursor()
+#
+#     with open("sql_dump.sql", "r") as f:
+#         sql = f.read()
+#         cur.executescript(sql)
+
+# ORM (Object-Relation Mapping) - реляционное сопоставление объектов
+# SQLAlchemy ORM - позволяет создавать таблицы в БД через создание классов, упрощённый вариант создания SQL запросов
+
+
+
+
+
+
+
+
