@@ -12,8 +12,8 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS users
 cursor.execute("INSERT INTO users (name, age) VALUES ('Alice', 25)")
 cursor.execute("INSERT INTO users (name, age) VALUES ('Bob', 30)")
 cursor.execute("INSERT INTO users (name, age) VALUES ('Charlie', 35)")
-cursor.execute("insert into users (name, age) values ('David', 40)")
-cursor.execute("insert into users (name, age) values ('Emily', 22)")
+cursor.execute("insert into users (name, age) VALUES ('David', 40)")
+cursor.execute("insert into users (name, age) VALUES ('Emily', 22)")
 
 conn.commit()
 
