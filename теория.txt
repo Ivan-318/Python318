@@ -201,7 +201,23 @@ create_database.py
 
 pip install faker - помагает делать фейковые данные
 
+Шаблонизатор (Jinja)
 
+{{ переменные }}
+
+{% for i in collections %}
+
+{% endfor %}
+
+Условия
+
+{% if условие %}
+
+{% elif условие %}
+
+{% else %}
+
+{% endif %}
 
 
 
