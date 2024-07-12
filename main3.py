@@ -523,7 +523,7 @@
 
 # Шаблонизатор (Jinja) -> позволяет выводить данные в браузер
 
-from jinja2 import Template
+# from jinja2 import Template
 
 
 # # name = "Игорь"
@@ -554,28 +554,85 @@ from jinja2 import Template
 # print(msg)
 
 
-cities = [
-    {'id': 1, 'city': 'Москва'},
-    {'id': 2, 'city': 'Сочи'},
-    {'id': 3, 'city': 'Минск'},
-    {'id': 4, 'city': 'Ярославль'},
-    {'id': 5, 'city': 'Смоленск'},
+# cities = [
+#     {'id': 1, 'city': 'Москва'},
+#     {'id': 2, 'city': 'Сочи'},
+#     {'id': 3, 'city': 'Минск'},
+#     {'id': 4, 'city': 'Ярославль'},
+#     {'id': 5, 'city': 'Смоленск'},
+# ]
+#
+# link = """<select name="cities">
+#     {% for c in cities -%}
+#         {% if c.id > 3 -%}
+#             <option value="{{ c['id'] }}">{{ c['city'] }}</option>
+#         {% elif c.city == "Москва" %}
+#             <option>{{ c['city'] }}</option>
+#         {% else -%}
+#             {{ c['city'] }}
+#         {% endif -%}
+#     {%- endfor -%}
+# </select>"""
+#
+# tm = Template(link)
+# msg = tm.render(cities=cities)
+#
+# print(msg)
+
+# Занятие 43 23.06.2024
+
+# cars = [9, 5, 6, 7, 1, 3, 8, 4, 6, 2]
+
+# cars = [
+#     {'model': 'Audi', 'price': 23000},
+#     {'model': 'Skoda', 'price': 17300},
+#     {'model': 'Renault', 'price': 44300},
+#     {'model': 'Wolksvagen', 'price': 21300}
+# ]
+#
+# # tpl = "Сумма: {{ cs | sum }}"
+# # tpl = "Сумма: {{ cs | sum(attribute = 'price') }}"   # Сумма: 105900
+# # tpl = "Максимальное: {{ cs | max(attribute = 'price') }}"   # Максимальное: {'model': 'Renault', 'price': 44300}
+# # tpl = "Максимальное: {{ (cs | max(attribute = 'price')).model }}"   # Максимальное: Renault
+# # tpl = "Минимальное: {{ (cs | min(attribute = 'price')).model }}"   # Минимальное: Skoda
+# # tpl = "{{ cs | random }}"   # случайный эл-нт из списка
+# tpl = "{{ cs | replace('model', 'brand') }}"   # model -> brand, исходная переменная cars без изменений
+#
+# tm = Template(tpl)
+# msg = tm.render(cs=cars)
+#
+# print(msg)
+
+# Макроопределение - аналог функций в шаблонизаторе
+
+# html = """
+# {% macro input_func(name, value, type="text", size=40) %}
+#     <input type="{{ type }}" name="{{ name }}" value="{{ value }}" size="{{ size }}">
+# {% endmacro %}
+#
+# <p>{{ input_func('name', 'Введите имя') }}</p>
+# <p>{{ input_func('psw', 'Пароль', 'password') }}</p>
+# <p>{{ input_func('email', 'Электронная почта', 'email') }}</p>
+# """
+#
+# tm = Template(html)
+# msg = tm.render()
+#
+# print(msg)
+
+from jinja2 import Environment, FileSystemLoader
+
+persons = [
+    {"name": "Алексей", "year": 18, "weight": 78.5},
+    {"name": "Никита", "year": 28, "weight": 82.3},
+    {"name": "Виталий", "year": 33, "weight": 94.0}
 ]
 
-link = """<select name="cities">
-    {% for c in cities -%}
-        {% if c.id > 3 -%}
-            <option value="{{ c['id'] }}">{{ c['city'] }}</option>
-        {% elif c.city == "Москва" %}
-            <option>{{ c['city'] }}</option>
-        {% else -%}
-            {{ c['city'] }}
-        {% endif -%}
-    {%- endfor -%}
-</select>"""
+file_loader = FileSystemLoader('templates')
+env = Environment(loader=file_loader)
 
-tm = Template(link)
-msg = tm.render(cities=cities)
+tm = env.get_template('about.html')
+msg = tm.render(users=persons, title="About Jinja")
 
 print(msg)
 

@@ -90,6 +90,45 @@ articles = {
 	}
 }
 
+# Занятие 41 16.06.2024
+
+Установка SQLAlchemy
+
+pip install sqlalchemy
+
+пакет models
+	__init.py__
+	database.py
+	student.py
+	group.py
+	lesson.py
+create_database.py
+
+# Занятие 43 23.06.2024. Шаблонизатор
+
+templates
+	index.html
+	
+	header.html
+	footer.html
+	main.html
+	
+	dialog. html
+	
+	base.html
+	about.html
+	
+Работа фреймворка
+
+one
+	flsite
+	templates
+		base.html -> для выноса однотипной разметки
+		index.html
+		about.html
+Проверка работы profile:
+http://127.0.0.1:5000/profile/admin
+
 	
 	
 	
