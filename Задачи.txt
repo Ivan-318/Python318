@@ -129,6 +129,11 @@ one
 Проверка работы profile:
 http://127.0.0.1:5000/profile/admin
 
+Python Console
+
+import os
+os.urandom(20).hex() -> Получаем SECRET_KEY для dbsite.py, формируем(!)
+
 	
 	
 	

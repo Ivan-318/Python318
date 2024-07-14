@@ -231,6 +231,17 @@ float - только вещественные числами
 path - любые добустимые символы URL + "/". Не допускается пробел
 Без ограничения
 
+http://127.0.0.1:5000/contact?username=irina&email=irina%40gmail.com&message=Message -> get
+
+Для обратной связи с пользователем, во Flask существует:
+
+flash() - формирует сообщение пользователю в *.py задаётся
+get_flashed_message() - обработка сформированных сообщений в шаблоне документа в *.html задаётся
+
+Python Console
+
+import os
+os.urandom(20).hex() -> Получаем SECRET_KEY для dbsite.py
 
 
 
