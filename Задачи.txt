@@ -134,7 +134,9 @@ Python Console
 import os
 os.urandom(20).hex() -> Получаем SECRET_KEY для dbsite.py, формируем(!)
 
-	
+Запустить функцию create.db
+from two.dbsite import create_db
+create_db()	
 	
 	
 	
