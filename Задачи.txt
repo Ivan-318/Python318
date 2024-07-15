@@ -129,6 +129,7 @@ one
 Проверка работы profile:
 http://127.0.0.1:5000/profile/admin
 
+two
 Python Console
 
 import os
@@ -137,6 +138,20 @@ os.urandom(20).hex() -> Получаем SECRET_KEY для dbsite.py, форми
 Запустить функцию create.db
 from two.dbsite import create_db
 create_db()	
+
+В адрессную строку: http://127.0.0.1:5000/post/1
+
+3. Небольшое приложение на Flask
+three
+	app.py
+	static
+		css
+			style.css
+		templates
+			base.html
+			index.html
+			
+pip install flask-sqlalchemy
 	
 	
 	
