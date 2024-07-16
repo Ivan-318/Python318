@@ -1,0 +1,113 @@
+body{
+    background: lightyellow;
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.menu{
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    background: rgba(0, 104, 157, 1);
+    padding: 20px;
+    margin-top: 0;
+}
+
+.content{
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.flash{
+    padding: 10px;
+}
+
+.flash.success{
+    border: 1px solid #21DB56;
+    background: #AEFFC5;
+}
+
+.flash.error{
+    border: 1px solid #FF4343;
+    background: #FF9C9C;
+}
+.menu a{
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.menu li{
+    background: rgba(0, 104, 157, 1);;
+}
+
+h1{
+    text-align: center;
+    font-size: 50px;
+    color: rgba(0, 104, 157, 1);
+}
+
+h2{
+    text-align: center;
+    font-size: 30px;
+    color: rgba(0, 104, 157, 1);
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+ul li{
+    background-color: white;
+    padding: 20px;
+}
+
+ul li:not(:last-child) {
+    margin-right: 50px;
+}
+
+li{
+    padding: 10px;
+    border: rgba(0, 95, 142, 0.768);
+}
+
+a{
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+
+}
+
+p.course_name{
+    background: rgba(0, 104, 157, 1); width: 200px; padding: 20px 40px;
+}
+
+button{
+    background-color: rgba(0, 104, 157, 1);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    margin:0 auto;
+    font-size: 16px;
+}
+
+.trade{
+    color: red;
+}
+
+.price{
+    font-weight: bold;
+    text-align: center;
+}
+
+

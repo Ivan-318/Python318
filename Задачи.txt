@@ -147,11 +147,46 @@ three
 	static
 		css
 			style.css
-		templates
-			base.html
-			index.html
+	templates
+		base.html
+		index.html
 			
 pip install flask-sqlalchemy
-	
+
+DZ_45:
+
+dz45 06.07.2024_DBSite
+	static
+		css
+			style.css	
+	templates
+		base.html - базовый шаблон
+		index.html - {% extends 'base.html' %}, главная страница с каталогом добавленных курсов, выводится список добавленных курсов, у каждого курса внизу кнопка купить, заголовок Pricing
+		add_course.html - {% extends 'base.html' %}, добавить курс: добавляем название курса, стоимость курса и описание курса, внизу блока есть кнопка "купить"
+		information.html - {% extends 'base.html' %}, общая информация об обучении
+		page404.html со следующим содержанием: {% extends 'base.html' %} {% block content %} {{ super() }} Вернуться на главную страницу {% endblock %}
+		course.html со следующим содержанием: {% extends 'base.html' %} {% block content %} {{ super() }} {{ post | safe }} {% endblock %} - здесь можно посматреть развёрнутое описание курса
+	dzdbsite.py - запуск проекта, содержание: from flask import Flask, render_template, request, flash, 
+											import sqlite3
+											import os
+											from FDataBase import FDataBase
+
+											DEBUG = True
+											SECRET_KEY = ''
+	FDataBase.py - содержит класс для работы с базой данных class FDataBase, методы: def __init__(self, db):
+																						self.__db = db
+																						self.__cur = db.cursor() 
+																					 def get_menu(self):
+																					 def add_course(self, title, cost, text)
+																					 def get_course(self, course_id)
+																					 def get_course_annonce(self):обрабатывает исключение except sqlite3.Error as e: print("Ошибка получения курсов из БД " + str(e)) return [] 
+																					import sqlite3
+																					import time
+																					import math
+	flsk.db - база данных, где будут хранится загруженные курсы
+	sq_db.sql - для написания sql запросов на создание таблиц в  flsk.db
+		
+			
+
 	
 	
