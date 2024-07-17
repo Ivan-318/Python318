@@ -240,9 +240,17 @@ get_flashed_message() - обработка сформированных сооб
 
 Установка Django
 
-pip install django
+pip install django +
 Работа с django: создаём папку -> переходим в terminal(pycharm) -> через него заходим в папку: cd first (зайти в first)
-Создать проект django-admin startproject password_generator_project
+Создать проект django-admin startproject password_generator_project -> новый проект на Django с именем password_generator_project
+
+Далее нужно запустить сервер: python manage.py runserver
+
+Создание приложения в проекте:
+	python manage.py startapp generator
+	
+clrl + c => Выйти
+
 
 
 
