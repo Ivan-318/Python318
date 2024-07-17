@@ -238,7 +238,11 @@ http://127.0.0.1:5000/contact?username=irina&email=irina%40gmail.com&message=Mes
 flash() - формирует сообщение пользователю в *.py задаётся
 get_flashed_message() - обработка сформированных сообщений в шаблоне документа в *.html задаётся
 
+Установка Django
 
+pip install django
+Работа с django: создаём папку -> переходим в terminal(pycharm) -> через него заходим в папку: cd first (зайти в first)
+Создать проект django-admin startproject password_generator_project
 
 
 
