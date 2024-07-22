@@ -242,6 +242,7 @@ get_flashed_message() - обработка сформированных сооб
 
 pip install django +
 Работа с django: создаём папку -> переходим в terminal(pycharm) -> через него заходим в папку: cd first (зайти в first)
+																								cd password_generator_project + начать писать и Tab
 Создать проект django-admin startproject password_generator_project -> новый проект на Django с именем password_generator_project
 
 Далее нужно запустить сервер: python manage.py runserver
@@ -249,8 +250,34 @@ pip install django +
 Создание приложения в проекте:
 	python manage.py startapp generator
 	
+Запустить приложение: python manage.py runserver
+	
 clrl + c => Выйти
 
+Подняться на два уровня выше cd ../..
 
+По умолчанию в проекте метод GET: http://127.0.0.1:8000/?length=2, ? - показывает что закончился адресс, из select видно атрибут name, 2 -> value; name - важный атрибут
+
+РЕЗЮМИРУЮ: ОСТАНОВИТЬ СЕРВЕР: clrl + c; ЗАПУСТИТЬ СЕРВЕР: python manage.py runserver
+Если стили css во Flask не применились, то нажать ctrl + F5
+
+Второй проект - папка second
+Зайти: cd second
+Создать проект: django-admin startproject personal_portfolio
+Создание приложений проекта second:
+	Сначало зайти в папку с проектом:
+	cd personal_portfolio
+		Создать:
+		python manage.py startapp skills
+		python manage.py startapp blog
+		
+		python manage.py makemigrations - создаём файл с миграциями
+		python manage.py migrate - применяем миграции
+	
+Попасть в admin панель: http://127.0.0.1:8000/admin/login/?next=/admin/
+Создать себе admin панель: python manage.py createsuperuser - создать суперпользователя(пользователь с полными правами администратора)
+Username: admin
+E-mail: admin@localhost
+Password: 1234qiv
 
 
