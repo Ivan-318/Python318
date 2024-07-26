@@ -189,7 +189,19 @@ dz45 06.07.2024_DBSite
 Второй проект - папка second в dz
 	Создать проект: django-admin startproject personal_portfolio
 		Приложения проекта second: skills, blog
-			
+		
+Попасть в blog: http://127.0.0.1:8000/
+
+dz48 django-admin startproject main_portfolio
+	python manage.py startapp skills - навыки
+	python manage.py startapp blog - о разработчике
+	python manage.py makemigrations - создаём файл с миграциями
+	python manage.py migrate - применяем миграции
+	python manage.py createsuperuser -> создать admin для нового сайта
+	Username: main_portfolio
+	E-mail: mainp@localhost
+	Password: 1234main - Можно делать один на все сайты, для этого проекта сделаю другой
+	
 
 	
 	

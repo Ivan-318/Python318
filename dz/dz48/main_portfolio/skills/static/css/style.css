@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+body{
+    font-family: "Lexend", sans-serif;
+    background-image: url("../skills/5.jpg");
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+.wrap{
+    max-width: 1200;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.block{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-bottom: 60px;
+}
+.element, .count{
+    background: lightskyblue;
+    border: 6px solid #FFF;
+    box-shadow: -12px -7px 15px -5px rgba(165, 171, 176, 0.6);
+    margin: 20px 0;
+}
+.text{
+    width: 360px;
+    padding: 20px;
+    margin: 0 90px;
+    box-sizing: border-box;
+}
+.text p{
+    text-align: center;
+}
+.block img{
+    max-width: 550px;
+}
+.content h1{
+    text-align: center;
+    margin: 60px 0 40px;
+    font-size: 36px;
+}
+.img + h2, .text h2{
+    text-align: center;
+    margin: 20px 0;
+    font-size: 30px;
+}
+.img{
+    text-align: center;
+    margin-bottom: 60px;
+}
+.img img{
+    border: 6px solid #FFF;
+    box-shadow: -12px -7px 15px -5px rgba(165, 171, 176, 0.6);
+}
+.text p a{
+    text-decoration: none;
+    color: #000;
+    font-weight: bolder;
+}

@@ -271,13 +271,24 @@ clrl + c => Выйти
 		python manage.py startapp skills
 		python manage.py startapp blog
 		
+		На остановленном сервере
 		python manage.py makemigrations - создаём файл с миграциями
 		python manage.py migrate - применяем миграции
-	
+
+		
 Попасть в admin панель: http://127.0.0.1:8000/admin/login/?next=/admin/
 Создать себе admin панель: python manage.py createsuperuser - создать суперпользователя(пользователь с полными правами администратора)
 Username: admin
 E-mail: admin@localhost
-Password: 1234qiv
+Password: 1234qiv -> Можно делать один на все сайты
+
+
+Стили css к линейным элементам. Например тег <input> - линейный элемент -> фыизически не выравнивается по центру.
+Нужно его поместить в теги <p> или <div> - дать класс либо сразу добавить стили, например:
+<p style="text-align: center">
+	<input /> -> инпут - линейный элемент, атрибут "text-align" - не работает
+</p>
+
+Далее с добавлением документов base.html и index.html по пути \second\personal_portfolio\skills\templates\skills нужно перезапускать сервер: clrl + c | python manage.py runserver, так как будут ошибки, потому что внёс критические изменения и без перезапуска будет выдаваться ошибки. Если не обновляется clrl + F5, либо зажать clrl и нажать кнопку "обновить" в браузере
 
 
