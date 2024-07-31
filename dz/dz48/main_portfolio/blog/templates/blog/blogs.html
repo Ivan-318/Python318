@@ -1,8 +1,17 @@
 {% extends 'skills/base.html' %}
 {% block content %}
 
-<h1>Блог автора</h1>
-<h2>Здесь автор может размещать различные новости, делать заметки</h2>
-<p>Блог находиться в разработке (в дз не входил)...</p>
+<h1>Мои публикации</h1>
+<h2 class="count">Статей: {{ blogs.count }}</h2>
+
+{% for blog in blogs %}
+    <div class="element">
+        <h2 class="top"><a href="{% url 'detail' blog.id %}">{{ blog.title }}</a></h2>
+        <div class="blog_date">
+            <h5>{{ blog.date|date:'d.m.Y' }}</h5>
+            <p>{{ blog.description|truncatechars:150|striptags }}</p>
+        </div>
+    </div>
+{% endfor %}
 
 {% endblock %}

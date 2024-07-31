@@ -5,6 +5,8 @@
       <sourceFolder url="file://$MODULE_DIR$/first/password_generator_project" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/newprojectdz/dzproject" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/second/personal_portfolio" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/dz48/main_portfolio" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/third/todos" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.11" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

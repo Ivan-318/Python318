@@ -198,10 +198,25 @@ dz48 django-admin startproject main_portfolio
 	python manage.py makemigrations - создаём файл с миграциями
 	python manage.py migrate - применяем миграции
 	python manage.py createsuperuser -> создать admin для нового сайта
+	ДОМАШНЯЯ РАБОТА:
 	Username: main_portfolio
 	E-mail: mainp@localhost
 	Password: 1234main - Можно делать один на все сайты, для этого проекта сделаю другой
 	
-
+	
+Третий проект - папка third в dz
+	django-admin startproject todos
+	python manage.py startapp todo
+	python manage.py migrate -> сначала регистрация и авторизация, потом функционал
+	python manage.py createsuperuser
+	АУДИТОРНАЯ РАБОТА
+	Username: admin
+	E-mail: admin@localhost
+	Password: 1234qiv
+	1JVOjZeAl4C4zM1PCrLnLsbj4AM91MstlvCcQnPCDTPHvXn3LR6NUTRK4VKKTpjT - csrf_token1 -> обновили, сессия закончалась =>
+	Q06caTEx78XXMN4wpe5WRnIG3WuDKpklaMNAHhfzpXaAIYqKyEqm0Oo73hseC2bL - csrf_token2
+	Пользователи:
+	irina - @123456
+	marina - @654321
 	
 	
