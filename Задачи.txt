@@ -202,6 +202,12 @@ dz48 django-admin startproject main_portfolio
 	Username: main_portfolio
 	E-mail: mainp@localhost
 	Password: 1234main - Можно делать один на все сайты, для этого проекта сделаю другой
+	Пользователи:
+	andrew - @098765
+	and1234 - @0984321hh
+	dnd1234 - @0984821hh
+	sergey16 - @5683w678
+	ElenaK - @22334450h
 	
 	
 Третий проект - папка third в dz
@@ -218,5 +224,6 @@ dz48 django-admin startproject main_portfolio
 	Пользователи:
 	irina - @123456
 	marina - @654321
+	nikita18 - @987654
 	
 	

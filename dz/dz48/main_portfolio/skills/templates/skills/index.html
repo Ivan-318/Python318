@@ -24,5 +24,11 @@
     </div>
     {% endfor %}
 </div>
-
+<div class="down">
+    {% if user.is_authenticated %}
+    <h5>Добро пожаловать на сайт</h5>
+    {% else %}
+    <h5>*для работы с ресурсом требуется авторизация</h5>
+    {% endif %}
+</div>
 {% endblock %}

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Моё портфолио</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'skills/favicon.ico' %}">
 </head>
 <body>
     <div class="menu">
@@ -13,8 +14,21 @@
 
             </div>
             <ul>
+                {% if user.is_authenticated %}
+                <li class="auth">Пользователь: {{ user.username }}</li>
                 <li><a href="{% url 'index' %}">Главная</a></li>
                 <li><a href="{% url 'blogs' %}">Мои публикации</a></li>
+                <li>
+                    <form action="{% url 'logoutuser' %}" method="post">
+                        {% csrf_token %}
+                          <button class="top">Выйти</button>
+                    </form>
+                </li>
+                {% else %}
+                <li><a href="{% url 'signupuser' %}" title="только зарегистрированные пользователи могут просматривать публикации">Зарегистрироваться</a>
+                </li>
+                <li><a href="{% url 'loginuser' %}" title="для просмотра публикаций необходимо войти в учётную запись пользователя">Войти</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
