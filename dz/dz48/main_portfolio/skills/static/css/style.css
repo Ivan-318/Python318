@@ -151,3 +151,14 @@ input{
     font-weight: bolder;
     font-size: 30px;
 }
+
+.author p{
+    text-align: center;
+    font-size: 34px;
+}
+
+.author p a{
+    color: blue;
+    text-decoration: none;
+    cursor: pointer;
+}

@@ -24,6 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name="index"),
     path('blog/', include('blog.urls')),
+    path('about/', views.about, name="about"),
+    path('feedback/', views.feedback, name="feedback"),
 
     # Auth
     path('signup/', views.signupuser, name='signupuser'),

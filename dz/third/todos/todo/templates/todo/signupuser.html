@@ -4,7 +4,7 @@
 <h1>Регистрация:</h1>
 
 <h2 style="color: orangered">{{ error }}</h2>
-<form method="post" class="register">
+<form method="post" class="register bg">
     {% csrf_token %}
     {{ form.as_p }}
     <button class="btn">Зарегистрироваться</button>

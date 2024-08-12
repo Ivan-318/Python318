@@ -47,7 +47,7 @@ h1, h2{
     border-radius: 6px;
     box-shadow: inset 0 0 6px 2px #FFF;
     padding: 10px 40px;
-    font-size: 24px;
+    font-size: 20px;
     margin-top: 40px;
     cursor: pointer;
 }
@@ -65,7 +65,7 @@ h1, h2{
     margin: 0 auto;
 }
 
-input{
+input, textarea{
     width: 100%;
     padding: 6px 10px;
     box-sizing: border-box;
@@ -81,3 +81,47 @@ input{
     font-size: 20px;
 }
 
+.content li{
+    box-shadow: 0 2px 8px 2px #003366;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.content a{
+    color: #000;
+    display: block;
+    padding: 20px;
+}
+
+.but{
+    display: flex;
+    align-items: flex-end;
+}
+.good{
+    background: teal;
+}
+.remove{
+    background: orangered;
+}
+a b{
+    color: orangered;
+}
+
+.register ul{
+    margin-top: -16px;
+}
+.register li{
+    box-shadow: none;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+.helptext{
+    font-size: 14px;
+}
+.register button{
+    margin-top: 10px;
+}
+#id_important{
+    width: 20px;
+    height: 20px;
+}

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="57b08f1d-c8d9-4429-9796-1070c1692478" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/dz48/main_portfolio/blog/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dz48/main_portfolio/blog/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dz48/main_portfolio/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/dz48/main_portfolio/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dz48/main_portfolio/main_portfolio/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dz48/main_portfolio/main_portfolio/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dz48/main_portfolio/skills/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dz48/main_portfolio/skills/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dz48/main_portfolio/skills/templates/skills/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/dz48/main_portfolio/skills/templates/skills/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dz48/main_portfolio/skills/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dz48/main_portfolio/skills/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/third/todos/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/third/todos/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/third/todos/todo/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/third/todos/todo/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/third/todos/todo/templates/todo/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/third/todos/todo/templates/todo/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/third/todos/todo/templates/todo/currenttodos.html" beforeDir="false" afterPath="$PROJECT_DIR$/third/todos/todo/templates/todo/currenttodos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/third/todos/todo/templates/todo/signupuser.html" beforeDir="false" afterPath="$PROJECT_DIR$/third/todos/todo/templates/todo/signupuser.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/third/todos/todo/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/third/todos/todo/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/third/todos/todos/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/third/todos/todos/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/third/todos/todos/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/third/todos/todos/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../теория.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../теория.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2kUMLvj9AGiAapWQTkL62QVrnr3" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="57b08f1d-c8d9-4429-9796-1070c1692478" name="Changes" comment="" />
+      <created>1723333649832</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1723333649832</updated>
+    </task>
+    <servers />
+  </component>
+</project>

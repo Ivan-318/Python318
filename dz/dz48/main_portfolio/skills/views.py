@@ -11,6 +11,16 @@ def index(request):
     return render(request, 'skills/index.html', {'projects': projects})
 
 
+def about(request):
+    projects = Skills.objects.all()
+    return render(request, 'skills/about.html', {'projects': projects})
+
+
+def feedback(request):
+    projects = Skills.objects.all()
+    return render(request, 'skills/feedback.html', {'projects': projects})
+
+
 def signupuser(request):
     if request.method == "GET":
         return render(request, 'skills/signupuser.html', {'form': UserCreationForm()})
