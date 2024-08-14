@@ -226,4 +226,14 @@ dz48 django-admin startproject main_portfolio
 	marina - @654321
 	nikita18 - @987654
 	
+Четвёртый проект - папка fourth в dz
+	django-admin startproject devsearch
+	python manage.py startapp projects -> приложение для проектов
+	python manage.py startapp ... -> приложение для зазработчиков
+	superuser
+	Username: admin
+	Password: 1234qiv
+
+
+	
 	
