@@ -229,10 +229,13 @@ dz48 django-admin startproject main_portfolio
 Четвёртый проект - папка fourth в dz
 	django-admin startproject devsearch
 	python manage.py startapp projects -> приложение для проектов
-	python manage.py startapp ... -> приложение для зазработчиков
+	python manage.py startapp users ... -> приложение для разработчиков
 	superuser
 	Username: admin
 	Password: 1234qiv
+	Пользователи:
+		Ataur - 123456@rr30T
+		Berkay - 09876TT5ddS1
 
 
 	
