@@ -30,4 +30,3 @@ class Skill(models.Model):
 
 
 
-

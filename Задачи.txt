@@ -236,7 +236,8 @@ dz48 django-admin startproject main_portfolio
 	Пользователи:
 		Ataur - 123456@rr30T
 		Berkay - 09876TT5ddS1
-
+		marina - 1256@rr30T13
+	Создаём signals.py -> users - сигналы из admin панели
 
 	
 	
