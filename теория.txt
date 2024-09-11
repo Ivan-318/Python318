@@ -327,7 +327,34 @@ Project.objects.exclude(title__contains="site") - найдёт все проек
 
 quit() - ВЫЙТИ ИЗ shell
 
+Тестовая форма авторизации:
 
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username">
+    <input type="password" name="password" placeholder="Password">
+    <input type="submit" value="Login">
+</form>
+
+Тестовая форма регистрации:
+<h1>Register User</h1>
+
+<form action="{% url 'register' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Register">
+</form>
+
+<p>Already have an account <a href="{% url 'login' %}">Login</a></p>
+
+Тестовая форма редактирования пользователя:
+<h1>Edit Account</h1>
+
+<form action="{% url 'edit-account' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
 
 
 

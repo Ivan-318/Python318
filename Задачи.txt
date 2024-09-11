@@ -234,9 +234,12 @@ dz48 django-admin startproject main_portfolio
 	Username: admin
 	Password: 1234qiv
 	Пользователи:
-		Ataur - 123456@rr30T
-		Berkay - 09876TT5ddS1
-		marina - 1256@rr30T13
+		ataur - 123456@rr30T
+		berkay - 09876TT5ddS1
+		marina - 1256@rr30T13	
+		daria - tt986TT5ddS1
+		Irina - s9876TT5ddS1
+		nikita - 1369ddd5@90
 	Создаём signals.py -> users - сигналы из admin панели
 
 	
