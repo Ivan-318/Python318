@@ -356,6 +356,12 @@ quit() - ВЫЙТИ ИЗ shell
     <input type="submit" value="Submit">
 </form>
 
+Поиск 
+exact - точное совпадение
+name__icontains - регистронезависимое точное совпадение
+Доп. документы
+signals.py
+utils.py
 
 
 

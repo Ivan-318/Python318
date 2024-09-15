@@ -10,6 +10,12 @@ class SkillForm(ModelForm):
         fields = '__all__'
         exclude = ['owner']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields.values():
+            field.widget.attrs.update({'class': 'input'})
+
 
 class ProfileForm(ModelForm):
     class Meta:
