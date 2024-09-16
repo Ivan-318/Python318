@@ -21,7 +21,7 @@ class Project(models.Model):
         ordering = ["-vote_ratio", "-vote_total", "title"]
 
     def reviewers(self):
-        queryset = self.review_set.all().value_list('owner__id', flat=True)
+        queryset = self.review_set.all().values_list('owner__id', flat=True)    # id[3,4,5,6]
         return queryset
 
     def get_vote_count(self):
