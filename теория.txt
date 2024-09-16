@@ -362,7 +362,9 @@ name__icontains - регистронезависимое точное совпа
 Доп. документы
 signals.py
 utils.py
+pagination.html
 
+ctrl + r => поиск и замена в python
 
 
 
