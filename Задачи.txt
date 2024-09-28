@@ -243,4 +243,13 @@ dz48 django-admin startproject main_portfolio
 	Создаём signals.py -> users - сигналы из admin панели
 
 	
+Пятый проект - папка fifth в dz
+	django-admin startproject programming_blog
+	python manage.py startapp blog
+		templatetags
+		__init__.py
+		blog_tags.py
+	superuser
+	Username: admin
+	Password: 1234qip
 	
