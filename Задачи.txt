@@ -252,4 +252,7 @@ dz48 django-admin startproject main_portfolio
 	superuser
 	Username: admin
 	Password: 1234qip
+	marina -> marina@gmail.com -> 1256@rr30T13
+	roman -> roman@gmail.ru -> 1256@rr30T1312
+	igor -> igor@mail.ru -> 1256@rr30T131
 	

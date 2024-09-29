@@ -42,6 +42,7 @@ a:hover{
     align-items: center;
     font-size: 20px;
     font-weight: bold;
+    justify-content: space-between;
 }
 .logo{
     flex-basis: 40%;
@@ -49,6 +50,7 @@ a:hover{
 .last{
     flex-basis: 30%;
     text-align: right;
+    color: #81d4fa;
 }
 .mainmenu li{
     padding: 20px 0;
@@ -134,3 +136,70 @@ button{
     cursor: pointer;
 }
 
+.list-pages{
+    display: flex;
+    justify-content: center;
+}
+
+.list-pages .page-num-selected{
+    background: #81d4fa;
+    padding: 20px;
+}
+
+.list-pages a{
+    background: #264b5d;
+    padding: 20px;
+    display: block;
+    color: #FFF;
+}
+
+.page-num{
+    margin: 6px;
+    font-weight: bold;
+}
+
+
+input, textarea{
+    width: 100%;
+    margin-top: 6px;
+    padding: 6px;
+    box-sizing: border-box;
+}
+
+#id_is_published{
+    width: 20px;
+    height: 20px;
+}
+
+#id_cat{
+    font-size: 18px;
+    padding: 4px;
+}
+
+.last a{
+    display: inline;
+}
+
+.log{
+    color: #81d4fa;
+    background: transparent;
+    border: 0;
+    font-size: 20px;
+    font-weight: bold;
+    width: 100px;
+    cursor: pointer;
+}
+
+.log:hover{
+    color: #FFC;
+}
+
+.last form{
+    display: inline;
+}
+.logout a{
+    background: #264b5d;
+    padding: 20px 86px;
+    font-size: 20px;
+    font-weight: bold;
+}
