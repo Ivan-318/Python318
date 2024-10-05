@@ -384,9 +384,25 @@ utils.py
 @login_required -> функции, закрывал доступ по прямой ссылке неавторизированным пользователям
 LoginRequiredMixin
 
+git clone https://github.com/Ivan-318/blog.git
+
+https://www.pythonanywhere.com/user/Ivan2398/consoles/35941074/ Комманды:
+ls - посмотреть папку
+
+mkvirtualenv --python=/usr/bin/python3.9 blogvenv - создать виртуальное окружение
+выйти из виртуального окружения - deactivate
+войти - workon blogvenv 
+
+pip install django
+pip install pillow
+pip install django-simple-captcha
+pip install django-ckeditor
+
+pwd - путь к папке
+/home/Ivan2398/blog
+
+Собрать всё в папку static 
+python manage.py collectstatic - в bash console 
 
 
-
-
-
-
+/home/Ivan2398/blog/static - путь к static
