@@ -260,10 +260,14 @@ dz48 django-admin startproject main_portfolio
 Шестой проект - папка sixth в dz
 	django-admin startproject landing_page
 	python manage.py startapp cms 
+	python manage.py startapp price
 	superuser
 	Username: admin
 	Password: 1234htm
+	python manage.py startapp price
+	python manage.py startapp crm
 	
-	
+	adminowner - 1256@rr30T131
+	Анна - 09876TT5ddS1
 	
 	
